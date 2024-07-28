@@ -66,5 +66,22 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('edit/{id}', [App\Http\Controllers\SubscriptionController::class, 'edit'])->name('subscriptions.edit');
         Route::put('update', [App\Http\Controllers\SubscriptionController::class, 'update'])->name('subscriptions.update');
     });
+    Route::group(['prefix'=>'rooms'],function (){
+        Route::get('index', [App\Http\Controllers\RoomsControllers::class, 'index'])->name('rooms.index');
+        Route::get('add', [App\Http\Controllers\RoomsControllers::class, 'add'])->name('rooms.add');
+        Route::post('create', [App\Http\Controllers\RoomsControllers::class, 'create'])->name('rooms.create');
+        Route::get('edit/{id}', [App\Http\Controllers\RoomsControllers::class, 'edit'])->name('rooms.edit');
+        Route::post('update', [App\Http\Controllers\RoomsControllers::class, 'update'])->name('rooms.update');
+    });
+    Route::group(['prefix'=>'reception'],function (){
+        Route::get('index', [App\Http\Controllers\ReceptionController::class, 'index'])->name('reception.index');
+        Route::get('room/{id}', [App\Http\Controllers\ReceptionController::class, 'room'])->name('reception.room');
+        Route::get('add_appointment', [App\Http\Controllers\ReceptionController::class, 'add_appointment'])->name('reception.add_appointment');
+    });
+    Route::group(['prefix'=>'supplements'],function (){
+        Route::get('index', [App\Http\Controllers\SupplementsController::class, 'index'])->name('supplements.index');
+        Route::post('create', [App\Http\Controllers\SupplementsController::class, 'create'])->name('supplements.create');
+        Route::get('add', [App\Http\Controllers\SupplementsController::class, 'add'])->name('supplements.add');
+    });
     Route::get('logout', [App\Http\Controllers\Auth\LoginController::class, 'logout'])->name('logout');
 });

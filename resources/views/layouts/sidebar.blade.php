@@ -93,6 +93,22 @@
                 </div>
             </li>
             <li class="nav-item">
+                <a data-bs-toggle="collapse" href="#supplements" class="nav-link text-white " aria-controls="category" role="button" aria-expanded="false">
+                    <i class="material-icons-round opacity-10"></i>
+                    <span class="nav-link-text me-1">المكملات الغذائية</span>
+                </a>
+                <div class="collapse " id="supplements">
+                    <ul class="nav  pe-0 ">
+                        <li class="nav-item ">
+                            <a class="nav-link text-white " href="{{ route('supplements.index') }}">
+                                <span class="sidenav-mini-icon">  </span>
+                                <span class="sidenav-normal  me-3  ps-1"> قائمة المكملات الغذائية </span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </li>
+            <li class="nav-item">
                 <a data-bs-toggle="collapse" href="#subscriptions" class="nav-link text-white " aria-controls="subscriptions" role="button" aria-expanded="false">
                     <i class="material-icons-round opacity-10"></i>
                     <span class="nav-link-text me-1">الاشتراكات</span>
@@ -131,7 +147,29 @@
                 </div>
             </li>
             <li class="nav-item">
-                <a href="#dashboardsExamples" class="nav-link text-white " aria-controls="dashboardsExamples" role="button" aria-expanded="false">
+                <a data-bs-toggle="collapse" href="#rooms" class="nav-link text-white " aria-controls="dashboardsExamples" role="button" aria-expanded="false">
+                    <i class="material-icons-round opacity-10"></i>
+                    <span class="nav-link-text me-1">الغرف</span>
+                </a>
+                <div class="collapse " id="rooms">
+                    <ul class="nav  pe-0 ">
+                        <li class="nav-item ">
+                            <a class="nav-link text-white " href="{{ route('rooms.index') }}">
+                                <span class="sidenav-mini-icon">  </span>
+                                <span class="sidenav-normal  me-3  ps-1"> قائمة الغرف </span>
+                            </a>
+                        </li>
+                        <li class="nav-item ">
+                            <a class="nav-link text-white " href="{{ route('rooms.add') }}">
+                                <span class="sidenav-mini-icon">  </span>
+                                <span class="sidenav-normal  me-3  ps-1"> اضافة غرفة </span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </li>
+            <li class="nav-item">
+                <a href="{{ route('reception.index') }}" class="nav-link text-white " aria-controls="dashboardsExamples" role="button" aria-expanded="false">
                     <i class="fa fa-menu"></i>
                     <span class="nav-link-text me-1">شاشة الاستقبال</span>
                 </a>
