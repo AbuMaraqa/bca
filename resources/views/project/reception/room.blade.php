@@ -15,7 +15,7 @@
                 <div class="card-body">
                     <div class="row">
                         <div class="col-md-12">
-                            <a href="{{ route('reception.add_appointment') }}" class="btn btn-primary btn-sm">اضافة موعد</a>
+                            <a href="{{ route('reception.add_appointment',['room_id'=>$id]) }}" class="btn btn-primary btn-sm">اضافة موعد</a>
                         </div>
                         <div class="col-md-12">
                             <div class="table-responsive">
@@ -34,8 +34,8 @@
                                     @else
                                         @foreach($data as $key)
                                             <tr>
-                                                <td>{{ $key->customer_id }}</td>
-                                                <td></td>
+                                                <td>{{ $key->client->name }}</td>
+                                                <td>{{ $key->appointment_date }}</td>
                                             </tr>
                                         @endforeach
                                     @endif

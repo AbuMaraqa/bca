@@ -10,4 +10,9 @@ class AppointmentsModel extends Model
     use HasFactory;
 
     protected $table = 'appointments';
+
+    public function client()
+    {
+        return $this->belongsTo(ClientsModel::class, 'customer_id' , 'id');
+    }
 }

@@ -27,7 +27,7 @@
                             <thead>
                             <tr>
                                 <th>اسم المكمل</th>
-                                <th>الكمية</th>
+{{--                                <th>الكمية</th>--}}
                                 <th>السعرات الحرارية</th>
                                 <th>العمليات</th>
                             </tr>
@@ -41,10 +41,10 @@
                                 @foreach($data as $key)
                                     <tr>
                                         <td>{{ $key->product }}</td>
-                                        <td>{{ $key->qty }}</td>
+{{--                                        <td>{{ $key->qty }}</td>--}}
                                         <td>{{ $key->calories }}</td>
                                         <td>
-                                            <a href="{{ route('subscriptions.edit',['id'=>$key->id]) }}" class="btn btn-success btn-sm"><span class="fa fa-edit"></span></a>
+                                            <a href="{{ route('supplements.edit',['id'=>$key->id]) }}" class="btn btn-success btn-sm"><span class="fa fa-edit"></span></a>
                                         </td>
                                     </tr>
                                 @endforeach

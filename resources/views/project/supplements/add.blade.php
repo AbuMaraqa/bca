@@ -25,23 +25,55 @@
                                             <div class="form-group">
                                                 <div class="input-group input-group-outline my-3">
                                                     <label class="form-label">اسم المنتج</label>
-                                                    <input name="product" value="{{ old('product') }}" type="text" class="form-control">
+                                                    <input name="product" type="text" class="form-control">
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <div class="input-group input-group-outline my-3">
-                                                    <label class="form-label">الكمية</label>
-                                                    <input name="qty" value="{{ old('qty') }}" type="text" class="form-control">
-                                                </div>
-                                            </div>
-                                        </div>
+{{--                                        <div class="col-md-6">--}}
+{{--                                            <div class="form-group">--}}
+{{--                                                <div class="input-group input-group-outline my-3">--}}
+{{--                                                    <label class="form-label">الكمية</label>--}}
+{{--                                                    <input name="qty" value="{{ old('qty') }}" type="text" class="form-control">--}}
+{{--                                                </div>--}}
+{{--                                            </div>--}}
+{{--                                        </div>--}}
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <div class="input-group input-group-outline my-3">
                                                     <label class="form-label">السعرات الحرارية</label>
-                                                    <input name="calories" value="{{ old('calories') }}" type="text" class="form-control">
+                                                    <input name="calories" type="text" class="form-control">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <div class="input-group input-group-outline my-3">
+                                                    <label class="form-label">كايبوهيدرات</label>
+                                                    <input name="carbohydrates" type="text" class="form-control">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <div class="input-group input-group-outline my-3">
+                                                    <label class="form-label">دهون</label>
+                                                    <input name="fats" type="text" class="form-control">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <div class="input-group input-group-outline my-3">
+                                                    <label class="form-label">الياف</label>
+                                                    <input name="fibers" type="text" class="form-control">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <div class="input-group input-group-outline my-3">
+                                                    <label class="form-label">بروتين</label>
+                                                    <input name="protein" type="text" class="form-control">
                                                 </div>
                                             </div>
                                         </div>
@@ -51,7 +83,7 @@
                                 <div class="col-md-5">
                                     <div class="row text-center">
                                         <div class="col-md-12 text-center">
-                                            <h4>اضافة اشتراك</h4>
+                                            <h4>اضافة مكمل غذائي</h4>
                                             <span style="font-size: 150px" class="fa fa-receipt"></span>
                                         </div>
                                     </div>
