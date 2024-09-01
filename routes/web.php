@@ -46,6 +46,9 @@ Route::group(['middleware' => 'auth'], function () {
             Route::get('add/{client_id}', [App\Http\Controllers\SubscriptionsClientController::class, 'add'])->name('clients.subscriptions.add');
             Route::post('create', [App\Http\Controllers\SubscriptionsClientController::class, 'create'])->name('clients.subscriptions.create');
         });
+        Route::group(['prefix'=>'freezing_subscription'],function (){
+            Route::post('add_freezing_subscription', [App\Http\Controllers\ClientsController::class, 'add_freezing_subscription'])->name('clients.freezing_subscription.add_freezing_subscription');
+        });
     });
     Route::group(['prefix'=>'category'],function (){
         Route::get('index', [App\Http\Controllers\CategoryController::class, 'index'])->name('category.index');
@@ -58,6 +61,8 @@ Route::group(['middleware' => 'auth'], function () {
         Route::post('list_products_ajax', [App\Http\Controllers\ProductsController::class, 'list_products_ajax'])->name('product.list_products_ajax');
         Route::get('add', [App\Http\Controllers\ProductsController::class, 'add'])->name('product.add');
         Route::post('create', [App\Http\Controllers\ProductsController::class, 'create'])->name('product.create');
+        Route::get('edit/{id}', [App\Http\Controllers\ProductsController::class, 'edit'])->name('product.edit');
+        Route::post('update', [App\Http\Controllers\ProductsController::class, 'update'])->name('product.update');
     });
     Route::group(['prefix'=>'subscriptions'],function (){
         Route::get('index', [App\Http\Controllers\SubscriptionController::class, 'index'])->name('subscriptions.index');

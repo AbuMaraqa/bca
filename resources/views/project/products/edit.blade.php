@@ -1,11 +1,12 @@
 @extends('layouts.app')
 @section('title')
-    اضافة مكمل غذائي
+    تعديل منتج
 @endsection
 @section('content')
     <div class="row">
-            <form action="{{ route('supplements.create') }}" method="post" enctype="multipart/form-data">
+            <form action="{{ route('product.update') }}" method="post" enctype="multipart/form-data">
                 @csrf
+                <input type="hidden" name="id" value="{{ $data->id }}">
                 <div class="col-md-12">
                     <div class="card">
                         <div class="card-body">
@@ -24,76 +25,49 @@
                                         <div class="col-md-12">
                                             <div class="form-group">
                                                 <div class="input-group input-group-outline my-3">
-                                                    <label class="form-label">اسم الصنف</label>
-                                                    <input name="product" type="text" class="form-control">
-                                                </div>
-                                            </div>
-                                        </div>
-{{--                                        <div class="col-md-6">--}}
-{{--                                            <div class="form-group">--}}
-{{--                                                <div class="input-group input-group-outline my-3">--}}
-{{--                                                    <label class="form-label">الكمية</label>--}}
-{{--                                                    <input name="qty" value="{{ old('qty') }}" type="text" class="form-control">--}}
-{{--                                                </div>--}}
-{{--                                            </div>--}}
-{{--                                        </div>--}}
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <div class="input-group input-group-outline my-3">
-                                                    <label class="form-label">السعرات الحرارية</label>
-                                                    <input name="calories" type="text" class="form-control">
+                                                    <label class="form-label">اسم المنتج</label>
+                                                    <input name="name" value="{{ $data->name }}" type="text" class="form-control">
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <div class="input-group input-group-outline my-3">
-                                                    <label class="form-label">كايبوهيدرات</label>
-                                                    <input name="carbohydrates" type="text" class="form-control">
+                                                    <label class="form-label">سعر التكلفة</label>
+                                                    <input name="cost_price" value="{{ $data->cost_price }}" type="text" class="form-control">
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <div class="input-group input-group-outline my-3">
-                                                    <label class="form-label">دهون</label>
-                                                    <input name="fats" type="text" class="form-control">
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <div class="input-group input-group-outline my-3">
-                                                    <label class="form-label">الياف</label>
-                                                    <input name="fibers" type="text" class="form-control">
+                                                    <label class="form-label">سعر البيع</label>
+                                                    <input name="price" value="{{ $data->price }}" type="text" class="form-control">
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="col-md-12">
                                             <div class="form-group">
                                                 <div class="input-group input-group-outline my-3">
-                                                    <label class="form-label">بروتين</label>
-                                                    <input name="protein" type="text" class="form-control">
+                                                    <select class="form-control" name="category_id" id="">
+                                                        <option value="">اختر تصنيف</option>
+                                                        @foreach($category as $key)
+                                                            <option @if($key->id == old('category_id' , $data->category_id)) selected @endif value="{{ $key->id }}">{{ $key->name }}</option>
+                                                        @endforeach
+                                                    </select>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-md-12">
-                                            <div class="form-group">
-                                                <div class="input-group input-group-static my-3">
-                                                    <label>الملاحظات</label>
-                                                    <textarea class="form-control" name="notes" id="" cols="30" rows="3"></textarea>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <button type="submit" class="btn btn-primary">حفظ</button>
+                                        <button type="submit" class="btn btn-primary">تعديل</button>
                                     </div>
                                 </div>
                                 <div class="col-md-5">
                                     <div class="row text-center">
                                         <div class="col-md-12 text-center">
-                                            <h4>اضافة صنف</h4>
-                                            <span style="font-size: 150px" class="fa fa-receipt"></span>
+                                            <label for="">صورة المنتج</label> <br>
+                                            <input type="file" name="image" class="">
                                         </div>
+                                        <img class="mt-2 text-center" style="width:300px" src="{{ asset('storage/product/'.$data->image) }}" alt="">
                                     </div>
                                 </div>
                                 {{--                        <div class="col-md-4">--}}

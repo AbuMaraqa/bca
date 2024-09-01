@@ -4,8 +4,8 @@
             <th></th>
             <th>اسم المنتج</th>
             <th>تصنيف المنتج</th>
-            <th>نوع المنتج</th>
-            <th>وقت الاشتراك</th>
+{{--            <th>نوع المنتج</th>--}}
+{{--            <th>وقت الاشتراك</th>--}}
             <th>سعر المنتج</th>
             <th>حالة المنتج</th>
             <th>العمليات</th>
@@ -23,13 +23,19 @@
                         <img style="width: 50px" src="{{ asset('storage/product/'.$key->image) }}" alt="">
                     </td>
                     <td>{{ $key->name }}</td>
-                    <td>{{ $key->category_id }}</td>
-                    <td>{{ $key->type }}</td>
+                    <td>{{ $key->category->name }}</td>
+{{--                    <td>{{ $key->type }}</td>--}}
                     <td>{{ $key->price }}</td>
-                    <td>{{ $key->duration }}</td>
-                    <td>{{ $key->status }}</td>
+{{--                    <td>{{ $key->duration }}</td>--}}
+                    <td class="text-center">
+                        @if($key->status == 'active')
+                            <span class="badge bg-success">فعال</span>
+                        @else
+                            <span class="badge bg-danger">غير فعال</span>
+                        @endif
+                    </td>
                     <td>
-                        <a href="" class="btn btn-success btn-sm"><span class="fa fa-edit"></span></a>
+                        <a href="{{ route('product.edit',['id'=>$key->id]) }}" class="btn btn-success btn-sm"><span class="fa fa-edit"></span></a>
                     </td>
                 </tr>
             @endforeach

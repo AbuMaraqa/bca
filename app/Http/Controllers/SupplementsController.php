@@ -23,6 +23,7 @@ class SupplementsController extends Controller
         $data->fats = $request->fats;
         $data->protein = $request->protein;
         $data->fibers = $request->fibers;
+        $data->notes = $request->notes;
         if ($data->save()){
             return redirect()->route('supplements.index')->with(['success'=>'تم اضافة المكمل الغذائي بنجاح']);
         }
@@ -49,6 +50,7 @@ class SupplementsController extends Controller
         $data->fats = $request->fats;
         $data->protein = $request->protein;
         $data->fibers = $request->fibers;
+        $data->notes = $request->notes;
         if ($data->save()){
             return redirect()->route('supplements.index')->with(['success'=>'تم تعديل المكمل الغذائي بنجاح']);
         }

@@ -71,6 +71,7 @@
             </div>
         </div>
     </div>
+    @include('project.clients.modals.freezing_subscription_modal')
 @endsection
 @section('script')
     <script>
@@ -106,5 +107,9 @@
             });
         }
 
+        function open_freezing_modal(client_id) {
+            $('#client_id').val(client_id);
+            $('#freezing_subscription_modal').modal('show');
+        }
     </script>
 @endsection

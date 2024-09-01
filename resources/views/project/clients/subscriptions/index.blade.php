@@ -23,7 +23,7 @@
                     <div class="row">
                         <div class="col-md-12">
                             <h4>اشترك العميل محمد مرقة</h4>
-                            <h5>الديون : <span>1500</span></h5>
+                            <h5>الديون : <span>{{ $client->debt }}</span></h5>
                         </div>
                     </div>
                 </div>

@@ -23,7 +23,7 @@
                                     <div class="form-group">
                                         <div class="input-group input-group-outline my-3">
                                             <label class="form-label">رقم الهاتف</label>
-                                            <input pattern="\d{10}" name="phone" required type="number" class="form-control">
+                                            <input spellcheck="false" maxlength="10" pattern="0[0-9]{9}" name="phone" required type="tel" class="form-control">
                                         </div>
                                     </div>
                                 </div>

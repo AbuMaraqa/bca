@@ -70,11 +70,19 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-md-6">
+                                        <div class="col-md-12">
                                             <div class="form-group">
                                                 <div class="input-group input-group-outline my-3">
                                                     <label class="form-label">بروتين</label>
                                                     <input name="protein" value="{{ $data->protein }}" type="text" class="form-control">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <div class="input-group input-group-static my-3">
+                                                    <label>الملاحظات</label>
+                                                    <textarea class="form-control" name="notes" id="" cols="30" rows="3">{{ $data->notes }}</textarea>
                                                 </div>
                                             </div>
                                         </div>
@@ -84,7 +92,7 @@
                                 <div class="col-md-5">
                                     <div class="row text-center">
                                         <div class="col-md-12 text-center">
-                                            <h4>تعديل مكمل غذائي</h4>
+                                            <h4>تعديل صنف</h4>
                                             <span style="font-size: 150px" class="fa fa-receipt"></span>
                                         </div>
                                     </div>

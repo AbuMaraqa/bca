@@ -95,14 +95,14 @@
             <li class="nav-item">
                 <a data-bs-toggle="collapse" href="#supplements" class="nav-link text-white " aria-controls="category" role="button" aria-expanded="false">
                     <i class="material-icons-round opacity-10"></i>
-                    <span class="nav-link-text me-1">المكملات الغذائية</span>
+                    <span class="nav-link-text me-1">الاصناف</span>
                 </a>
                 <div class="collapse " id="supplements">
                     <ul class="nav  pe-0 ">
                         <li class="nav-item ">
                             <a class="nav-link text-white " href="{{ route('supplements.index') }}">
                                 <span class="sidenav-mini-icon">  </span>
-                                <span class="sidenav-normal  me-3  ps-1"> قائمة المكملات الغذائية </span>
+                                <span class="sidenav-normal  me-3  ps-1"> قائمة الاصناف </span>
                             </a>
                         </li>
                     </ul>

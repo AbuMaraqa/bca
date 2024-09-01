@@ -26,7 +26,7 @@
                                             <div class="form-group">
                                                 <div class="input-group input-group-outline my-3">
                                                     <label class="form-label">اسم المنتج</label>
-                                                    <input name="name" value="{{ old('name') }}" type="text" class="form-control">
+                                                    <input name="name" value="" type="text" class="form-control">
                                                 </div>
                                             </div>
                                         </div>
@@ -34,7 +34,7 @@
                                             <div class="form-group">
                                                 <div class="input-group input-group-outline my-3">
                                                     <label class="form-label">سعر التكلفة</label>
-                                                    <input name="cost_price" value="{{ old('cost_price') }}" type="text" class="form-control">
+                                                    <input name="cost_price" value="" type="text" class="form-control">
                                                 </div>
                                             </div>
                                         </div>
@@ -42,7 +42,7 @@
                                             <div class="form-group">
                                                 <div class="input-group input-group-outline my-3">
                                                     <label class="form-label">سعر البيع</label>
-                                                    <input name="price" value="{{ old('price') }}" type="text" class="form-control">
+                                                    <input name="price" value="" type="text" class="form-control">
                                                 </div>
                                             </div>
                                         </div>

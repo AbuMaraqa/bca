@@ -13,7 +13,7 @@
         <div class="col-md-12">
             <div class="card">
                 <div class="card-body">
-                    <a href="{{ route('rooms.add') }}" class="btn btn-primary">اضافة منتج</a>
+                    <a href="{{ route('product.add') }}" class="btn btn-primary">اضافة منتج</a>
                 </div>
             </div>
         </div>

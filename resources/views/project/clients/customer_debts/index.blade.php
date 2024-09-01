@@ -30,6 +30,7 @@
                                         <th>القيمة</th>
                                         <th>نوع الدين</th>
                                         <th>ملاحظات</th>
+                                        <th>الخصم</th>
                                         <th>التاريخ</th>
                                         <th>العمليات</th>
                                     </tr>
@@ -46,6 +47,7 @@
                                                 @endif
                                             </td>
                                             <td>{{ $key->notes }}</td>
+                                            <td>{{ $key->discount }}</td>
                                             <td>{{ $key->insert_at }}</td>
                                             <td>
                                                 <a class="btn btn-danger btn-sm" onclick="return confirm('هل انت متاكد من عملية الحذف ؟')" href="{{ route('customers_debt.delete',['id'=>$key->id]) }}"><span class="fa fa-trash"></span></a>

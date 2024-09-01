@@ -2,6 +2,9 @@
 @section('title')
     قائمة المكملات الغذائية
 @endsection
+@section('style')
+
+@endsection
 @section('content')
     <div class="row mb-3">
         <div class="col-md-12">
@@ -13,7 +16,7 @@
         <div class="col-md-12">
             <div class="card">
                 <div class="card-body">
-                    <a href="{{ route('supplements.add') }}" class="btn btn-primary">اضافة مكمل غذائي</a>
+                    <a href="{{ route('supplements.add') }}" class="btn btn-primary">اضافة صنف</a>
                 </div>
             </div>
         </div>
@@ -23,12 +26,17 @@
             <div class="card">
                 <div class="card-body">
                     <div class="table-responsive">
-                        <table class="table table-sm">
+                        <table class="table table-sm table-hover cell-breakWord">
                             <thead>
                             <tr>
-                                <th>اسم المكمل</th>
+                                <th>اسم الصنف</th>
 {{--                                <th>الكمية</th>--}}
                                 <th>السعرات الحرارية</th>
+                                <th>كربوهيدرات</th>
+                                <th>بروتين</th>
+                                <th>دهون</th>
+                                <th>الياف</th>
+                                <th>ملاحظات</th>
                                 <th>العمليات</th>
                             </tr>
                             </thead>
@@ -40,10 +48,15 @@
                             @else
                                 @foreach($data as $key)
                                     <tr>
-                                        <td>{{ $key->product }}</td>
+                                        <td style="word-wrap: break-word;white-space: pre-wrap;">{{ $key->product }}</td>
 {{--                                        <td>{{ $key->qty }}</td>--}}
                                         <td>{{ $key->calories }}</td>
-                                        <td>
+                                        <td>{{ $key->carbohydrates }}</td>
+                                        <td>{{ $key->fats }}</td>
+                                        <td>{{ $key->protein }}</td>
+                                        <td>{{ $key->fibers }}</td>
+                                        <td style="word-wrap: break-word;white-space: pre-wrap;">{{ $key->notes }}</td>
+                                        <td class="text-center">
                                             <a href="{{ route('supplements.edit',['id'=>$key->id]) }}" class="btn btn-success btn-sm"><span class="fa fa-edit"></span></a>
                                         </td>
                                     </tr>
