@@ -91,6 +91,32 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('edit/{id}', [App\Http\Controllers\SupplementsController::class, 'edit'])->name('supplements.edit');
         Route::post('update', [App\Http\Controllers\SupplementsController::class, 'update'])->name('supplements.update');
     });
+    Route::group(['prefix'=>'program'],function (){
+        Route::group(['prefix'=>'program_category'],function (){
+            Route::get('index', [App\Http\Controllers\ProgramCategoryController::class, 'index'])->name('program.program_category.index');
+            Route::post('list_program_category', [App\Http\Controllers\ProgramCategoryController::class, 'list_program_category'])->name('program.program_category.list_program_category');
+            Route::post('create', [App\Http\Controllers\ProgramCategoryController::class, 'create'])->name('program.program_category.create');
+            Route::get('add', [App\Http\Controllers\ProgramCategoryController::class, 'add'])->name('program.program_category.add');
+            Route::get('edit/{id}', [App\Http\Controllers\ProgramCategoryController::class, 'edit'])->name('program.program_category.edit');
+            Route::post('update', [App\Http\Controllers\ProgramCategoryController::class, 'update'])->name('program.program_category.update');
+        });
+        Route::group(['prefix'=>'meal_type'],function (){
+            Route::get('index', [App\Http\Controllers\MealTypeController::class, 'index'])->name('program.meal_type.index');
+            Route::post('list_meal_type', [App\Http\Controllers\MealTypeController::class, 'list_meal_type'])->name('program.meal_type.list_meal_type');
+            Route::post('create', [App\Http\Controllers\MealTypeController::class, 'create'])->name('program.meal_type.create');
+            Route::get('add', [App\Http\Controllers\MealTypeController::class, 'add'])->name('program.meal_type.add');
+            Route::get('edit/{id}', [App\Http\Controllers\MealTypeController::class, 'edit'])->name('program.meal_type.edit');
+            Route::post('update', [App\Http\Controllers\MealTypeController::class, 'update'])->name('program.meal_type.update');
+        }); 
+        Route::group(['prefix'=>'instructions'],function (){
+            Route::get('index', [App\Http\Controllers\InstructionsController::class, 'index'])->name('program.instructions.index');
+            Route::post('list_instructions', [App\Http\Controllers\InstructionsController::class, 'list_instructions'])->name('program.instructions.list_instructions');
+            Route::post('create', [App\Http\Controllers\InstructionsController::class, 'create'])->name('program.instructions.create');
+            Route::get('add', [App\Http\Controllers\InstructionsController::class, 'add'])->name('program.instructions.add');
+            Route::get('edit/{id}', [App\Http\Controllers\InstructionsController::class, 'edit'])->name('program.instructions.edit');
+            Route::post('update', [App\Http\Controllers\InstructionsController::class, 'update'])->name('program.instructions.update');
+        }); 
+    });
     Route::get('logout', [App\Http\Controllers\Auth\LoginController::class, 'logout'])->name('logout');
 
     Route::get('/migrate', function(){

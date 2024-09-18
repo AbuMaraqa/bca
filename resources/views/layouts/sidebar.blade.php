@@ -125,6 +125,34 @@
                 </div>
             </li>
             <li class="nav-item">
+                <a data-bs-toggle="collapse" href="#dashboardsExamples" class="nav-link text-white " aria-controls="dashboardsExamples" role="button" aria-expanded="false">
+                    <i class="material-icons-round opacity-10"></i>
+                    <span class="nav-link-text me-1">البرامج</span>
+                </a>
+                <div class="collapse " id="dashboardsExamples">
+                    <ul class="nav  pe-0 ">
+                        <li class="nav-item ">
+                            <a class="nav-link text-white " href="{{ route('program.program_category.index') }}">
+                                <span class="sidenav-mini-icon">  </span>
+                                <span class="sidenav-normal  me-3  ps-1"> تصنيف البرنامج </span>
+                            </a>
+                        </li>
+                        <li class="nav-item ">
+                            <a class="nav-link text-white " href="{{ route('program.meal_type.index') }}">
+                                <span class="sidenav-mini-icon">  </span>
+                                <span class="sidenav-normal  me-3  ps-1"> انواع الوجبات </span>
+                            </a>
+                        </li>
+                        <li class="nav-item ">
+                            <a class="nav-link text-white " href="{{ route('program.instructions.index') }}">
+                                <span class="sidenav-mini-icon">  </span>
+                                <span class="sidenav-normal  me-3  ps-1"> التعليمات </span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </li>
+            <li class="nav-item">
                 <a data-bs-toggle="collapse" href="#client" class="nav-link text-white " aria-controls="dashboardsExamples" role="button" aria-expanded="false">
                     <i class="material-icons-round opacity-10"></i>
                     <span class="nav-link-text me-1">العملاء</span>
