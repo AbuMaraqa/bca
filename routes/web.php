@@ -140,5 +140,9 @@ Route::group(['middleware' => 'auth'], function () {
         dd('migrated!');
     });
 
+    Route::get('/key_generate', function(){
+        \Illuminate\Support\Facades\Artisan::call('key:generate');
+        dd('key_generated!');
+    });
 });
 
