@@ -149,6 +149,12 @@
                                 <span class="sidenav-normal  me-3  ps-1"> التعليمات </span>
                             </a>
                         </li>
+                        <li class="nav-item ">
+                            <a class="nav-link text-white " href="{{ route('program.program.index') }}">
+                                <span class="sidenav-mini-icon">  </span>
+                                <span class="sidenav-normal  me-3  ps-1"> البرنامج </span>
+                            </a>
+                        </li>
                     </ul>
                 </div>
             </li>

@@ -52,6 +52,9 @@
     <script>
         $(document).ready(function () {
             list_program_category();
+            $('#name').keyup(function(){
+                list_program_category();
+            });
         });
         function list_program_category() {
             $.ajaxSetup({

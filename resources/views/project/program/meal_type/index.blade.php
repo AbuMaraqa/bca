@@ -52,6 +52,9 @@
     <script>
         $(document).ready(function () {
             list_meal_type();
+            $('#name').keyup(function(){
+                list_meal_type();
+            });
         });
         function list_meal_type() {
             $.ajaxSetup({

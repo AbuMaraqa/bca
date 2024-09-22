@@ -115,6 +115,22 @@ Route::group(['middleware' => 'auth'], function () {
             Route::get('add', [App\Http\Controllers\InstructionsController::class, 'add'])->name('program.instructions.add');
             Route::get('edit/{id}', [App\Http\Controllers\InstructionsController::class, 'edit'])->name('program.instructions.edit');
             Route::post('update', [App\Http\Controllers\InstructionsController::class, 'update'])->name('program.instructions.update');
+        });
+        Route::group(['prefix'=>'program'],function (){
+            Route::get('index', [App\Http\Controllers\ProgramController::class, 'index'])->name('program.program.index');
+            Route::post('list_programs', [App\Http\Controllers\ProgramController::class, 'list_programs_ajax'])->name('program.program.list_programs');
+            Route::post('create', [App\Http\Controllers\ProgramController::class, 'create'])->name('program.program.create');
+            Route::get('add', [App\Http\Controllers\ProgramController::class, 'add'])->name('program.program.add');
+            Route::get('edit/{id}', [App\Http\Controllers\ProgramController::class, 'edit'])->name('program.program.edit');
+            Route::post('update', [App\Http\Controllers\ProgramController::class, 'update'])->name('program.program.update');
+            Route::group(['prefix'=>'program_meal'],function (){
+                Route::get('index/{program_id}', [App\Http\Controllers\ProgramMealController::class, 'index'])->name('program.program_meal.index');
+                Route::post('list_programs', [App\Http\Controllers\ProgramMealController::class, 'program_meal_list'])->name('program.program_meal.program_meal_list');
+                Route::post('meal_type_list', [App\Http\Controllers\ProgramMealController::class, 'meal_type_list'])->name('program.program_meal.meal_type_list');
+                Route::post('add_meal_type_for_program', [App\Http\Controllers\ProgramMealController::class, 'add_meal_type_for_program'])->name('program.program_meal.add_meal_type_for_program');
+                Route::post('program_meal_suplement', [App\Http\Controllers\ProgramMealController::class, 'program_meal_suplement'])->name('program.program_meal.program_meal_suplement');
+                Route::post('add_supplement_for_meal_type', [App\Http\Controllers\ProgramMealController::class, 'add_supplement_for_meal_type'])->name('program.program_meal.add_supplement_for_meal_type');
+            });
         }); 
     });
     Route::get('logout', [App\Http\Controllers\Auth\LoginController::class, 'logout'])->name('logout');

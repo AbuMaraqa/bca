@@ -10,4 +10,8 @@ class ProgramModel extends Model
     use HasFactory;
 
     protected $table = 'program';
+
+    public function program_category(){
+        return $this->belongsTo(ProgramCategoryModel::class , 'program_category_id' , 'id');
+    }
 }
