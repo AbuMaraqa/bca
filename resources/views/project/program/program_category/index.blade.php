@@ -13,7 +13,7 @@
         <div class="col-md-12">
             <div class="card">
                 <div class="card-body">
-                    <a href="{{ route('program.meal_type.add') }}" class="btn btn-primary">اضافة تصنيف للبرنامج</a>
+                    <a href="{{ route('program.program_category.add') }}" class="btn btn-primary">اضافة تصنيف للبرنامج</a>
                 </div>
             </div>
         </div>
