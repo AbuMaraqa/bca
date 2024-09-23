@@ -1,22 +1,68 @@
-@foreach ($data as $day => $meals)
-    <h3>اليوم {{ $day }}</h3>
-    <div class="col-md-12">
-        
-    </div>
-    <table class="table table-bordered">
-        <thead>
-            <tr>
-                <th>نوع الوجبة</th>
-                <th>الأصناف</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach ($meals as $meal)
-                <tr>
-                    <td>{{ $meal->meal_type->meal_name ?? '' }} <span onclick="open_add_supplement_for_meal_type_modal({{ $meal }})" class="btn btn-sm btn-success fa fa-plus"></span></td>
-                    <td>{{ $meal->id }}</td>
-                </tr>
-            @endforeach
-        </tbody>
-    </table>
-@endforeach
+<div class="container">
+    @if ($data->isEmpty())
+    <h4 class="text-center">لم يتم اضافة اي نوع وجبة على البرنامج</h4>
+    @else
+    @foreach ($data as $day => $meals)
+        <div class="day-section card shadow-lg p-3 mb-5 bg-white rounded">
+            <div class="card-body">
+                <h3 class="text-center my-4 text-success">اليوم {{ $day }}</h3>
+                <div class="table-responsive">
+                    <table class="table table-bordered">
+                        <thead class="bg-dark text-white">
+                            <tr>
+                                <th>نوع الوجبة</th>
+                                <th class="text-center">الأصناف</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($meals as $meal)
+                                <tr>
+                                    <td class="align-middle text-center">
+                                        <button class="btn btn-sm btn-success fa fa-plus ml-2" 
+                                            onclick="open_add_supplement_for_meal_type_modal({{ $meal }})">
+                                            {{ $meal->meal_type->meal_name ?? '' }}                                        </button>
+                                    </td>
+                                    <td>
+                                        <div class="meal-supplements">
+                                            <table style="width: 100%; border: 1px solid black; padding: 10px; border-collapse: collapse;">
+                                                <thead class="bg-light">
+                                                    <tr style="background-color: #f8f9fa;">
+                                                        <th style="padding: 10px; border: 1px solid black; text-align: right; color: black; width: 45%;">الصنف <i class="fa fa-cutlery"></i></th>
+                                                        <th style="padding: 10px; border: 1px solid black; text-align: right; color: black; width: 45%;">ملاحظات <i class="fa fa-pencil"></i></th>
+                                                        <th style="padding: 10px; border: 1px solid black; text-align: right; color: black; width: 5%;"></th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody id="supplement_for_meal_type_row_{{ $meal->id }}">
+                                                    @if ($meal->program_meal_supplement->isEmpty())
+                                                        <tr>
+                                                            <td colspan="3" class="text-center p-2">لا يوجد أصناف لنوع الوجبة هذه</td>
+                                                        </tr>
+                                                    @else
+                                                        @foreach ($meal->program_meal_supplement as $key)
+                                                            <tr id="meal_program_meal_supplement_row_{{ $key->id }}">
+                                                                <td class="font-weight-bold text-dark long-text" style="padding: 10px; border: 1px solid black; text-align: right; color: black;">
+                                                                    {{ $key->supplement->product }}
+                                                                </td>
+                                                                <td style="padding: 10px; border: 1px solid black; text-align: right;">
+                                                                    <textarea class="form-control form-control-sm" style="width: 100%; box-sizing: border-box;" name="" id="" cols="30" rows="1">{{ $key->supplement->notes }}</textarea>
+                                                                </td>
+                                                                <td class="text-center" style="padding: 10px; border: 1px solid black; text-align: right;">
+                                                                    <span style="cursor: pointer" class="badge badge-danger" onclick="delete_supplement_from_meal_type({{ $key->id }})">X</span>
+                                                                </td>
+                                                            </tr>
+                                                        @endforeach
+                                                    @endif
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    @endforeach
+    @endif
+</div>

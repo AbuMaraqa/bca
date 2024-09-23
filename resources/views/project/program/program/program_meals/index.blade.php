@@ -2,6 +2,16 @@
 @section('title')
     انوع الوجبات للبرنامج
 @endsection
+@section('style')
+    <style>
+        td.long-text {
+    max-width: 300px; /* تحديد الحد الأقصى للعرض */
+    white-space: normal; /* السماح للنص بالانتقال إلى سطر جديد */
+    word-wrap: break-word; /* كسر الكلمات الطويلة إذا لزم الأمر */
+    overflow-wrap: break-word; /* متوافق مع بعض المتصفحات */
+}
+    </style>
+@endsection
 @section('content')
     <div class="row mb-3">
         <div class="col-md-12">
@@ -81,10 +91,12 @@
                 data: {
                     name : $('#name').val(),
                     // phone : $('#phone').val(),
+                    program_id : {{ $data->id }}
                 },
                 success: function(data) {
                     if (data.success === true){
                         $('#meal_type_list').html(data.view);
+                        program_meal_list();
                     }
                 }
             });
@@ -105,6 +117,7 @@
                 },
                 success: function(data) {
                     if (data.success === true){
+                        meal_type_list();
                         $('#meal_type_list').html(data.view);
                     }
                 }
@@ -118,6 +131,8 @@
         }
 
         function program_meal_suplement(data) {
+            console.log(data);
+            
             $.ajaxSetup({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -129,10 +144,33 @@
                 dataType: "json",
                 data: {
                     program_id : {{ $data->id }},
+                    day: data.day ,
+                    meal_type_id: data.meal_type_id
                 },
                 success: function(data) {
                     if (data.success === true){
                         $('#list_suplement_for_meal_type').html(data.view);
+                    }
+                }
+            });
+        }
+
+        function delete_supplement_from_meal_type(program_meal_type_id) {   
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+            $.ajax({
+                url: "{{ route('program.program_meal.delete_supplement_from_meal_type') }}",
+                type: 'POST',
+                dataType: "json",
+                data: {
+                    program_meal_type_id : program_meal_type_id,
+                },
+                success: function(data) {
+                    if (data.success === true){
+                        $('#meal_program_meal_supplement_row_' + program_meal_type_id).remove();
                     }
                 }
             });
@@ -154,8 +192,23 @@
                     program_meal_id : $('#program_meal_id').val()
                 },
                 success: function(data) {
+                    
                     if (data.success === true){
-                        alert('success');
+                        program_meal_suplement(data.program_meal);
+                        $('#supplement_for_meal_type_row_' + data.program_meal.id).append(
+        `<tr id=meal_program_meal_supplement_row_${data.data.id}>
+            <td class="font-weight-bold text-dark long-text" style="padding: 10px; border: 1px solid black; text-align: right; color: black;">
+                ${data.supplement.product}
+            </td>
+            <td style="padding: 10px; border: 1px solid black; text-align: right;">
+                <textarea class="form-control form-control-sm" style="width: 100%; box-sizing: border-box;" name="" id="" cols="30" rows="1">${!data.supplement.notes ? '' : data.supplement.notes}</textarea>
+            </td>
+            <td class="text-center" style="padding: 10px; border: 1px solid black; text-align: right;">
+                <span style="cursor: pointer" class="badge badge-danger" onclick="delete_supplement_from_meal_type((${data.data.id}))">X</span>
+            </td>
+        </tr>
+        `
+    );
                     }
                 }
             });

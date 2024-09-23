@@ -130,6 +130,7 @@ Route::group(['middleware' => 'auth'], function () {
                 Route::post('add_meal_type_for_program', [App\Http\Controllers\ProgramMealController::class, 'add_meal_type_for_program'])->name('program.program_meal.add_meal_type_for_program');
                 Route::post('program_meal_suplement', [App\Http\Controllers\ProgramMealController::class, 'program_meal_suplement'])->name('program.program_meal.program_meal_suplement');
                 Route::post('add_supplement_for_meal_type', [App\Http\Controllers\ProgramMealController::class, 'add_supplement_for_meal_type'])->name('program.program_meal.add_supplement_for_meal_type');
+                Route::post('delete_supplement_from_meal_type', [App\Http\Controllers\ProgramMealController::class, 'delete_supplement_from_meal_type'])->name('program.program_meal.delete_supplement_from_meal_type');
             });
         }); 
     });

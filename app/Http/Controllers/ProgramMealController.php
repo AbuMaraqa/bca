@@ -18,7 +18,9 @@ class ProgramMealController extends Controller
     }
 
     public function meal_type_list(Request $request){
-        $data = MealTypeModel::get();
+        $data = MealTypeModel::whereNotIn('id',function($query) use ($request){
+            $query->select('meal_type_id')->from('program_meal')->where('program_id',$request->program_id);
+        })->get();
         return response()->json([
             'success'=>true,
             'view'=>view('project.program.program.program_meals.ajax.meal_type',['data'=>$data])->render()
@@ -26,7 +28,7 @@ class ProgramMealController extends Controller
     }
 
     public function program_meal_list(Request $request){
-        $data = ProgramMealModel::with('meal_type')->where('program_id',$request->program_id)->get()->groupBy('day');
+        $data = ProgramMealModel::with('meal_type','program_meal_supplement','program_meal_supplement.supplement')->where('program_id',$request->program_id)->get()->groupBy('day');
         return response()->json([
             'success'=>true,
             'view'=>view('project.program.program.program_meals.ajax.program_meal',['data'=>$data])->render()
@@ -35,7 +37,10 @@ class ProgramMealController extends Controller
 
     public function program_meal_suplement(Request $request){
         $data = SupplementsModel::whereNotIn('id',function($query) use ($request){
-            $query->select('supplement_id')->from('program_meal_supplement')->where('program_id',$request->program_id);
+            $query->select('supplement_id')->from('program_meal_supplement')->where('program_id',$request->program_id)
+            ->whereIn('program_meal_id',function($query2) use($request) {
+                $query2->select('id')->from('program_meal')->where('day',$request->day)->where('meal_type_id',$request->meal_type_id);
+            });
         })->get();
         return response()->json([
             'success'=>true,
@@ -52,7 +57,10 @@ class ProgramMealController extends Controller
         if($data->save()){
             return response()->json([
                 'success'=>true,
-                'message'=>'تم اضافة البيانات بنجاح'
+                'message'=>'تم اضافة البيانات بنجاح',
+                'program_meal'=>ProgramMealModel::with('meal_type','program_meal_supplement','program_meal_supplement.supplement')->where('id',$request->program_meal_id)->first(),
+                'supplement'=>SupplementsModel::where('id',$request->supplement_id)->first(),
+                'data'=>$data
             ]);
         }
     }
@@ -69,5 +77,15 @@ class ProgramMealController extends Controller
             'success'=>true,
             'message'=>'تم اضافة نوع الوجبة بنجاح'
         ]);
+    }
+
+    public function delete_supplement_from_meal_type(Request $request){
+        $data = ProgramMealSupplementModel::where('id',$request->program_meal_type_id)->first();
+        if($data->delete()){
+            return response()->json([
+                'success'=>true,
+                'message'=>'تم حذف الصنف بنجاح'
+            ]);
+        }
     }
 }

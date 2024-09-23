@@ -43,17 +43,18 @@
     <script src="{{ asset('assets/js/plugins/quill.min.js') }}"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function () {
-    var quill = new Quill('#editor', {
-        theme: 'snow', // يمكنك تغيير الثيم إلى 'bubble' إن أردت
-        formats: ['direction', 'align'], // لتفعيل تنسيقات النص مثل الاتجاه والمحاذاة
-        modules: {
-            toolbar: [
-                [{ 'direction': 'rtl' }], // زر لتحديد اتجاه النص
-                ['bold', 'italic', 'underline'], // أزرار التنسيق
-                [{ 'align': [] }] // خيارات المحاذاة
-            ]
-        }
-    });
+            var quill = new Quill('#editor', {
+            theme: 'snow',
+            modules: {
+                toolbar: [
+                    [{ 'direction': 'rtl' }],
+                    ['bold', 'italic', 'underline'],
+                    [{ 'list': 'ordered' }, { 'list': 'bullet' }], // أزرار القوائم
+                    [{ 'align': [] }]
+                ]
+            },
+            formats: ['direction', 'align', 'bold', 'italic', 'underline', 'list']
+        });
 
     // التقاط حدث الإرسال للنموذج
     var form = document.querySelector('form');

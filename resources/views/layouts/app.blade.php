@@ -34,9 +34,32 @@
             font-family: Tajawal , sans-serif !important;
         }
 
+        #editor {
+    font-family: 'Tajawal', sans-serif; /* تأكد من تطبيق الخط على محرر Quill */
+}
+
         .fa, .fas, .far, .fal, .fab {
             font-family: 'Font Awesome 5 Free' !important;
         }
+
+        .ql-toolbar {
+    border: 1px solid #ccc; /* إضافة حد لشريط الأدوات */
+    padding: 5px; /* إضافة بعض المساحة حول الأزرار */
+}
+
+.ql-toolbar button {
+    width: 30px; /* تأكد من أن الأزرار لها عرض */
+    height: 30px; /* تأكد من أن الأزرار لها ارتفاع */
+    font-size: 14px; /* حجم خط مناسب */
+}
+
+.ql-toolbar .ql-active {
+    background: #e0e0e0; /* لون خلفية للأزرار النشطة */
+}
+
+.ql-toolbar .ql-list {
+    color: #000; /* تأكد من أن لون النص واضح */
+}
     </style>
     @yield('style')
 </head>

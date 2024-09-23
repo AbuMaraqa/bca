@@ -2,7 +2,7 @@
     <tbody>
         @if ($data->isEmpty())
             <tr>
-                <td class="text-center" colspan="2">لا توجد انواع وجبات</td>
+                <td class="text-center" colspan="2">تمت اضافة جميع انوع الوجبات</td>
             </tr>
         @endif
         @foreach ($data as $key)

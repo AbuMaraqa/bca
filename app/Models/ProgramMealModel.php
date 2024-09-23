@@ -14,4 +14,8 @@ class ProgramMealModel extends Model
     public function meal_type(){
         return $this->belongsTo(MealTypeModel::class , 'meal_type_id' , 'id');
     }
+
+    public function program_meal_supplement(){
+        return $this->hasMany(ProgramMealSupplementModel::class , 'program_meal_id' , 'id' );
+    }
 }

@@ -1,5 +1,4 @@
 <table class="table table-sm table-bordered table-hover">
-    <tbody>
         <thead>
             <tr>
                 <th>اسم الصنف</th>
@@ -8,7 +7,7 @@
                 <th>fats</th>
                 <th>protein</th>
                 <th>fibers</th>
-                <th></th>
+                <th>العمليات</th>
             </tr>
         </thead>
         <tbody>
@@ -19,7 +18,7 @@
         @endif
             @foreach ($data as $key)
             <tr>
-                    <td>{{ $key->product }}</td>
+                    <td class="long-text">{{ $key->product }}</td>
                     <td>{{ $key->calories }}</td>
                     <td>{{ $key->carbohydrates }}</td>
                     <td>{{ $key->fats }}</td>
@@ -31,5 +30,4 @@
                 </tr> 
             @endforeach
         </tbody>
-    </tbody>
 </table>
