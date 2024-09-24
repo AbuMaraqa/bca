@@ -48,7 +48,7 @@ class ProgramMealController extends Controller
                              ->where('meal_type_id', $request->meal_type_id);
                   });
         })
-        ->paginate(1); // تحديد الصفحة
+        ->paginate(10); // تحديد الصفحة
     
         return response()->json([
             'success' => true,
