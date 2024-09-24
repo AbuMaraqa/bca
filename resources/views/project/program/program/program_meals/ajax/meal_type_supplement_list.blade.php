@@ -1,4 +1,5 @@
-<table class="table table-sm table-bordered table-hover">
+<div class="container">
+    <table class="table table-sm table-bordered table-hover">
         <thead>
             <tr>
                 <th>اسم الصنف</th>
@@ -13,7 +14,7 @@
         <tbody>
             @if ($data->isEmpty())
             <tr>
-                <td class="text-center" colspan="2">لا توجد انواع وجبات</td>
+                <td class="text-center" colspan="7">لا توجد انواع وجبات</td>
             </tr>
         @endif
             @foreach ($data as $key)
@@ -25,9 +26,11 @@
                     <td>{{ $key->protein }}</td>
                     <td>{{ $key->fibers }}</td>
                     <td>
-                        <button onclick="add_supplement_for_meal_type({{ $key->id }})" class="btn btn-success btn-sm"><span class="fa fa-plus"></span></button>
+                        <button onclick="add_supplement_for_meal_type({{ $key->id }})" class="btn btn-primary btn-sm"><span class="fa fa-plus"></span></button>
                     </td>
                 </tr> 
             @endforeach
         </tbody>
 </table>
+{{ $data->links() }}
+</div>

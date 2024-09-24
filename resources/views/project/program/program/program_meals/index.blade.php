@@ -20,6 +20,8 @@
         </div>
     </div>
     <input type="hidden" id="program_meal_id">
+    <input type="hidden" id="day">
+    <input type="hidden" id="program_meal_type">
     <div class="row mb-3">
         <div class="col-md-12">
             <div class="card">
@@ -130,30 +132,53 @@
             program_meal_suplement(data);
         }
 
-        function program_meal_suplement(data) {
-            console.log(data);
-            
-            $.ajaxSetup({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                }
-            });
-            $.ajax({
-                url: "{{ route('program.program_meal.program_meal_suplement') }}",
-                type: 'POST',
-                dataType: "json",
-                data: {
-                    program_id : {{ $data->id }},
-                    day: data.day ,
-                    meal_type_id: data.meal_type_id
-                },
-                success: function(data) {
-                    if (data.success === true){
-                        $('#list_suplement_for_meal_type').html(data.view);
-                    }
-                }
-            });
+        var program_meal_suplement_page = 1;
+
+$(document).on('click', '.pagination a', function(e) {
+    e.preventDefault();
+    program_meal_suplement_page = $(this).attr('href').split('page=')[1];
+    program_meal_suplement({});
+});
+
+$('#product_name').keyup(function() {
+    program_meal_suplement({
+        meal_type_id:$('#program_meal_type').val(),
+        day:$('#day').val(),
+        program_id:{{ $data->id }},
+        product_name: $('#product_name').val(),
+    });
+});
+
+function program_meal_suplement(data) {
+    $('#program_meal_type').val(data.meal_type_id);
+    $('#day').val(data.day);
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         }
+    });
+
+    $.ajax({
+        url: "{{ route('program.program_meal.program_meal_suplement') }}", // Add page parameter
+        type: 'POST',
+        dataType: "json",
+        data: {
+            program_id: {{ $data->id }},
+            day: data.day || null, // Ensure day is defined or pass null
+            meal_type_id: data.meal_type_id || null, // Ensure meal_type_id is defined or pass null
+            product_name: $('#product_name').val(),
+            page: program_meal_suplement_page,
+        },
+        success: function(response) {
+            if (response.success === true) {
+                $('#list_suplement_for_meal_type').html(response.view);
+            }
+        },
+        error: function(xhr, status, error) {
+            console.error('An error occurred:', error);
+        }
+    });
+}
 
         function delete_supplement_from_meal_type(program_meal_type_id) {   
             $.ajaxSetup({
@@ -213,6 +238,11 @@
                 }
             });
         }
+
+        $(document).on('click', '.pagination a', function(event){
+            event.preventDefault(); 
+            var page = $(this).attr('href').split('page=')[1];
+        });
     </script>
 @endsection
 {{-- program.program_meal.add_meal_type_for_program --}}

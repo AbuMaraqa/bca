@@ -36,15 +36,23 @@ class ProgramMealController extends Controller
     }
 
     public function program_meal_suplement(Request $request){
-        $data = SupplementsModel::whereNotIn('id',function($query) use ($request){
-            $query->select('supplement_id')->from('program_meal_supplement')->where('program_id',$request->program_id)
-            ->whereIn('program_meal_id',function($query2) use($request) {
-                $query2->select('id')->from('program_meal')->where('day',$request->day)->where('meal_type_id',$request->meal_type_id);
-            });
-        })->get();
+        $data = SupplementsModel::        where('product','like','%'.$request->product_name.'%')
+->        whereNotIn('id', function($query) use ($request) {
+            $query->select('supplement_id')
+                  ->from('program_meal_supplement')
+                  ->where('program_id', $request->program_id)
+                  ->whereIn('program_meal_id', function($query2) use ($request) {
+                      $query2->select('id')
+                             ->from('program_meal')
+                             ->where('day', $request->day)
+                             ->where('meal_type_id', $request->meal_type_id);
+                  });
+        })
+        ->paginate(1); // تحديد الصفحة
+    
         return response()->json([
-            'success'=>true,
-            'view'=>view('project.program.program.program_meals.ajax.meal_type_supplement_list',['data'=>$data])->render(),
+            'success' => true,
+            'view' => view('project.program.program.program_meals.ajax.meal_type_supplement_list', ['data' => $data])->render(),
         ]);
     }
 

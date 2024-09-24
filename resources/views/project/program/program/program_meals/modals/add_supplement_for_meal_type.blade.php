@@ -8,9 +8,18 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <div class="row">
-                        <div class="col-md-12 table-responsive" id="list_suplement_for_meal_type">
-
+                    <div class="container">
+                        <div class="row mb-2">
+                            <div class="col-md-12">
+                                <div class="form-input">
+                                    <input type="text" id="product_name" placeholder="بحث عن صنف" class="form-control">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12 table-responsive" id="list_suplement_for_meal_type">
+    
+                            </div>
                         </div>
                     </div>
                 </div>
