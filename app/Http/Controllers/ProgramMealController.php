@@ -96,4 +96,15 @@ class ProgramMealController extends Controller
             ]);
         }
     }
+
+    public function update_data_ajax(Request $request){
+        $data = ProgramMealSupplementModel::where('id',$request->program_meal_type_id)->first();
+        $data->{$request->data_type} = $request->value;
+        if($data->save()){
+            return response()->json([
+                'success'=>true,
+                'message'=>'تم تعديل الملاحظة بنجاح'
+            ]);
+        }
+    }
 }

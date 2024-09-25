@@ -200,6 +200,29 @@ function program_meal_suplement(data) {
                 }
             });
         }
+        
+        function update_data_ajax(data_type,program_meal_type_id,value) {
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+            $.ajax({
+                url: "{{ route('program.program_meal.update_data_ajax') }}",
+                type: 'POST',
+                dataType: "json",
+                data: {
+                    data_type:data_type,
+                    program_meal_type_id : program_meal_type_id,
+                    value:value
+                },
+                success: function(data) {
+                    if (data.success === true){
+                        
+                    }
+                }
+            });
+        }
 
         function add_supplement_for_meal_type(supplement_id) {
             $.ajaxSetup({

@@ -27,9 +27,10 @@
                                             <table style="width: 100%; border: 1px solid black; padding: 10px; border-collapse: collapse;">
                                                 <thead class="bg-light">
                                                     <tr style="background-color: #f8f9fa;">
+                                                        <th style="padding: 10px; border: 1px solid black; text-align: right; color: black; width:6%;">الكمية <i class="fa fa-cutlery"></i></th>
                                                         <th style="padding: 10px; border: 1px solid black; text-align: right; color: black; width: 45%;">الصنف <i class="fa fa-cutlery"></i></th>
                                                         <th style="padding: 10px; border: 1px solid black; text-align: right; color: black; width: 45%;">ملاحظات <i class="fa fa-pencil"></i></th>
-                                                        <th style="padding: 10px; border: 1px solid black; text-align: right; color: black; width: 5%;"></th>
+                                                        <th style="padding: 10px; border: 1px solid black; text-align: right; color: black; width: 4%;"></th>
                                                     </tr>
                                                 </thead>
                                                 <tbody id="supplement_for_meal_type_row_{{ $meal->id }}">
@@ -41,10 +42,13 @@
                                                         @foreach ($meal->program_meal_supplement as $key)
                                                             <tr id="meal_program_meal_supplement_row_{{ $key->id }}">
                                                                 <td class="font-weight-bold text-dark long-text" style="padding: 10px; border: 1px solid black; text-align: right; color: black;">
+                                                                    <input type="number" value="{{ $key->qty }}" onchange="update_data_ajax('qty',{{ $key->id }} , this.value)" class="form-control text-center">
+                                                                </td>
+                                                                <td class="font-weight-bold text-dark long-text" style="padding: 10px; border: 1px solid black; text-align: right; color: black;">
                                                                     {{ $key->supplement->product }}
                                                                 </td>
                                                                 <td style="padding: 10px; border: 1px solid black; text-align: right;">
-                                                                    <textarea class="form-control form-control-sm" style="width: 100%; box-sizing: border-box;" name="" id="" cols="30" rows="1">{{ $key->supplement->notes }}</textarea>
+                                                                    <textarea onchange="update_data_ajax('notes',{{ $key->id }} , this.value)" class="form-control form-control-sm" style="width: 100%; box-sizing: border-box;" name="" id="" cols="30" rows="1">{{ $key->notes }}</textarea>
                                                                 </td>
                                                                 <td class="text-center" style="padding: 10px; border: 1px solid black; text-align: right;">
                                                                     <span style="cursor: pointer" class="badge badge-danger" onclick="delete_supplement_from_meal_type({{ $key->id }})">X</span>
@@ -58,6 +62,38 @@
                                     </td>
                                 </tr>
                             @endforeach
+                        </tbody>
+                    </table>
+                </div>
+                <div>
+                    <table class="table table-bordered">
+                        <thead class="bg-dark text-white">
+                            <tr>
+                                <th>القيمة الغذائية</th>
+                                <th class="text-center"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>السعرات الحرارية</td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>الدهون - غرام</td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>البروتينات - غرام</td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>الكيبوهيدرات - غرام</td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>الالياف - غرام</td>
+                                <td></td>
+                            </tr>
                         </tbody>
                     </table>
                 </div>
