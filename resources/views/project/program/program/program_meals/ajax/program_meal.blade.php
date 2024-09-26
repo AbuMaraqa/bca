@@ -3,6 +3,13 @@
     <h4 class="text-center">لم يتم اضافة اي نوع وجبة على البرنامج</h4>
     @else
     @foreach ($data as $day => $meals)
+        @php
+            $calories = 0;
+            $carbohydrates = 0;
+            $fats = 0;
+            $protein = 0;
+            $fibers = 0;
+        @endphp
         <div class="day-section card shadow-lg p-3 mb-5 bg-white rounded">
             <div class="card-body">
                 <h3 class="text-center my-4 text-success">اليوم {{ $day }}</h3>
@@ -20,7 +27,13 @@
                                     <td class="align-middle text-center">
                                         <button class="btn btn-sm btn-success fa fa-plus ml-2" 
                                             onclick="open_add_supplement_for_meal_type_modal({{ $meal }})">
-                                            {{ $meal->meal_type->meal_name ?? '' }}                                        </button>
+                                            {{ $meal->meal_type->meal_name ?? '' }}                                        
+                                        </button>
+                                        <br>
+                                        <button class="btn btn-sm btn-danger fa fa-minus ml-2" 
+                                            onclick="delete_meal_type_from_program({{ $meal }})">
+                                            {{ $meal->meal_type->meal_name ?? '' }}                                        
+                                        </button>
                                     </td>
                                     <td>
                                         <div class="meal-supplements">
@@ -40,6 +53,13 @@
                                                         </tr>
                                                     @else
                                                         @foreach ($meal->program_meal_supplement as $key)
+                                                        @php
+                                                            $calories = $calories + ($key->supplement->calories * ($key->qty ?? 1));
+                                                            $carbohydrates = $carbohydrates + ($key->supplement->carbohydrates * ($key->qty ?? 1));
+                                                            $fats = $fats + ($key->supplement->fats * ($key->qty ?? 1));
+                                                            $protein = $protein + ($key->supplement->protein * ($key->qty ?? 1));
+                                                            $fibers = $fibers + ($key->supplement->fibers * ($key->qty ?? 1));
+                                                        @endphp
                                                             <tr id="meal_program_meal_supplement_row_{{ $key->id }}">
                                                                 <td class="font-weight-bold text-dark long-text" style="padding: 10px; border: 1px solid black; text-align: right; color: black;">
                                                                     <input type="number" value="{{ $key->qty }}" onchange="update_data_ajax('qty',{{ $key->id }} , this.value)" class="form-control text-center">
@@ -66,7 +86,7 @@
                     </table>
                 </div>
                 <div>
-                    <table class="table table-bordered">
+                    <table class="table table-bordered text-center">
                         <thead class="bg-dark text-white">
                             <tr>
                                 <th>القيمة الغذائية</th>
@@ -76,23 +96,23 @@
                         <tbody>
                             <tr>
                                 <td>السعرات الحرارية</td>
-                                <td></td>
+                                <td id="calories_{{ $day }}">{{ $calories }}</td>
                             </tr>
                             <tr>
                                 <td>الدهون - غرام</td>
-                                <td></td>
+                                <td id="fats_{{ $day }}">{{ $fats }}</td>
                             </tr>
                             <tr>
                                 <td>البروتينات - غرام</td>
-                                <td></td>
+                                <td id="carbohydrates_{{ $day }}">{{ $carbohydrates }}</td>
                             </tr>
                             <tr>
                                 <td>الكيبوهيدرات - غرام</td>
-                                <td></td>
+                                <td id="protein_{{ $day }}">{{ $protein }}</td>
                             </tr>
                             <tr>
                                 <td>الالياف - غرام</td>
-                                <td></td>
+                                <td id="fibers_{{ $day }}">{{ $fibers }}</td>
                             </tr>
                         </tbody>
                     </table>

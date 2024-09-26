@@ -132,6 +132,7 @@ Route::group(['middleware' => 'auth'], function () {
                 Route::post('add_supplement_for_meal_type', [App\Http\Controllers\ProgramMealController::class, 'add_supplement_for_meal_type'])->name('program.program_meal.add_supplement_for_meal_type');
                 Route::post('delete_supplement_from_meal_type', [App\Http\Controllers\ProgramMealController::class, 'delete_supplement_from_meal_type'])->name('program.program_meal.delete_supplement_from_meal_type');
                 Route::post('update_data_ajax', [App\Http\Controllers\ProgramMealController::class, 'update_data_ajax'])->name('program.program_meal.update_data_ajax');
+                Route::post('delete_meal_type_from_program', [App\Http\Controllers\ProgramMealController::class, 'delete_meal_type_from_program'])->name('program.program_meal.delete_meal_type_from_program');
             });
         }); 
     });
