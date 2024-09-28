@@ -134,6 +134,12 @@ Route::group(['middleware' => 'auth'], function () {
                 Route::post('update_data_ajax', [App\Http\Controllers\ProgramMealController::class, 'update_data_ajax'])->name('program.program_meal.update_data_ajax');
                 Route::post('delete_meal_type_from_program', [App\Http\Controllers\ProgramMealController::class, 'delete_meal_type_from_program'])->name('program.program_meal.delete_meal_type_from_program');
             });
+        });
+        Route::group(['prefix'=>'user_program'],function (){
+            Route::get('index', [App\Http\Controllers\UserProgramController::class, 'index'])->name('program.user_program.index');
+            Route::get('add', [App\Http\Controllers\UserProgramController::class, 'add'])->name('program.user_program.add');
+            Route::post('program_meal_list', [App\Http\Controllers\UserProgramController::class, 'program_meal_list'])->name('program.user_program.program_meal_list');
+            Route::post('add_program_for_user', [App\Http\Controllers\UserProgramController::class, 'add_program_for_user'])->name('program.user_program.add_program_for_user');
         }); 
     });
     Route::get('logout', [App\Http\Controllers\Auth\LoginController::class, 'logout'])->name('logout');

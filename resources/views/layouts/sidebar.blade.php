@@ -208,6 +208,12 @@
                     <span class="nav-link-text me-1">شاشة الاستقبال</span>
                 </a>
             </li>
+            <li class="nav-item">
+                <a href="{{ route('program.user_program.index') }}" class="nav-link text-white " aria-controls="dashboardsExamples" role="button" aria-expanded="false">
+                    <i class="fa fa-menu"></i>
+                    <span class="nav-link-text me-1">اضافة برنامج لعميل</span>
+                </a>
+            </li>
         </ul>
     </div>
 </aside>

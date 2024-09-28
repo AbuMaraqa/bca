@@ -251,6 +251,8 @@ function program_meal_suplement(data) {
                     program_meal_type_id : data.id,
                 },
                 success: function(data) {
+                    console.log(data);
+                    
                     if (data.success === true){
                         program_meal_list();
                     }

@@ -49,7 +49,7 @@ class ProgramMealController extends Controller
                              ->where('meal_type_id', $request->meal_type_id);
                   });
         })
-        ->paginate(10); // تحديد الصفحة
+        ->get(); // تحديد الصفحة
     
         return response()->json([
             'success' => true,
@@ -85,7 +85,7 @@ class ProgramMealController extends Controller
 ->join('program_meal', 'program_meal_supplement.program_meal_id', '=', 'program_meal.id')
 ->where('program_meal.program_id', $request->program_id)
 ->where('program_meal.day', $program_meal->day)
-->sum('supplements.carbohydrates'),
+->sum(DB::raw('supplements.carbohydrates * program_meal_supplement.qty')),
 
 // حساب الدهون
 'fats' => DB::table('program_meal_supplement')
@@ -93,7 +93,7 @@ class ProgramMealController extends Controller
 ->join('program_meal', 'program_meal_supplement.program_meal_id', '=', 'program_meal.id')
 ->where('program_meal.program_id', $request->program_id)
 ->where('program_meal.day', $program_meal->day)
-->sum('supplements.fats'),
+->sum(DB::raw('supplements.fats * program_meal_supplement.qty')),
 
 // حساب البروتين
 'protein' => DB::table('program_meal_supplement')
@@ -101,7 +101,7 @@ class ProgramMealController extends Controller
 ->join('program_meal', 'program_meal_supplement.program_meal_id', '=', 'program_meal.id')
 ->where('program_meal.program_id', $request->program_id)
 ->where('program_meal.day', $program_meal->day)
-->sum('supplements.protein'),
+->sum(DB::raw('supplements.protein * program_meal_supplement.qty')),
 
 // حساب الألياف
 'fibers' => DB::table('program_meal_supplement')
@@ -109,7 +109,7 @@ class ProgramMealController extends Controller
 ->join('program_meal', 'program_meal_supplement.program_meal_id', '=', 'program_meal.id')
 ->where('program_meal.program_id', $request->program_id)
 ->where('program_meal.day', $program_meal->day)
-->sum('supplements.fibers'),
+->sum(DB::raw('supplements.fibers * program_meal_supplement.qty')),
 
             ]);
         }
@@ -188,6 +188,7 @@ class ProgramMealController extends Controller
                 'success'=>true,
                 'program_meal'=>$program_meal,
                 'message'=>'تم تعديل الملاحظة بنجاح',
+
                 'calories' => DB::table('program_meal_supplement')
                 ->join('supplements', 'program_meal_supplement.supplement_id', '=', 'supplements.id')
                 ->join('program_meal', 'program_meal_supplement.program_meal_id', '=', 'program_meal.id')
@@ -231,36 +232,37 @@ class ProgramMealController extends Controller
     }
 
     public function delete_meal_type_from_program(Request $request) {
-        // Get the meal supplement data by its ID
-        $data = ProgramMealSupplementModel::where('id', $request->program_meal_type_id)->first();
+        // جلب نوع الوجبة المرتبطة بالبرنامج
+        $data = ProgramMealModel::where('id', $request->program_meal_type_id)->first();
         
         if (!$data) {
             return response()->json([
                 'success' => false,
-                'message' => 'No meal type found with the given ID',
-            ]);
+                'message' => 'نوع الوجبة غير موجود.',
+            ], 404);
         }
-        
-        // Get the associated program meal
-        $program_meal = ProgramMealModel::where('id', $data->program_meal_id)->first();
-        
-        // Delete the meal supplement directly without using get()
-        $data_delete = ProgramMealSupplementModel::where('id', $request->program_meal_type_id);
-        if ($data_delete->delete()) {
-            // Delete program meals associated with the meal type and program
-            $program_meal_delete = ProgramMealModel::where('meal_type_id', $program_meal->meal_type_id)
-                ->where('program_id', $program_meal->program_id);
-            $program_meal_delete->delete();
+
+        $program_meal_delete = ProgramMealModel::where('meal_type_id',$data->meal_type_id)->where('program_id',$data->program_id)->get();
     
-            return response()->json([
-                'success' => true,
-                'message' => 'تم حذف الصنف بنجاح',
-            ]);
+        foreach($program_meal_delete as $key){
+            $key->delete();
         }
+        // جلب جميع الأصناف المرتبطة بنوع الوجبة
+        // $program_meal_supplements = ProgramMealSupplementModel::where()
+        //     ->where('program_id', $data->program_id)
+        //     ->get();
+    
+        // // حذف الأصناف المرتبطة
+        // foreach ($program_meal_supplements as $supplement) {
+        //     $supplement->delete();
+        // }
+    
+        // حذف نوع الوجبة
+        $data->delete();
     
         return response()->json([
-            'success' => false,
-            'message' => 'Failed to delete meal type',
+            'success' => true,
+            'message' => 'تم حذف جميع أنواع الوجبات والأصناف المرتبطة بنجاح عبر السبعة أيام.',
         ]);
     }
 }
