@@ -6,17 +6,27 @@ use App\Models\ClientsModel;
 use App\Models\ProgramMealModel;
 use App\Models\ProgramMealSupplementModel;
 use App\Models\ProgramModel;
+use App\Models\SupplementsModel;
 use App\Models\User;
 use App\Models\UserProgramMealModel;
 use App\Models\UserProgramMealSupplementModel;
 use App\Models\UsersProgramModel;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class UserProgramController extends Controller
 {
     public function index(){
         return view('project.user_program.index');
+    }
+
+    public function users_program(Request $request){
+        $data = UsersProgramModel::with('client')->where('status','complete')->get();
+        return response()->json([
+            'success'=>true,
+            'view'=>view('project.user_program.ajax.user_program',['data'=>$data])->render(),
+        ]);
     }
 
     public function add(){
@@ -88,7 +98,91 @@ class UserProgramController extends Controller
         $data = UserProgramMealModel::with('meal_type','program_meal_supplement','program_meal_supplement.supplement')->where('program_id',$user_program->id)->get()->groupBy('day');
             return response()->json([
                 'success'=>true,
-                'view'=>view('project.user_program.ajax.get_program',['data'=>$data])->render()
+                'view'=>view('project.user_program.ajax.get_program',['data'=>$data])->render(),
+                'program'=>$user_program
             ]);
+    }
+
+    public function program_meal_suplement(Request $request){
+        $data = SupplementsModel::where('product','like','%'.$request->product_name.'%')->whereNotIn('id', function($query) use ($request) {
+            $query->select('supplement_id')
+                  ->from('program_meal_supplement')
+                  ->where('program_id', $request->program_id)
+                  ->whereIn('program_meal_id', function($query2) use ($request) {
+                      $query2->select('id')
+                             ->from('program_meal')
+                             ->where('day', $request->day)
+                             ->where('meal_type_id', $request->meal_type_id);
+                  });
+        })
+        ->get();
+    
+        return response()->json([
+            'success' => true,
+            'view' => view('project.user_program.ajax.meal_type_supplement_list', ['data' => $data])->render(),
+        ]);
+    }
+
+    public function add_supplement_for_meal_type(Request $request){
+        $data = new UserProgramMealSupplementModel();
+        $data->program_meal_id = $request->program_meal_id;
+        $data->user_id = $request->user_id;
+        $data->program_id = $request->program_id;
+        $data->supplement_id = $request->supplement_id;
+        $data->notes = SupplementsModel::where('id',$request->supplement_id)->first()->notes ?? '';
+        if($data->save()){
+            $program_meal = UserProgramMealModel::with('meal_type','program_meal_supplement','program_meal_supplement.supplement')->where('id',$request->program_meal_id)->first();
+            return response()->json([
+                'success'=>true,
+                'message'=>'تم اضافة البيانات بنجاح',
+                'program_meal'=>$program_meal,
+                'supplement'=>SupplementsModel::where('id',$request->supplement_id)->first(),
+                'data'=>$data,
+                    // حساب السعرات الحرارية
+                'calories' =>DB::table('user_program_meal_supplement')
+                ->join('supplements', 'user_program_meal_supplement.supplement_id', '=', 'supplements.id')
+                ->join('user_program_meal', 'user_program_meal_supplement.program_meal_id', '=', 'user_program_meal.id')
+                ->where('user_program_meal.program_id', $request->program_id)
+                ->where('user_program_meal.day', $program_meal->day)
+                ->sum(DB::raw('supplements.calories * user_program_meal_supplement.qty')),
+
+                'carbohydrates' =>DB::table('user_program_meal_supplement')
+                ->join('supplements', 'user_program_meal_supplement.supplement_id', '=', 'supplements.id')
+                ->join('user_program_meal', 'user_program_meal_supplement.program_meal_id', '=', 'user_program_meal.id')
+                ->where('user_program_meal.program_id', $request->program_id)
+                ->where('user_program_meal.day', $program_meal->day)
+                ->sum(DB::raw('supplements.carbohydrates * user_program_meal_supplement.qty')),
+
+                'fats' =>DB::table('user_program_meal_supplement')
+                ->join('supplements', 'user_program_meal_supplement.supplement_id', '=', 'supplements.id')
+                ->join('user_program_meal', 'user_program_meal_supplement.program_meal_id', '=', 'user_program_meal.id')
+                ->where('user_program_meal.program_id', $request->program_id)
+                ->where('user_program_meal.day', $program_meal->day)
+                ->sum(DB::raw('supplements.fats * user_program_meal_supplement.qty')),
+
+                'protein' =>DB::table('user_program_meal_supplement')
+                ->join('supplements', 'user_program_meal_supplement.supplement_id', '=', 'supplements.id')
+                ->join('user_program_meal', 'user_program_meal_supplement.program_meal_id', '=', 'user_program_meal.id')
+                ->where('user_program_meal.program_id', $request->program_id)
+                ->where('user_program_meal.day', $program_meal->day)
+                ->sum(DB::raw('supplements.protein * user_program_meal_supplement.qty')),
+
+                'fibers' =>DB::table('user_program_meal_supplement')
+                ->join('supplements', 'user_program_meal_supplement.supplement_id', '=', 'supplements.id')
+                ->join('user_program_meal', 'user_program_meal_supplement.program_meal_id', '=', 'user_program_meal.id')
+                ->where('user_program_meal.program_id', $request->program_id)
+                ->where('user_program_meal.day', $program_meal->day)
+                ->sum(DB::raw('supplements.fibers * user_program_meal_supplement.qty')),
+            // حساب الكربوهيدرات
+            ]);
+        }
+    }
+
+    public function submit_program(Request $request){
+        $data = UsersProgramModel::where('id',$request->program_id)->first();
+        $data->status = 'complete';
+        if($data->save()){
+            return redirect()->back()->with('تم اضافة البرنامج للعميل بنجاح');
+        }
     }
 }

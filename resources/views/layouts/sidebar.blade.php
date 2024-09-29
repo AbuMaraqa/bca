@@ -203,6 +203,12 @@
                 </div>
             </li>
             <li class="nav-item">
+                <a href="{{ route('reading_users.index') }}" class="nav-link text-white " aria-controls="dashboardsExamples" role="button" aria-expanded="false">
+                    <i class="fa fa-menu"></i>
+                    <span class="nav-link-text me-1">قراءات العملاء</span>
+                </a>
+            </li>
+            <li class="nav-item">
                 <a href="{{ route('reception.index') }}" class="nav-link text-white " aria-controls="dashboardsExamples" role="button" aria-expanded="false">
                     <i class="fa fa-menu"></i>
                     <span class="nav-link-text me-1">شاشة الاستقبال</span>

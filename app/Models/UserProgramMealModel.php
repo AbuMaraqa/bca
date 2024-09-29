@@ -16,6 +16,6 @@ class UserProgramMealModel extends Model
     }
 
     public function program_meal_supplement(){
-        return $this->hasMany(ProgramMealSupplementModel::class , 'program_meal_id' , 'id' );
+        return $this->hasMany(UserProgramMealSupplementModel::class , 'program_meal_id' , 'id' );
     }
 }

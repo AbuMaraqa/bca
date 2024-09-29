@@ -137,11 +137,22 @@ Route::group(['middleware' => 'auth'], function () {
         });
         Route::group(['prefix'=>'user_program'],function (){
             Route::get('index', [App\Http\Controllers\UserProgramController::class, 'index'])->name('program.user_program.index');
+            Route::post('users_program', [App\Http\Controllers\UserProgramController::class, 'users_program'])->name('program.user_program.users_program');
             Route::get('add', [App\Http\Controllers\UserProgramController::class, 'add'])->name('program.user_program.add');
             Route::post('program_meal_list', [App\Http\Controllers\UserProgramController::class, 'program_meal_list'])->name('program.user_program.program_meal_list');
             Route::post('add_program_for_user', [App\Http\Controllers\UserProgramController::class, 'add_program_for_user'])->name('program.user_program.add_program_for_user');
+            Route::post('program_meal_suplement', [App\Http\Controllers\UserProgramController::class, 'program_meal_suplement'])->name('program.user_program.program_meal_suplement');
+            Route::post('add_supplement_for_meal_type', [App\Http\Controllers\UserProgramController::class, 'add_supplement_for_meal_type'])->name('program.user_program.add_supplement_for_meal_type');
+            Route::post('submit_program', [App\Http\Controllers\UserProgramController::class, 'submit_program'])->name('program.user_program.submit_program');
         }); 
     });
+    Route::group(['prefix'=>'reading_users'],function (){
+        Route::get('index', [App\Http\Controllers\ReadingUsersController::class, 'index'])->name('reading_users.index');
+        Route::post('list_reading_users_ajax', [App\Http\Controllers\ReadingUsersController::class, 'list_reading_users_ajax'])->name('reading_users.list_reading_users_ajax');
+        Route::get('details/{client_id}', [App\Http\Controllers\ReadingUsersController::class, 'details'])->name('reading_users.details');
+        Route::post('create_reading_user', [App\Http\Controllers\ReadingUsersController::class, 'create_reading_user'])->name('reading_users.create_reading_user');
+        Route::post('search_from_bca', [App\Http\Controllers\ReadingUsersController::class, 'search_from_bca'])->name('reading_users.search_from_bca');
+    }); 
     Route::get('logout', [App\Http\Controllers\Auth\LoginController::class, 'logout'])->name('logout');
 
     Route::get('/migrate', function(){
