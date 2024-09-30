@@ -5,11 +5,15 @@
 @section('style')
     <style>
         td.long-text {
-    max-width: 300px; /* تحديد الحد الأقصى للعرض */
-    white-space: normal; /* السماح للنص بالانتقال إلى سطر جديد */
-    word-wrap: break-word; /* كسر الكلمات الطويلة إذا لزم الأمر */
-    overflow-wrap: break-word; /* متوافق مع بعض المتصفحات */
-}
+            max-width: 300px;
+            /* تحديد الحد الأقصى للعرض */
+            white-space: normal;
+            /* السماح للنص بالانتقال إلى سطر جديد */
+            word-wrap: break-word;
+            /* كسر الكلمات الطويلة إذا لزم الأمر */
+            overflow-wrap: break-word;
+            /* متوافق مع بعض المتصفحات */
+        }
     </style>
 @endsection
 @section('content')
@@ -28,7 +32,8 @@
                 <div class="card-body">
                     <div class="row">
                         <div class="col-md-6">
-                            <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target='#add_program_meal_modal'>اضافة نوع وجبة</button>
+                            <button class="btn btn-primary btn-sm" data-bs-toggle="modal"
+                                data-bs-target='#add_program_meal_modal'>اضافة نوع وجبة</button>
                         </div>
                     </div>
                 </div>
@@ -51,13 +56,14 @@
 @endsection
 @section('script')
     <script>
-        $(document).ready(function () {
+        $(document).ready(function() {
             program_meal_list();
             meal_type_list();
-            $('#name').keyup(function(){
+            $('#name').keyup(function() {
                 program_meal_list();
             });
         });
+
         function program_meal_list() {
             $.ajaxSetup({
                 headers: {
@@ -71,15 +77,16 @@
                 data: {
                     // name : $('#name').val(),
                     // phone : $('#phone').val(),
-                    program_id : {{ $data->id }}
+                    program_id: {{ $data->id }}
                 },
                 success: function(data) {
-                    if (data.success === true){
+                    if (data.success === true) {
                         $('#list_programs').html(data.view);
                     }
                 }
             });
         }
+
         function meal_type_list() {
             $.ajaxSetup({
                 headers: {
@@ -91,18 +98,19 @@
                 type: 'POST',
                 dataType: "json",
                 data: {
-                    name : $('#name').val(),
+                    name: $('#name').val(),
                     // phone : $('#phone').val(),
-                    program_id : {{ $data->id }}
+                    program_id: {{ $data->id }}
                 },
                 success: function(data) {
-                    if (data.success === true){
+                    if (data.success === true) {
                         $('#meal_type_list').html(data.view);
                         program_meal_list();
                     }
                 }
             });
         }
+
         function add_meal_type_for_program(data) {
             $.ajaxSetup({
                 headers: {
@@ -114,11 +122,11 @@
                 type: 'POST',
                 dataType: "json",
                 data: {
-                    program_id : {{ $data->id }},
-                    meal_type_id : data.id,
+                    program_id: {{ $data->id }},
+                    meal_type_id: data.id,
                 },
                 success: function(data) {
-                    if (data.success === true){
+                    if (data.success === true) {
                         meal_type_list();
                         $('#meal_type_list').html(data.view);
                     }
@@ -126,7 +134,7 @@
             });
         }
 
-        function open_add_supplement_for_meal_type_modal(data){
+        function open_add_supplement_for_meal_type_modal(data) {
             $('#add_supplement_for_meal_type').modal('show');
             $('#program_meal_id').val(data.id)
             program_meal_suplement(data);
@@ -134,53 +142,53 @@
 
         var program_meal_suplement_page = 1;
 
-$(document).on('click', '.pagination a', function(e) {
-    e.preventDefault();
-    program_meal_suplement_page = $(this).attr('href').split('page=')[1];
-    program_meal_suplement({});
-});
+        $(document).on('click', '.pagination a', function(e) {
+            e.preventDefault();
+            program_meal_suplement_page = $(this).attr('href').split('page=')[1];
+            program_meal_suplement({});
+        });
 
-$('#product_name').keyup(function() {
-    program_meal_suplement({
-        meal_type_id:$('#program_meal_type').val(),
-        day:$('#day').val(),
-        program_id:{{ $data->id }},
-        product_name: $('#product_name').val(),
-    });
-});
+        $('#product_name').keyup(function() {
+            program_meal_suplement({
+                meal_type_id: $('#program_meal_type').val(),
+                day: $('#day').val(),
+                program_id: {{ $data->id }},
+                product_name: $('#product_name').val(),
+            });
+        });
 
-function program_meal_suplement(data) {
-    $('#program_meal_type').val(data.meal_type_id);
-    $('#day').val(data.day);
-    $.ajaxSetup({
-        headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        function program_meal_suplement(data) {
+            $('#program_meal_type').val(data.meal_type_id);
+            $('#day').val(data.day);
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+
+            $.ajax({
+                url: "{{ route('program.program_meal.program_meal_suplement') }}", // Add page parameter
+                type: 'POST',
+                dataType: "json",
+                data: {
+                    program_id: {{ $data->id }},
+                    day: data.day || null, // Ensure day is defined or pass null
+                    meal_type_id: data.meal_type_id || null, // Ensure meal_type_id is defined or pass null
+                    product_name: $('#product_name').val(),
+                    page: program_meal_suplement_page,
+                },
+                success: function(response) {
+                    if (response.success === true) {
+                        $('#list_suplement_for_meal_type').html(response.view);
+                    }
+                },
+                error: function(xhr, status, error) {
+                    console.error('An error occurred:', error);
+                }
+            });
         }
-    });
 
-    $.ajax({
-        url: "{{ route('program.program_meal.program_meal_suplement') }}", // Add page parameter
-        type: 'POST',
-        dataType: "json",
-        data: {
-            program_id: {{ $data->id }},
-            day: data.day || null, // Ensure day is defined or pass null
-            meal_type_id: data.meal_type_id || null, // Ensure meal_type_id is defined or pass null
-            product_name: $('#product_name').val(),
-            page: program_meal_suplement_page,
-        },
-        success: function(response) {
-            if (response.success === true) {
-                $('#list_suplement_for_meal_type').html(response.view);
-            }
-        },
-        error: function(xhr, status, error) {
-            console.error('An error occurred:', error);
-        }
-    });
-}
-
-        function delete_supplement_from_meal_type(program_meal_type_id) {   
+        function delete_supplement_from_meal_type(program_meal_type_id) {
             $.ajaxSetup({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -191,24 +199,24 @@ function program_meal_suplement(data) {
                 type: 'POST',
                 dataType: "json",
                 data: {
-                    program_meal_type_id : program_meal_type_id,
+                    program_meal_type_id: program_meal_type_id,
                 },
                 success: function(data) {
-                    if (data.success === true){
+                    if (data.success === true) {
                         $('#meal_program_meal_supplement_row_' + program_meal_type_id).remove();
-                        $('#calories_'+data.program_meal.day).html(data.calories)
+                        $('#calories_' + data.program_meal.day).html(data.calories)
 
-                        $('#carbohydrates_'+data.program_meal.day).html(data.carbohydrates)
-                        $('#fats_'+data.program_meal.day).html(data.fats)
-                        $('#protein_'+data.program_meal.day).html(data.protein)
-                        $('#fibers_'+data.program_meal.day).html(data.fibers)
+                        $('#carbohydrates_' + data.program_meal.day).html(data.carbohydrates)
+                        $('#fats_' + data.program_meal.day).html(data.fats)
+                        $('#protein_' + data.program_meal.day).html(data.protein)
+                        $('#fibers_' + data.program_meal.day).html(data.fibers)
 
                     }
                 }
             });
         }
-        
-        function update_data_ajax(data_type,program_meal_type_id,value) {
+
+        function update_data_ajax(data_type, program_meal_type_id, value) {
             $.ajaxSetup({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -219,17 +227,17 @@ function program_meal_suplement(data) {
                 type: 'POST',
                 dataType: "json",
                 data: {
-                    data_type:data_type,
-                    program_meal_type_id : program_meal_type_id,
-                    value:value
+                    data_type: data_type,
+                    program_meal_type_id: program_meal_type_id,
+                    value: value
                 },
                 success: function(data) {
-                    if (data.success === true){
-                        $('#calories_'+data.program_meal.day).html(data.calories)
-                    $('#carbohydrates_'+data.program_meal.day).html(data.carbohydrates)
-                    $('#fats_'+data.program_meal.day).html(data.fats)
-                    $('#protein_'+data.program_meal.day).html(data.protein)
-                    $('#fibers_'+data.program_meal.day).html(data.fibers)
+                    if (data.success === true) {
+                        $('#calories_' + data.program_meal.day).html(data.calories)
+                        $('#carbohydrates_' + data.program_meal.day).html(data.carbohydrates)
+                        $('#fats_' + data.program_meal.day).html(data.fats)
+                        $('#protein_' + data.program_meal.day).html(data.protein)
+                        $('#fibers_' + data.program_meal.day).html(data.fibers)
 
                     }
                 }
@@ -237,27 +245,27 @@ function program_meal_suplement(data) {
         }
 
         function delete_meal_type_from_program(data) {
-            if(confirm('هل انت متاكد من حذف البيانات')){
+            if (confirm('هل انت متاكد من حذف البيانات')) {
                 $.ajaxSetup({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                }
-            });
-            $.ajax({
-                url: "{{ route('program.program_meal.delete_meal_type_from_program') }}",
-                type: 'POST',
-                dataType: "json",
-                data: {
-                    program_meal_type_id : data.id,
-                },
-                success: function(data) {
-                    console.log(data);
-                    
-                    if (data.success === true){
-                        program_meal_list();
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                     }
-                }
-            });
+                });
+                $.ajax({
+                    url: "{{ route('program.program_meal.delete_meal_type_from_program') }}",
+                    type: 'POST',
+                    dataType: "json",
+                    data: {
+                        program_meal_type_id: data.id,
+                    },
+                    success: function(data) {
+                        console.log(data);
+
+                        if (data.success === true) {
+                            program_meal_list();
+                        }
+                    }
+                });
             }
         }
 
@@ -272,16 +280,16 @@ function program_meal_suplement(data) {
                 type: 'POST',
                 dataType: "json",
                 data: {
-                    program_id : {{ $data->id }},
-                    supplement_id : supplement_id,
-                    program_meal_id : $('#program_meal_id').val(),
+                    program_id: {{ $data->id }},
+                    supplement_id: supplement_id,
+                    program_meal_id: $('#program_meal_id').val(),
                 },
                 success: function(data) {
-                    
-                    if (data.success === true){
+
+                    if (data.success === true) {
                         program_meal_suplement(data.program_meal);
                         $('#supplement_for_meal_type_row_' + data.program_meal.id).append(
-        `<tr id=meal_program_meal_supplement_row_${data.data.id}>
+                            `<tr id=meal_program_meal_supplement_row_${data.data.id}>
             <td class="font-weight-bold text-dark long-text" style="padding: 10px; border: 1px solid black; text-align: right; color: black;">
                 <input type="number" value="1" onchange="update_data_ajax('qty', ${data.data.id} , this.value)" class="form-control text-center">
             </td>
@@ -296,19 +304,19 @@ function program_meal_suplement(data) {
             </td>
         </tr>
         `
-    );
-        $('#calories_'+data.program_meal.day).html(data.calories)
-        $('#carbohydrates_'+data.program_meal.day).html(data.carbohydrates)
-        $('#fats_'+data.program_meal.day).html(data.fats)
-        $('#protein_'+data.program_meal.day).html(data.protein)
-        $('#fibers_'+data.program_meal.day).html(data.fibers)
+                        );
+                        $('#calories_' + data.program_meal.day).html(data.calories)
+                        $('#carbohydrates_' + data.program_meal.day).html(data.carbohydrates)
+                        $('#fats_' + data.program_meal.day).html(data.fats)
+                        $('#protein_' + data.program_meal.day).html(data.protein)
+                        $('#fibers_' + data.program_meal.day).html(data.fibers)
                     }
                 }
             });
         }
 
-        $(document).on('click', '.pagination a', function(event){
-            event.preventDefault(); 
+        $(document).on('click', '.pagination a', function(event) {
+            event.preventDefault();
             var page = $(this).attr('href').split('page=')[1];
         });
     </script>

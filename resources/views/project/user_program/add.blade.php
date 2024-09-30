@@ -32,19 +32,19 @@
                     </div>
                     <div class="row">
                         <div class="col-md-12" id="list_programs">
-                            
+
                         </div>
                     </div>
                     <div class="row">
                         <form action="{{ route('program.user_program.submit_program') }}" method="post">
                             @csrf
-                        <input type="hidden" id="program_meal_id">
-                        <input type="hidden" name="program_id" id="program_id">
-                
-                        <div class="col-md-12">
-                            <button type="submit" class="btn btn-success">اضافة البرنامج</button>
-                        </div>
-                    </form>
+                            <input type="hidden" id="program_meal_id">
+                            <input type="hidden" name="program_id" id="program_id">
+
+                            <div class="col-md-12">
+                                <button type="submit" class="btn btn-success">اضافة البرنامج</button>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
@@ -56,15 +56,15 @@
 
 @section('script')
     <script>
-        $('#select_program_id').on('change',function(){
+        $('#select_program_id').on('change', function() {
             $.ajaxSetup({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 }
             });
             $('#list_programs').html(`<div class="spinner-border text-primary" role="status">
-  <span class="sr-only">Loading...</span>
-</div>`);
+                <span class="sr-only">Loading...</span>
+                </div>`);
             $.ajax({
                 // url: "{{ route('program.user_program.program_meal_list') }}",
                 url: "{{ route('program.user_program.add_program_for_user') }}",
@@ -76,8 +76,8 @@
                     program_id: $(this).val(),
                     user_id: $('#user_id').val(),
                 },
-                success: function(data) {                    
-                    if (data.success === true){
+                success: function(data) {
+                    if (data.success === true) {
                         $('#program_id').val(data.program.id)
                         $('#list_programs').html(data.view);
                     }
@@ -85,7 +85,7 @@
             });
         })
 
-        function add_program_for_user(program_id){
+        function add_program_for_user(program_id) {
             alert()
             $.ajaxSetup({
                 headers: {
@@ -102,21 +102,21 @@
                 },
                 success: function(data) {
                     console.log(data);
-                    
-                    if (data.success === true){
+
+                    if (data.success === true) {
                         alert('success');
                     }
                 }
             });
         }
-        
 
-        function open_add_supplement_for_meal_type_modal(data){
+
+        function open_add_supplement_for_meal_type_modal(data) {
             $('#add_supplement_for_meal_type').modal('show');
             $('#program_meal_id').val(data.id)
         }
 
-        $('#product_name').keyup(function(){
+        $('#product_name').keyup(function() {
             $.ajaxSetup({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -152,15 +152,15 @@
                 type: 'POST',
                 dataType: "json",
                 data: {
-                    program_id : $('#program_id').val(),
-                    supplement_id : supplement_id,
-                    program_meal_id : $('#program_meal_id').val(),
-                    user_id : $('#user_id').val(),
+                    program_id: $('#program_id').val(),
+                    supplement_id: supplement_id,
+                    program_meal_id: $('#program_meal_id').val(),
+                    user_id: $('#user_id').val(),
                 },
-                success: function(data) {                                      
-                    if (data.success === true){
+                success: function(data) {
+                    if (data.success === true) {
                         $('#supplement_for_meal_type_row_' + data.program_meal.id).append(
-        `<tr id=meal_program_meal_supplement_row_${data.data.id}>
+                            `<tr id=meal_program_meal_supplement_row_${data.data.id}>
             <td class="font-weight-bold text-dark long-text" style="padding: 10px; border: 1px solid black; text-align: right; color: black;">
                 <input type="number" value="1" onchange="update_data_ajax('qty', ${data.data.id} , this.value)" class="form-control text-center">
             </td>
@@ -171,21 +171,55 @@
                 <textarea class="form-control form-control-sm" style="width: 100%; box-sizing: border-box;" name="" id="" cols="30" rows="1">${!data.data.notes ? '' : data.data.notes}</textarea>
             </td>
             <td class="text-center" style="padding: 10px; border: 1px solid black; text-align: right;">
-                <span style="cursor: pointer" class="badge badge-danger" onclick="delete_supplement_from_meal_type((${data.data.id}))">X</span>
+                <span style="cursor: pointer" class="badge badge-danger" onclick="delete_supplement_from_meal_type(${data.data.id})">X</span>
             </td>
         </tr>
         `
-    );
-        $('#calories_'+data.program_meal.day).html(data.calories)
-        $('#carbohydrates_'+data.program_meal.day).html(data.carbohydrates)
-        $('#fats_'+data.program_meal.day).html(data.fats)
-        $('#protein_'+data.program_meal.day).html(data.protein)
-        $('#fibers_'+data.program_meal.day).html(data.fibers)
+                        );
+                        $('#calories_' + data.program_meal.day).html(data.calories)
+                        $('#carbohydrates_' + data.program_meal.day).html(data.carbohydrates)
+                        $('#fats_' + data.program_meal.day).html(data.fats)
+                        $('#protein_' + data.program_meal.day).html(data.protein)
+                        $('#fibers_' + data.program_meal.day).html(data.fibers)
                     }
                 }
             });
         }
 
+        function delete_supplement_from_meal_type(program_meal_type_id) {
+            alert(program_meal_type_id);
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+
+            $.ajax({
+                url: "{{ route('program.user_program.delete_supplement_from_meal_type') }}",
+                type: 'POST',
+                dataType: 'json',
+                data: {
+                    program_meal_type_id: program_meal_type_id,
+                },
+                success: function(data) {
+                    if (data.success === true) {
+                        // Remove the row for the deleted supplement
+                        $('#meal_program_meal_supplement_row_' + program_meal_type_id).remove();
+
+                        // Update the nutrition data
+                        $('#calories_' + data.program_meal.day).html(data.calories);
+                        $('#carbohydrates_' + data.program_meal.day).html(data.carbohydrates);
+                        $('#fats_' + data.program_meal.day).html(data.fats);
+                        $('#protein_' + data.program_meal.day).html(data.protein);
+                        $('#fibers_' + data.program_meal.day).html(data.fibers);
+                    } else {
+                        alert('Failed to delete supplement: ' + data.message);
+                    }
+                },
+                error: function(xhr, status, error) {
+                    alert('An error occurred. Please try again.');
+                }
+            });
+        }
     </script>
 @endsection
-
