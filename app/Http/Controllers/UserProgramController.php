@@ -40,7 +40,7 @@ class UserProgramController extends Controller
     }
 
     public function program_meal_list(Request $request){
-        $data = ProgramMealModel::with('meal_type','program_meal_supplement','program_meal_supplement.supplement')->where('program_id',$request->program_id)->get()->groupBy('day');
+        $data = UserProgramMealModel::with('meal_type','program_meal_supplement','program_meal_supplement.supplement')->where('program_id',$request->program_id)->get()->groupBy('day');
         return response()->json([
             'success'=>true,
             'view'=>view('project.user_program.ajax.get_program',['data'=>$data])->render()
@@ -109,7 +109,6 @@ class UserProgramController extends Controller
                 $user_program_meal_supplement->program_meal_id = $user_program_meal_ids[$key->program_meal_id];
             } else {
                 // Log or handle the missing key scenario
-                \Log::error('Missing program_meal_id: ' . $key->program_meal_id);
                 continue; // Skip this supplement if the program_meal_id doesn't exist
             }
         
@@ -235,40 +234,40 @@ class UserProgramController extends Controller
             'program_meal' => $program_meal,
             
             // Recalculate and return updated nutrition data
-            'calories' => DB::table('program_meal_supplement')
-                ->join('supplements', 'program_meal_supplement.supplement_id', '=', 'supplements.id')
-                ->join('program_meal', 'program_meal_supplement.program_meal_id', '=', 'program_meal.id')
-                ->where('program_meal.program_id', $program_meal->program_id)
-                ->where('program_meal.day', $program_meal->day)
-                ->sum(DB::raw('supplements.calories * program_meal_supplement.qty')),
+            'calories' => DB::table('user_program_meal_supplement')
+                ->join('supplements', 'user_program_meal_supplement.supplement_id', '=', 'supplements.id')
+                ->join('user_program_meal', 'user_program_meal_supplement.program_meal_id', '=', 'user_program_meal.id')
+                ->where('user_program_meal.program_id', $program_meal->program_id)
+                ->where('user_program_meal.day', $program_meal->day)
+                ->sum(DB::raw('supplements.calories * user_program_meal_supplement.qty')),
 
-            'carbohydrates' => DB::table('program_meal_supplement')
-                ->join('supplements', 'program_meal_supplement.supplement_id', '=', 'supplements.id')
-                ->join('program_meal', 'program_meal_supplement.program_meal_id', '=', 'program_meal.id')
-                ->where('program_meal.program_id', $program_meal->program_id)
-                ->where('program_meal.day', $program_meal->day)
-                ->sum(DB::raw('supplements.carbohydrates * program_meal_supplement.qty')),
+            'carbohydrates' => DB::table('user_program_meal_supplement')
+                ->join('supplements', 'user_program_meal_supplement.supplement_id', '=', 'supplements.id')
+                ->join('user_program_meal', 'user_program_meal_supplement.program_meal_id', '=', 'user_program_meal.id')
+                ->where('user_program_meal.program_id', $program_meal->program_id)
+                ->where('user_program_meal.day', $program_meal->day)
+                ->sum(DB::raw('supplements.carbohydrates * user_program_meal_supplement.qty')),
 
-            'fats' => DB::table('program_meal_supplement')
-                ->join('supplements', 'program_meal_supplement.supplement_id', '=', 'supplements.id')
-                ->join('program_meal', 'program_meal_supplement.program_meal_id', '=', 'program_meal.id')
-                ->where('program_meal.program_id', $program_meal->program_id)
-                ->where('program_meal.day', $program_meal->day)
-                ->sum(DB::raw('supplements.fats * program_meal_supplement.qty')),
+            'fats' => DB::table('user_program_meal_supplement')
+                ->join('supplements', 'user_program_meal_supplement.supplement_id', '=', 'supplements.id')
+                ->join('user_program_meal', 'user_program_meal_supplement.program_meal_id', '=', 'user_program_meal.id')
+                ->where('user_program_meal.program_id', $program_meal->program_id)
+                ->where('user_program_meal.day', $program_meal->day)
+                ->sum(DB::raw('supplements.fats * user_program_meal_supplement.qty')),
 
-            'protein' => DB::table('program_meal_supplement')
-                ->join('supplements', 'program_meal_supplement.supplement_id', '=', 'supplements.id')
-                ->join('program_meal', 'program_meal_supplement.program_meal_id', '=', 'program_meal.id')
-                ->where('program_meal.program_id', $program_meal->program_id)
-                ->where('program_meal.day', $program_meal->day)
-                ->sum(DB::raw('supplements.protein * program_meal_supplement.qty')),
+            'protein' => DB::table('user_program_meal_supplement')
+                ->join('supplements', 'user_program_meal_supplement.supplement_id', '=', 'supplements.id')
+                ->join('user_program_meal', 'user_program_meal_supplement.program_meal_id', '=', 'user_program_meal.id')
+                ->where('user_program_meal.program_id', $program_meal->program_id)
+                ->where('user_program_meal.day', $program_meal->day)
+                ->sum(DB::raw('supplements.protein * user_program_meal_supplement.qty')),
 
-            'fibers' => DB::table('program_meal_supplement')
-                ->join('supplements', 'program_meal_supplement.supplement_id', '=', 'supplements.id')
-                ->join('program_meal', 'program_meal_supplement.program_meal_id', '=', 'program_meal.id')
-                ->where('program_meal.program_id', $program_meal->program_id)
-                ->where('program_meal.day', $program_meal->day)
-                ->sum(DB::raw('supplements.fibers * program_meal_supplement.qty')),
+            'fibers' => DB::table('user_program_meal_supplement')
+                ->join('supplements', 'user_program_meal_supplement.supplement_id', '=', 'supplements.id')
+                ->join('user_program_meal', 'user_program_meal_supplement.program_meal_id', '=', 'user_program_meal.id')
+                ->where('user_program_meal.program_id', $program_meal->program_id)
+                ->where('user_program_meal.day', $program_meal->day)
+                ->sum(DB::raw('supplements.fibers * user_program_meal_supplement.qty')),
         ]);
     }
 
@@ -292,5 +291,63 @@ class UserProgramController extends Controller
         $pdf = PDF::loadView('project.user_program.pdf.program_pdf', ['data'=>$data , 'firstVisit'=>$firstVisit , 'previousVisit'=>$previousVisit , 'currentVisit'=>$currentVisit]);
 
         return $pdf->stream('document.pdf');
+    }
+
+    public function update_data_ajax(Request $request){
+        $data = UserProgramMealSupplementModel::where('id',$request->program_meal_type_id)->first();
+        $program_meal = UserProgramMealModel::where('id',$data->program_meal_id)->first();
+        $data->{$request->data_type} = $request->value;
+        if($data->save()){
+            return response()->json([
+                'success'=>true,
+                'program_meal'=>$program_meal,
+                'message'=>'تم تعديل الملاحظة بنجاح',
+
+                'calories' => DB::table('user_program_meal_supplement')
+                ->join('supplements', 'user_program_meal_supplement.supplement_id', '=', 'supplements.id')
+                ->join('user_program_meal', 'user_program_meal_supplement.program_meal_id', '=', 'user_program_meal.id')
+                ->where('user_program_meal.program_id', $program_meal->program_id)
+                ->where('user_program_meal.day', $program_meal->day)
+                ->sum(DB::raw('supplements.calories * user_program_meal_supplement.qty')),
+
+            'carbohydrates' => DB::table('user_program_meal_supplement')
+                ->join('supplements', 'user_program_meal_supplement.supplement_id', '=', 'supplements.id')
+                ->join('user_program_meal', 'user_program_meal_supplement.program_meal_id', '=', 'user_program_meal.id')
+                ->where('user_program_meal.program_id', $program_meal->program_id)
+                ->where('user_program_meal.day', $program_meal->day)
+                ->sum(DB::raw('supplements.carbohydrates * user_program_meal_supplement.qty')),
+
+            'fats' => DB::table('user_program_meal_supplement')
+                ->join('supplements', 'user_program_meal_supplement.supplement_id', '=', 'supplements.id')
+                ->join('user_program_meal', 'user_program_meal_supplement.program_meal_id', '=', 'user_program_meal.id')
+                ->where('user_program_meal.program_id', $program_meal->program_id)
+                ->where('user_program_meal.day', $program_meal->day)
+                ->sum(DB::raw('supplements.fats * user_program_meal_supplement.qty')),
+
+            'protein' => DB::table('user_program_meal_supplement')
+                ->join('supplements', 'user_program_meal_supplement.supplement_id', '=', 'supplements.id')
+                ->join('user_program_meal', 'user_program_meal_supplement.program_meal_id', '=', 'user_program_meal.id')
+                ->where('user_program_meal.program_id', $program_meal->program_id)
+                ->where('user_program_meal.day', $program_meal->day)
+                ->sum(DB::raw('supplements.protein * user_program_meal_supplement.qty')),
+
+            'fibers' => DB::table('user_program_meal_supplement')
+                ->join('supplements', 'user_program_meal_supplement.supplement_id', '=', 'supplements.id')
+                ->join('user_program_meal', 'user_program_meal_supplement.program_meal_id', '=', 'user_program_meal.id')
+                ->where('user_program_meal.program_id', $program_meal->program_id)
+                ->where('user_program_meal.day', $program_meal->day)
+                ->sum(DB::raw('supplements.fibers * user_program_meal_supplement.qty')),
+            ]);
+        }
+    }
+
+    public function details($program_id){
+        $user_program = UsersProgramModel::where('id',$program_id)->first();
+        $data = ProgramMealModel::with('meal_type','program_meal_supplement','program_meal_supplement.supplement')->where('program_id',$program_id)->get()->groupBy('day');
+        return view('project.user_program.details',['data'=>$data , 'user_program'=>$user_program]);
+        // return response()->json([
+        //     'success'=>true,
+        //     'view'=>view('project.user_program.ajax.get_program',['data'=>$data])->render()
+        // ]);
     }
 }

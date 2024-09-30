@@ -236,7 +236,7 @@
             </tbody>
         </table>
         <div style="width:100%">
-            <h5>التعليمات العامة</h5>
+            <h4 style="text-align: center">التعليمات العامة</h4>
         </div>
         <pagebreak />
         @foreach ($data as $day => $meals)
@@ -294,7 +294,7 @@
                                                             <td>{{ $key->qty ?? 1 }}</td>
                                                             <td>{{ $key->supplement->product ?? '' }}</td>
                                                             <td>
-                                                                <textarea readonly>{{ $key->notes ?? '' }}</textarea>
+                                                                {{ $key->notes ?? '' }}
                                                             </td>
                                                         </tr>
                                                     @endforeach

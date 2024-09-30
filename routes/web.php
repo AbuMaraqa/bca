@@ -146,6 +146,8 @@ Route::group(['middleware' => 'auth'], function () {
             Route::post('delete_supplement_from_meal_type', [App\Http\Controllers\UserProgramController::class, 'delete_supplement_from_meal_type'])->name('program.user_program.delete_supplement_from_meal_type');
             Route::post('submit_program', [App\Http\Controllers\UserProgramController::class, 'submit_program'])->name('program.user_program.submit_program');
             Route::get('print_pdf/{program_id}', [App\Http\Controllers\UserProgramController::class, 'print_pdf'])->name('program.user_program.print_pdf');
+            Route::post('update_data_ajax', [App\Http\Controllers\UserProgramController::class, 'update_data_ajax'])->name('program.user_program.update_data_ajax');
+            Route::get('details/{program_id}', [App\Http\Controllers\UserProgramController::class, 'details'])->name('program.user_program.details');
         }); 
     });
     Route::group(['prefix'=>'reading_users'],function (){

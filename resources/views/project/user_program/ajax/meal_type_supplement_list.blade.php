@@ -13,12 +13,12 @@
         </thead>
         <tbody>
             @if ($data->isEmpty())
-            <tr>
-                <td class="text-center" colspan="7">لا توجد انواع وجبات</td>
-            </tr>
-        @endif
+                <tr>
+                    <td class="text-center" colspan="7">لا توجد انواع وجبات</td>
+                </tr>
+            @endif
             @foreach ($data as $key)
-            <tr>
+                <tr>
                     <td class="long-text">{{ $key->product }}</td>
                     <td>{{ $key->calories }}</td>
                     <td>{{ $key->carbohydrates }}</td>
@@ -26,10 +26,11 @@
                     <td>{{ $key->protein }}</td>
                     <td>{{ $key->fibers }}</td>
                     <td>
-                        <button onclick="add_supplement_for_meal_type({{ $key->id }})" class="btn btn-primary btn-sm"><span class="fa fa-plus"></span></button>
+                        <button onclick="add_supplement_for_meal_type({{ $key->id }})"
+                            class="btn btn-primary btn-sm"><span class="fa fa-plus"></span></button>
                     </td>
-                </tr> 
+                </tr>
             @endforeach
         </tbody>
-</table>
+    </table>
 </div>

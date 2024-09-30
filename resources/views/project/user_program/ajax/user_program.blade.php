@@ -17,7 +17,8 @@
                     <td>{{ $key->created_at }}</td>
                     <td>{{ $key->client->name }}</td>
                     <td>
-                        <a href="" class="btn btn-sm btn-primary"><span class="fa fa-search"></span></a>
+                        <a href="{{ route('program.user_program.details', ['program_id' => $key->id]) }}"
+                            class="btn btn-sm btn-primary"><span class="fa fa-search"></span></a>
                         <a href="{{ route('program.user_program.print_pdf', ['program_id' => $key->id]) }}"
                             class="btn btn-sm btn-warning"><span class="fa fa-print"></span></a>
                     </td>

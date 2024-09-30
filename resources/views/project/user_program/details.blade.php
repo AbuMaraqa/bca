@@ -3,48 +3,17 @@
     اضافة برنامج للعميل
 @endsection
 @section('content')
+    <input type="hidden" id="program_meal_id">
+    <input type="hidden" name="program_id" id="program_id">
+
     <div class="row">
         <div class="col-md-12">
             <div class="card">
                 <div class="card-body">
                     <div class="row">
-                        <div class="col-md-6">
-                            <div class="input-group input-group-static mb-4">
-                                <label for="exampleFormControlSelect1" class="ms-0">اسم العميل</label>
-                                <select required class="form-control" id="user_id">
-                                    @foreach ($clients as $key)
-                                        <option value="{{ $key->id }}">{{ $key->name }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="input-group input-group-static mb-4">
-                                <label for="exampleFormControlSelect1" class="ms-0">البرامج</label>
-                                <select required class="form-control" name="program_category_id" id="select_program_id">
-                                    <option value="">اختر برنامج ...</option>
-                                    @foreach ($programs as $key)
-                                        <option value="{{ $key->id }}">{{ $key->program_name }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
                         <div class="col-md-12" id="list_programs">
 
                         </div>
-                    </div>
-                    <div class="row">
-                        <form action="{{ route('program.user_program.submit_program') }}" method="post">
-                            @csrf
-                            <input type="hidden" id="program_meal_id">
-                            <input type="hidden" name="program_id" id="program_id">
-
-                            <div class="col-md-12">
-                                <button type="submit" class="btn btn-success">اضافة البرنامج</button>
-                            </div>
-                        </form>
                     </div>
                 </div>
             </div>
@@ -56,7 +25,11 @@
 
 @section('script')
     <script>
-        $('#select_program_id').on('change', function() {
+        $(document).ready(function() {
+            list_program();
+        });
+
+        function list_program() {
             $.ajaxSetup({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -67,23 +40,21 @@
                 </div>`);
             $.ajax({
                 // url: "{{ route('program.user_program.program_meal_list') }}",
-                url: "{{ route('program.user_program.add_program_for_user') }}",
+                url: "{{ route('program.user_program.program_meal_list') }}",
                 type: 'POST',
                 dataType: "json",
                 data: {
                     // name : $('#name').val(),
                     // phone : $('#phone').val(),
-                    program_id: $(this).val(),
-                    user_id: $('#user_id').val(),
+                    program_id: {{ $user_program->id }},
                 },
                 success: function(data) {
                     if (data.success === true) {
-                        $('#program_id').val(data.program.id)
                         $('#list_programs').html(data.view);
                     }
                 }
             });
-        })
+        }
 
         function add_program_for_user(program_id) {
             $.ajaxSetup({
@@ -96,8 +67,8 @@
                 type: 'POST',
                 dataType: "json",
                 data: {
-                    program_id: program_id,
-                    // user_id: $('#user_id').val()
+                    program_id: {{ $user_program->id }},
+                    user_id: {{ $user_program->client_id }}
                 },
                 success: function(data) {
                     console.log(data);
@@ -151,10 +122,10 @@
                 type: 'POST',
                 dataType: "json",
                 data: {
-                    program_id: $('#program_id').val(),
+                    program_id: {{ $user_program->id }},
                     supplement_id: supplement_id,
                     program_meal_id: $('#program_meal_id').val(),
-                    user_id: $('#user_id').val(),
+                    user_id: {{ $user_program->client_id }},
                 },
                 success: function(data) {
                     if (data.success === true) {
