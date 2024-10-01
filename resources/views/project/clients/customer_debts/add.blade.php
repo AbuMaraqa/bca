@@ -12,7 +12,8 @@
                         <input type="hidden" name="client_id" value="{{ $client->id }}">
                         <div class="row">
                             <div class="col-md-12">
-                                <h5>اضافة دفعة الى العميل <span class="badge bg-gradient-primary">محمد مرقة</span></h5>
+                                <h5>اضافة دفعة الى العميل <span class="badge bg-gradient-primary">{{ $client->name }}</span>
+                                </h5>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
