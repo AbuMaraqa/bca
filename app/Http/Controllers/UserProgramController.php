@@ -280,6 +280,7 @@ class UserProgramController extends Controller
 
     public function print_pdf($program_id){
         $user_program = UsersProgramModel::where('id',$program_id)->first();
+        $client = ClientsModel::where('id',$user_program->client_id)->first();
         $readings = ReadingUsersModel::where('user_id', $user_program->client_id)
         ->orderBy('created_at', 'asc')
         ->get();
@@ -288,7 +289,7 @@ class UserProgramController extends Controller
         $currentVisit = $readings->last();
 
         $data = UserProgramMealModel::with('meal_type','program_meal_supplement','program_meal_supplement.supplement')->where('program_id',$program_id)->get()->groupBy('day');        
-        $pdf = PDF::loadView('project.user_program.pdf.program_pdf', ['data'=>$data , 'firstVisit'=>$firstVisit , 'previousVisit'=>$previousVisit , 'currentVisit'=>$currentVisit]);
+        $pdf = PDF::loadView('project.user_program.pdf.program_pdf', ['data'=>$data , 'firstVisit'=>$firstVisit , 'previousVisit'=>$previousVisit , 'currentVisit'=>$currentVisit , 'client'=>$client , 'user_program'=>$user_program]);
 
         return $pdf->stream('document.pdf');
     }

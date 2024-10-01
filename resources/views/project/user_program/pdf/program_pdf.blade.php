@@ -5,15 +5,27 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <title>برنامج التغذية</title>
     <style>
         body {
-            font-family: 'Cairo', sans-serif;
+            font-family: 'tajawal', sans-serif;
+            font-weight: normal;
+            /* You can change to 'bold' if needed */
             direction: rtl;
-            margin: 0;
-            padding: 20px;
-            background-color: #f0f4f8;
-            color: #333;
+            text-align: right;
+        }
+
+        @page {
+            header: page-header;
+            footer: page-footer;
+        }
+
+        h1,
+        h2,
+        h3 {
+            font-family: 'tajawal', sans-serif;
+            font-weight: bold;
         }
 
         .container {
@@ -21,14 +33,13 @@
             margin: auto;
             background-color: #fff;
             border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             padding: 20px;
             overflow-x: auto;
             /* Ensures tables are scrollable on smaller screens */
         }
 
         h3 {
-            color: #2a9d8f;
+            color: #000;
             text-align: center;
             font-size: 24px;
             margin-bottom: 20px;
@@ -48,8 +59,8 @@
         }
 
         th {
-            background-color: #2a9d8f;
-            color: #fff;
+            background-color: #f5f6f6;
+            color: #000;
             padding: 12px;
             font-size: 16px;
         }
@@ -96,8 +107,8 @@
         }
 
         .btn-success {
-            background-color: #2a9d8f;
-            color: #fff;
+            background-color: #f5f6f6;
+            color: #000;
             border: none;
         }
 
@@ -172,10 +183,63 @@
 </head>
 
 <body>
-
+    <!-- optional -->
+    <htmlpagefooter name="page-footer">
+        <table style="border: none">
+            <tr style="border: none">
+                <td colspan="3">بيت لحم - مقابل مستوصف الاحسان - عمارة السنة - الطابق الأول</td>
+            </tr>
+            <tr style="border: none">
+                <td>
+                    <div style="display: flex;align-content: center;justify-content: center">
+                        <span>سوبر هيلث - super health</span>
+                        <img style="width: 15px;height: 15px" src="{{ asset('img/icons/facebook.png') }}"
+                            alt="">
+                    </div>
+                </td>
+                <td>
+                    <span>dietitian fida shakhtour</span>
+                    <img style="width: 15px;height: 15px" src="{{ asset('img/icons/instgram.png') }}" alt="">
+                </td>
+                <td>
+                    <span>0594830078</span>
+                    <img style="width: 15px;height: 15px" src="{{ asset('img/icons/whatsapp.png') }}" alt="">
+                </td>
+            </tr>
+        </table>
+    </htmlpagefooter>
     <div class="container">
         <div style="width: 100%;text-align: center">
             <img style="" src="{{ asset('img/logo-fidaa.png') }}" alt="">
+        </div>
+        <div style="margin-bottom: 50px">
+            <h2 style="text-align: center">معاً ... لصحة أفضل</h2>
+        </div>
+        <div style="margin-bottom: 50px">
+            <table style="width: 100%;">
+                <tr>
+                    <td colspan="2" style="padding:30px">
+                        <h5 style="font-size:20px">رقم المشترك : {{ $client->id }}</h5>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="padding:15px">
+                        <h5 style="font-size:15px">
+                            الاسم : {{ $client->name }}</h5>
+                    </td>
+                    <td style="padding:15px">
+                        <h5 style="font-size:15px">رقم الهاتف : {{ $client->phone }}</h5>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="padding:15px">
+                        <h5 style="font-size:15px">تاريخ الميلاد : {{ $client->dob }}</h5>
+                    </td>
+                    <td style="padding:15px">
+                        <h5 style="font-size:15px">المدينة : {{ $client->city }}</h5>
+                    </td>
+                </tr>
+            </table>
         </div>
         <table class="table table-sm text-center table-hover">
             <thead>
@@ -235,10 +299,16 @@
                 </tr> --}}
             </tbody>
         </table>
+        <pagebreak />
+
         <div style="width:100%">
             <h4 style="text-align: center">التعليمات العامة</h4>
         </div>
+        <div style="font-size: 13px;font-weight: 10">
+            {!! $user_program->instructions ?? '' !!}
+        </div>
         <pagebreak />
+
         @foreach ($data as $day => $meals)
             @php
                 $calories = 0;
@@ -270,7 +340,7 @@
                                         <table>
                                             <thead>
                                                 <tr>
-                                                    <th>الكمية</th>
+                                                    <th style="width: 20px">الكمية</th>
                                                     <th style="width: 200px">الصنف</th>
                                                     <th>ملاحظات</th>
                                                 </tr>
@@ -336,7 +406,6 @@
             <pagebreak />
         @endforeach
     </div>
-
 </body>
 
 </html>
