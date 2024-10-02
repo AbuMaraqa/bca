@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\ClientsModel;
 use App\Models\InstructionsModel;
+use App\Models\MealTypeModel;
 use App\Models\ProgramMealModel;
 use App\Models\ProgramMealSupplementModel;
 use App\Models\ProgramModel;
@@ -26,7 +27,7 @@ class UserProgramController extends Controller
     }
 
     public function users_program(Request $request){
-        $data = UsersProgramModel::with('client')->where('status','complete')->get();
+        $data = UsersProgramModel::with('client')->where('status','complete')->orderBy('id','desc')->get();
         return response()->json([
             'success'=>true,
             'view'=>view('project.user_program.ajax.user_program',['data'=>$data])->render(),
@@ -44,6 +45,31 @@ class UserProgramController extends Controller
         return response()->json([
             'success'=>true,
             'view'=>view('project.user_program.ajax.get_program',['data'=>$data])->render()
+        ]);
+    }
+
+    public function meal_type_list(Request $request){
+        $data = MealTypeModel::whereNotIn('id',function($query) use ($request){
+            $query->select('meal_type_id')->from('user_program_meal')->where('program_id',$request->program_id);
+        })->get();
+        return response()->json([
+            'success'=>true,
+            'view'=>view('project.program.program.program_meals.ajax.meal_type',['data'=>$data])->render()
+        ]);
+    }
+
+    public function add_meal_type_for_program(Request $request){
+        for($i = 1; $i < 8 ; $i++){
+            $data = new UserProgramMealModel();
+            $data->program_id = $request->program_id;
+            $data->day = $i;
+            $data->meal_type_id = $request->meal_type_id;
+            $data->user_id = $request->user_id;
+            $data->save();
+        }
+        return response()->json([
+            'success'=>true,
+            'message'=>'تم اضافة نوع الوجبة بنجاح'
         ]);
     }
 
@@ -208,7 +234,7 @@ class UserProgramController extends Controller
         $data = UsersProgramModel::where('id',$request->program_id)->first();
         $data->status = 'complete';
         if($data->save()){
-            return redirect()->back()->with('تم اضافة البرنامج للعميل بنجاح');
+            return redirect()->route('program.user_program.details',['program_id'=>$data->id])->with('تم اضافة البرنامج للعميل بنجاح');
         }
     }
 
@@ -344,8 +370,9 @@ class UserProgramController extends Controller
 
     public function details($program_id){
         $user_program = UsersProgramModel::where('id',$program_id)->first();
+        $client = ClientsModel::where('id',$user_program->client_id)->first();
         $data = ProgramMealModel::with('meal_type','program_meal_supplement','program_meal_supplement.supplement')->where('program_id',$program_id)->get()->groupBy('day');
-        return view('project.user_program.details',['data'=>$data , 'user_program'=>$user_program]);
+        return view('project.user_program.details',['data'=>$data , 'user_program'=>$user_program , 'client'=>$client]);
         // return response()->json([
         //     'success'=>true,
         //     'view'=>view('project.user_program.ajax.get_program',['data'=>$data])->render()

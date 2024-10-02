@@ -235,7 +235,7 @@
                 <a href="{{ route('program.user_program.index') }}" class="nav-link text-white "
                     aria-controls="dashboardsExamples" role="button" aria-expanded="false">
                     <i class="fa fa-menu"></i>
-                    <span class="nav-link-text me-1">اضافة برنامج لعميل</span>
+                    <span class="nav-link-text me-1">برامج العملاء</span>
                 </a>
             </li>
         </ul>

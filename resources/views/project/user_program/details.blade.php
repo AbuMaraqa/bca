@@ -11,6 +11,20 @@
             <div class="card">
                 <div class="card-body">
                     <div class="row">
+                        <div class="col-md-12">
+                            <h4 class="text-center">البرنامج الخاص بالمستخدم <span class="">{{ $client->name }}</span>
+                                بتاريخ :
+                                <span>{{ $user_program->created_at }}</span>
+                            </h4>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <button class="btn btn-primary" data-bs-toggle="modal"
+                                data-bs-target="#add_program_meal_modal">اضافة نوع وجبة</button>
+                        </div>
+                    </div>
+                    <div class="row">
                         <div class="col-md-12" id="list_programs">
 
                         </div>
@@ -27,6 +41,7 @@
     <script>
         $(document).ready(function() {
             list_program();
+            meal_type_list();
         });
 
         function list_program() {
@@ -51,6 +66,55 @@
                 success: function(data) {
                     if (data.success === true) {
                         $('#list_programs').html(data.view);
+                    }
+                }
+            });
+        }
+
+        function meal_type_list() {
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+            $.ajax({
+                url: "{{ route('program.user_program.meal_type_list') }}",
+                type: 'POST',
+                dataType: "json",
+                data: {
+                    name: $('#name').val(),
+                    // phone : $('#phone').val(),
+                    program_id: {{ $user_program->id }}
+                },
+                success: function(data) {
+                    if (data.success === true) {
+                        $('#meal_type_list').html(data.view);
+                        program_meal_list();
+                    }
+                }
+            });
+        }
+
+        function add_meal_type_for_program(data) {
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+            $.ajax({
+                url: "{{ route('program.user_program.add_meal_type_for_program') }}",
+                type: 'POST',
+                dataType: "json",
+                data: {
+                    program_id: {{ $user_program->id }},
+                    meal_type_id: data.id,
+                    user_id: {{ $user_program->client_id }}
+                },
+                success: function(data) {
+                    if (data.success === true) {
+                        meal_type_list();
+                        list_program();
+                        $('#meal_type_list').html(data.view);
                     }
                 }
             });

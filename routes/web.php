@@ -140,6 +140,8 @@ Route::group(['middleware' => 'auth'], function () {
             Route::post('users_program', [App\Http\Controllers\UserProgramController::class, 'users_program'])->name('program.user_program.users_program');
             Route::get('add', [App\Http\Controllers\UserProgramController::class, 'add'])->name('program.user_program.add');
             Route::post('program_meal_list', [App\Http\Controllers\UserProgramController::class, 'program_meal_list'])->name('program.user_program.program_meal_list');
+            Route::post('meal_type_list', [App\Http\Controllers\UserProgramController::class, 'meal_type_list'])->name('program.user_program.meal_type_list');
+            Route::post('add_meal_type_for_program', [App\Http\Controllers\UserProgramController::class, 'add_meal_type_for_program'])->name('program.user_program.add_meal_type_for_program');
             Route::post('add_program_for_user', [App\Http\Controllers\UserProgramController::class, 'add_program_for_user'])->name('program.user_program.add_program_for_user');
             Route::post('program_meal_suplement', [App\Http\Controllers\UserProgramController::class, 'program_meal_suplement'])->name('program.user_program.program_meal_suplement');
             Route::post('add_supplement_for_meal_type', [App\Http\Controllers\UserProgramController::class, 'add_supplement_for_meal_type'])->name('program.user_program.add_supplement_for_meal_type');
