@@ -43,7 +43,7 @@ class ClientsController extends Controller
     {
         $data = ClientsModel::where('id',$request->user_id)->first();
         $data->name = $request->name;
-        $data->user_status = 'active';
+        // $data->user_status = 'active';
         $data->phone = $request->phone;
         $data->dob = $request->dob;
         $data->city = $request->city;
