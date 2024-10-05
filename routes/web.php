@@ -151,6 +151,7 @@ Route::group(['middleware' => 'auth'], function () {
             Route::get('print_pdf/{program_id}', [App\Http\Controllers\UserProgramController::class, 'print_pdf'])->name('program.user_program.print_pdf');
             Route::post('update_data_ajax', [App\Http\Controllers\UserProgramController::class, 'update_data_ajax'])->name('program.user_program.update_data_ajax');
             Route::get('details/{program_id}', [App\Http\Controllers\UserProgramController::class, 'details'])->name('program.user_program.details');
+            Route::get('user_program_list/{client_id}', [App\Http\Controllers\UserProgramController::class, 'user_program_list'])->name('program.user_program.user_program_list');
         }); 
     });
     Route::group(['prefix'=>'reading_users'],function (){

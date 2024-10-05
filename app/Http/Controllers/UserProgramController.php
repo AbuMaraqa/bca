@@ -380,4 +380,10 @@ class UserProgramController extends Controller
         //     'view'=>view('project.user_program.ajax.get_program',['data'=>$data])->render()
         // ]);
     }
+
+    public function user_program_list($client_id){
+        $client = ClientsModel::where('id',$client_id)->first();
+        $data = UsersProgramModel::with('client')->where('client_id',$client_id)->orderBy('id','desc')->get();
+        return view('project.user_program.user_program',['data'=>$data , 'client'=>$client]); 
+    }
 }
