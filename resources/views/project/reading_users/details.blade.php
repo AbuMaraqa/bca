@@ -68,10 +68,10 @@
                                             <tr>
                                                 <th>الوصف</th>
                                                 <th>الزيارة الحالية</th>
-                                                <th>الزيارة السابعة</th>
+                                                <th>الزيارة السابقة</th>
                                                 <th>الزيارة الأولى</th>
-                                                <th>التقدم عن آخر زيارة</th>
-                                                <th>التقدم التراكمي</th>
+                                                <th>اخر زيارة</th>
+                                                <th>الفرق الكلي</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -197,7 +197,7 @@
                 dataType: "json",
                 data: {
                     bca: $('#bca_search').val(),
-                    client_id: $('#client_id').val(),
+                    client_id: {{ $client->id }},
                 },
                 success: function(data) {
                     if (data.success === true) {
