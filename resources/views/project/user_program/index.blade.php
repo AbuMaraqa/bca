@@ -7,7 +7,18 @@
         <div class="col-md-12">
             <div class="card">
                 <div class="card-body">
-                    <a href="{{ route('program.user_program.add')}}" class="btn btn-primary">اضافة برنامج</a>
+                    <a href="{{ route('program.user_program.add') }}" class="btn btn-primary">اضافة برنامج</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row mb-2">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-body">
+                    <div class="form-group">
+                        <input type="text" id="search" class="form-control" placeholder="البحث عن برنامج لعميل">
+                    </div>
                 </div>
             </div>
         </div>
@@ -28,11 +39,15 @@
 @endsection
 @section('script')
     <script>
-        $(document).ready(function(){
+        $(document).ready(function() {
             users_program();
-        })
+            $('#search').keyup(function() {
+                users_program();
+            })
 
-        function users_program(program_id){
+        });
+
+        function users_program(program_id) {
             $.ajaxSetup({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -43,10 +58,11 @@
                 type: 'POST',
                 dataType: "json",
                 data: {
-                    client_id: $('#client_id').val()
+                    client_id: $('#client_id').val(),
+                    search: $('#search').val(),
                 },
-                success: function(data) {                    
-                    if (data.success === true){
+                success: function(data) {
+                    if (data.success === true) {
                         $('#users_program_list').html(data.view)
                     }
                 }

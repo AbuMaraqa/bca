@@ -27,7 +27,9 @@ class UserProgramController extends Controller
     }
 
     public function users_program(Request $request){
-        $data = UsersProgramModel::with('client')->where('status','complete')->orderBy('id','desc')->get();
+        $data = UsersProgramModel::with('client')->where('status','complete')->whereIn('client_id',function($query) use ($request){
+            $query->select('id')->from('clients')->where('name','like','%'.$request->search.'%');
+        })->orderBy('id','desc')->get();
         return response()->json([
             'success'=>true,
             'view'=>view('project.user_program.ajax.user_program',['data'=>$data])->render(),
@@ -102,7 +104,7 @@ class UserProgramController extends Controller
         // Add new user program
         $user_program = new UsersProgramModel();
         $user_program->client_id = $request->user_id;
-        $user_program->program_name = Carbon::now()->toDateString();
+        $user_program->program_name = ProgramModel::where('id',$request->program_id)->first()->program_name;
         $user_program->program_category = $program->program_category_id;
         $user_program->Instructions = InstructionsModel::where('id',$program->Instructions)->first()->instructions_note ?? '';
         $user_program->status = 'incomplete';

@@ -3,6 +3,7 @@
         <tr>
             <th>تاريخ الاضافة</th>
             <th>اسم العميل</th>
+            <th>اسم البرنامج</th>
             <th>العمليات</th>
         </tr>
     </thead>
@@ -16,6 +17,7 @@
                 <tr>
                     <td>{{ $key->created_at }}</td>
                     <td>{{ $key->client->name }}</td>
+                    <td>{{ $key->program_name }}</td>
                     <td>
                         <a href="{{ route('program.user_program.details', ['program_id' => $key->id]) }}"
                             class="btn btn-sm btn-primary"><span class="fa fa-search"></span></a>
