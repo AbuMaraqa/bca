@@ -18,10 +18,10 @@
                 <div class="row">
                     <div class="col">
                         <a href="{{ route('clients.index') }}" class="btn btn-primary">قائمة العملاء</a>
-                        <a href="{{ route('clients.details', ['client_id' => $client->id]) }}"
-                            class="btn btn-primary">تفاصيل العميل</a>
-                        <a href="{{ route('clients.details', ['client_id' => $client->id]) }}"
-                            class="btn btn-primary">استبيان العميل</a>
+                        <a href="{{ route('clients.edit', ['id' => $client->id]) }}" class="btn btn-primary">تفاصيل
+                            العميل</a>
+                        {{-- <a href="{{ route('clients.details', ['client_id' => $client->id]) }}"
+                            class="btn btn-primary">استبيان العميل</a> --}}
                         <a href="{{ route('reading_users.details', ['client_id' => $client->id]) }}"
                             class="btn btn-primary">قراءات العميل</a>
                         <a href="{{ route('customers_debt.index', ['client_id' => $client->id]) }}"

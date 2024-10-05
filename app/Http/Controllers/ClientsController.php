@@ -48,8 +48,8 @@ class ClientsController extends Controller
     public function edit($id)
     {
         $diseases = DiseasesModel::get();
-        $data = ClientsModel::where('id',$id)->first();
-        return view('project.clients.edit',['data'=>$data , 'diseases'=>$diseases]);
+        $client = ClientsModel::where('id',$id)->first();
+        return view('project.clients.edit',['client'=>$client , 'diseases'=>$diseases]);
     }
 
     public function update(Request $request)
