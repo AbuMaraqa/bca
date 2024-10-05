@@ -44,10 +44,10 @@
                                 class="fa fa-edit"></span></a>
                         <a href="{{ route('clients.details', ['client_id' => $key->id]) }}"
                             class="btn btn-dark btn-sm btn-tooltip"><span class="fa fa-search"></span></a>
-                        <a href="{{ route('customers_debt.index', ['client_id' => $key->id]) }}"
+                        {{-- <a href="{{ route('customers_debt.index', ['client_id' => $key->id]) }}"
                             class="btn btn-warning btn-sm btn-tooltip"><span class="fa fa-credit-card"></span></a>
                         <a href="{{ route('clients.subscriptions.index', ['client_id' => $key->id]) }}"
-                            class="btn btn-warning btn-sm btn-tooltip"><span class="fa fa-address-card"></span></a>
+                            class="btn btn-warning btn-sm btn-tooltip"><span class="fa fa-address-card"></span></a> --}}
                         <button onclick="open_freezing_modal({{ $key->id }})" class="btn btn-primary btn-sm"><i
                                 class="fas fa-snowflake"></i></button>
                     </td>
