@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\ClientModel;
 use App\Models\ClientsModel;
 use App\Models\CustomerDebtModel;
+use App\Models\DiseasesModel;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
@@ -17,7 +18,8 @@ class ClientsController extends Controller
 
     public function add()
     {
-        return view('project.clients.add');
+        $diseases = DiseasesModel::get();
+        return view('project.clients.add',['diseases'=>$diseases]);
     }
 
     public function create(Request $request)
@@ -28,15 +30,26 @@ class ClientsController extends Controller
         $data->phone = $request->phone;
         $data->dob = $request->dob;
         $data->city = $request->city;
+        $data->notes = $request->notes;
+        $data->medicines = $request->medicines;
+        $data->sensitive = $request->sensitive;
+        $data->diseases = json_encode($request->diseases);
         if ($data->save()) {
             return redirect()->route('clients.index')->with(['success'=>'تم اضافة العميل بنجاح']);
         }
     }
 
+    public function details($client_id){
+        $cleint = ClientsModel::where('id',$client_id)->first();
+        $cleint->debt = CustomerDebtModel::where('client_id',$client_id)->sum('value');
+        return view('project.clients.details',['client'=>$cleint]);
+    }
+
     public function edit($id)
     {
+        $diseases = DiseasesModel::get();
         $data = ClientsModel::where('id',$id)->first();
-        return view('project.clients.edit',['data'=>$data]);
+        return view('project.clients.edit',['data'=>$data , 'diseases'=>$diseases]);
     }
 
     public function update(Request $request)
@@ -47,6 +60,10 @@ class ClientsController extends Controller
         $data->phone = $request->phone;
         $data->dob = $request->dob;
         $data->city = $request->city;
+        $data->notes = $request->notes;
+        $data->medicines = $request->medicines;
+        $data->sensitive = $request->sensitive;
+        $data->diseases = json_encode($request->diseases);
         if ($data->save()) {
             return redirect()->route('clients.index')->with(['success'=>'تم تعديل العميل بنجاح']);
         }

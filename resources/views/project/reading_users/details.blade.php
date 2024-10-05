@@ -9,6 +9,7 @@
             @include('alert_message.fail')
         </div>
     </div>
+    @include('project.clients.menu')
     <div class="row mb-3">
         <div class="col-md-12">
             <div class="card">

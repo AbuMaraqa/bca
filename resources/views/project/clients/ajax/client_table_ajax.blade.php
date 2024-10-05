@@ -42,7 +42,8 @@
                             class="btn btn-success btn-sm btn-tooltip" data-bs-toggle="tooltip" data-bs-placement="top"
                             title="Tooltip on top" data-container="body" data-animation="true"><span
                                 class="fa fa-edit"></span></a>
-                        <a href="" class="btn btn-dark btn-sm btn-tooltip"><span class="fa fa-search"></span></a>
+                        <a href="{{ route('clients.details', ['client_id' => $key->id]) }}"
+                            class="btn btn-dark btn-sm btn-tooltip"><span class="fa fa-search"></span></a>
                         <a href="{{ route('customers_debt.index', ['client_id' => $key->id]) }}"
                             class="btn btn-warning btn-sm btn-tooltip"><span class="fa fa-credit-card"></span></a>
                         <a href="{{ route('clients.subscriptions.index', ['client_id' => $key->id]) }}"

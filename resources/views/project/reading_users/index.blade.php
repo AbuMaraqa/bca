@@ -9,6 +9,7 @@
             @include('alert_message.fail')
         </div>
     </div>
+    @include('project.clients.menu')
     <div class="row mb-3">
         <div class="col-md-12">
             <div class="card">
@@ -41,12 +42,13 @@
 @endsection
 @section('script')
     <script>
-        $(document).ready(function () {
+        $(document).ready(function() {
             $('#name').on('keyup', function() {
                 list_reading_users_ajax();
             });
             list_reading_users_ajax();
         });
+
         function list_reading_users_ajax() {
             $.ajaxSetup({
                 headers: {
@@ -58,10 +60,10 @@
                 type: 'POST',
                 dataType: "json",
                 data: {
-                    name : $('#name').val(),
+                    name: $('#name').val(),
                 },
                 success: function(data) {
-                    if (data.success === true){
+                    if (data.success === true) {
                         $('#list_reading_users_ajax').html(data.view);
                     }
                 }

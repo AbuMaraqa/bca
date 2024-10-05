@@ -33,6 +33,7 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('add', [App\Http\Controllers\ClientsController::class, 'add'])->name('clients.add');
         Route::post('create', [App\Http\Controllers\ClientsController::class, 'create'])->name('clients.create');
         Route::get('edit/{id}', [App\Http\Controllers\ClientsController::class, 'edit'])->name('clients.edit');
+        Route::get('details/{client_id}', [App\Http\Controllers\ClientsController::class, 'details'])->name('clients.details');
         Route::post('update', [App\Http\Controllers\ClientsController::class, 'update'])->name('clients.update');
         Route::post('list_clients_ajax', [App\Http\Controllers\ClientsController::class, 'list_clients_ajax'])->name('clients.list_clients_ajax');
         Route::group(['prefix'=>'customers_debt'],function (){
@@ -158,7 +159,15 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('details/{client_id}', [App\Http\Controllers\ReadingUsersController::class, 'details'])->name('reading_users.details');
         Route::post('create_reading_user', [App\Http\Controllers\ReadingUsersController::class, 'create_reading_user'])->name('reading_users.create_reading_user');
         Route::post('search_from_bca', [App\Http\Controllers\ReadingUsersController::class, 'search_from_bca'])->name('reading_users.search_from_bca');
-    }); 
+    });
+    
+    Route::group(['prefix'=>'diseases'],function (){
+        Route::get('index', [App\Http\Controllers\DiseasesController::class, 'index'])->name('diseases.index');
+        Route::get('add', [App\Http\Controllers\DiseasesController::class, 'add'])->name('diseases.add');
+        Route::post('create', [App\Http\Controllers\DiseasesController::class, 'create'])->name('diseases.create');
+        Route::get('edit/{id}', [App\Http\Controllers\DiseasesController::class, 'edit'])->name('diseases.edit');
+        Route::post('index', [App\Http\Controllers\DiseasesController::class, 'update'])->name('diseases.update');
+    });
     Route::get('logout', [App\Http\Controllers\Auth\LoginController::class, 'logout'])->name('logout');
 
     Route::get('/migrate', function(){

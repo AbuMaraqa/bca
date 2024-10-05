@@ -9,11 +9,13 @@
             @include('alert_message.fail')
         </div>
     </div>
+    @include('project.clients.menu')
     <div class="row mb-3">
         <div class="col-md-12">
             <div class="card">
                 <div class="card-body">
-                    <a href="{{ route('customers_debt.add',['client_id'=>$client->id]) }}" class="btn btn-primary">اضافة دين</a>
+                    <a href="{{ route('customers_debt.add', ['client_id' => $client->id]) }}" class="btn btn-primary">اضافة
+                        دين</a>
                 </div>
             </div>
         </div>
@@ -36,11 +38,11 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach($data as $key)
+                                    @foreach ($data as $key)
                                         <tr>
                                             <td>{{ $key->value }}</td>
                                             <td>
-                                                @if($key->type == 'creditor')
+                                                @if ($key->type == 'creditor')
                                                     عليه
                                                 @else
                                                     له
@@ -50,7 +52,10 @@
                                             <td>{{ $key->discount }}</td>
                                             <td>{{ $key->insert_at }}</td>
                                             <td>
-                                                <a class="btn btn-danger btn-sm" onclick="return confirm('هل انت متاكد من عملية الحذف ؟')" href="{{ route('customers_debt.delete',['id'=>$key->id]) }}"><span class="fa fa-trash"></span></a>
+                                                <a class="btn btn-danger btn-sm"
+                                                    onclick="return confirm('هل انت متاكد من عملية الحذف ؟')"
+                                                    href="{{ route('customers_debt.delete', ['id' => $key->id]) }}"><span
+                                                        class="fa fa-trash"></span></a>
                                             </td>
                                         </tr>
                                     @endforeach

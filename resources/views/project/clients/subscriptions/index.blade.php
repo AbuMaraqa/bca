@@ -3,6 +3,7 @@
     اشتراكات العميل
 @endsection
 @section('content')
+    @include('project.clients.menu')
     <div class="row mb-3">
         <div class="col-md-12">
             <div class="card">

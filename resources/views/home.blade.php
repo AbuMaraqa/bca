@@ -33,7 +33,7 @@
                                 </div>
                             </div>
 
-                            {{-- <div class="col-md-6 btn lg-light btn-lg btn-block border border-success">
+                            <div class="col-md-6 btn lg-light btn-lg btn-block border border-success">
                                 <h5 class=""><span class="fa fa-users"></span> العملاء</h5>
                                 <div class="row">
                                     <div class="col-md-6">
@@ -47,7 +47,7 @@
                                             عرض العملاء</a>
                                     </div>
                                 </div>
-                            </div> --}}
+                            </div>
                         </div>
                     </div>
                 </div>
