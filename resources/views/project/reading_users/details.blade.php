@@ -197,6 +197,7 @@
                 dataType: "json",
                 data: {
                     bca: $('#bca_search').val(),
+                    client_id: $('#client_id').val(),
                 },
                 success: function(data) {
                     if (data.success === true) {

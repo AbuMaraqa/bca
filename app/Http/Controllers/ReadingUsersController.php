@@ -46,8 +46,8 @@ class ReadingUsersController extends Controller
         }
     }
 
-    public function search_from_bca(Request $readings){
-        $data = ReadingUsersModel::orderBy('id','desc')->get();
+    public function search_from_bca(Request $request){
+        $data = ReadingUsersModel::where('user_id',$request->client_id)->orderBy('id','desc')->get();
         return response()->json([
             'success'=>true,
             'view'=>view('project.reading_users.ajax.list_bca',['data'=>$data])->render()
