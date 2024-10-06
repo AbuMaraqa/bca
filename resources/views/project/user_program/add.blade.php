@@ -2,6 +2,10 @@
 @section('title')
     اضافة برنامج للعميل
 @endsection
+@section('style')
+    <!-- Select2 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+@endsection
 @section('content')
     <div class="row">
         <div class="col-md-12">
@@ -11,7 +15,7 @@
                         <div class="col-md-6">
                             <div class="input-group input-group-static mb-4">
                                 <label for="exampleFormControlSelect1" class="ms-0">اسم العميل</label>
-                                <select required class="form-control" id="user_id">
+                                <select required class="form-control select2" id="user_id">
                                     @foreach ($clients as $key)
                                         <option value="{{ $key->id }}">{{ $key->name }}</option>
                                     @endforeach
@@ -21,7 +25,8 @@
                         <div class="col-md-6">
                             <div class="input-group input-group-static mb-4">
                                 <label for="exampleFormControlSelect1" class="ms-0">البرامج</label>
-                                <select required class="form-control" name="program_category_id" id="select_program_id">
+                                <select required class="form-control select2" name="program_category_id"
+                                    id="select_program_id">
                                     <option value="">اختر برنامج ...</option>
                                     @foreach ($programs as $key)
                                         <option value="{{ $key->id }}">{{ $key->program_name }}</option>
@@ -55,6 +60,9 @@
 @endsection
 
 @section('script')
+    <script src="{{ asset('assets/js/choices.min.js') }}" type="text/javascript"></script>
+    <!-- Select2 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
     <script>
         $('#select_program_id').on('change', function() {
             $.ajaxSetup({
@@ -247,5 +255,17 @@
                 }
             });
         }
+
+        $(document).ready(function() {
+            // Initialize Select2 for the user_id select box
+            $('#user_id').select2({
+                placeholder: "Search for a client",
+                allowClear: true
+            });
+            $('#select_program_id').select2({
+                placeholder: "Search for a client",
+                allowClear: true
+            });
+        });
     </script>
 @endsection

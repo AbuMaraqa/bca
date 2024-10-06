@@ -8,7 +8,7 @@
                 <th>fats</th>
                 <th>protein</th>
                 <th>fibers</th>
-                <th>العمليات</th>
+                {{-- <th>العمليات</th> --}}
             </tr>
         </thead>
         <tbody>
@@ -18,17 +18,17 @@
                 </tr>
             @endif
             @foreach ($data as $key)
-                <tr>
+                <tr ondblclick="add_supplement_for_meal_type({{ $key->id }})">
                     <td class="long-text">{{ $key->product }}</td>
                     <td>{{ $key->calories }}</td>
                     <td>{{ $key->carbohydrates }}</td>
                     <td>{{ $key->fats }}</td>
                     <td>{{ $key->protein }}</td>
                     <td>{{ $key->fibers }}</td>
-                    <td>
+                    {{-- <td>
                         <button onclick="add_supplement_for_meal_type({{ $key->id }})"
                             class="btn btn-primary btn-sm"><span class="fa fa-plus"></span></button>
-                    </td>
+                    </td> --}}
                 </tr>
             @endforeach
         </tbody>

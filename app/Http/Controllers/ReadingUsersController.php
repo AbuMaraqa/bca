@@ -53,4 +53,11 @@ class ReadingUsersController extends Controller
             'view'=>view('project.reading_users.ajax.list_bca',['data'=>$data])->render()
         ]);
     }
+
+    public function delete($id){
+        $data = ReadingUsersModel::where('id',$id)->first();
+        if($data->delete()){
+            return redirect()->back()->with(['success'=>'تم حذف البيانات بنجاح']);
+        }
+    }
 }

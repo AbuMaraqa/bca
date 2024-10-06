@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect()->route('login');
 });
 
 Auth::routes();
@@ -36,6 +36,7 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('details/{client_id}', [App\Http\Controllers\ClientsController::class, 'details'])->name('clients.details');
         Route::post('update', [App\Http\Controllers\ClientsController::class, 'update'])->name('clients.update');
         Route::post('list_clients_ajax', [App\Http\Controllers\ClientsController::class, 'list_clients_ajax'])->name('clients.list_clients_ajax');
+        Route::get('delete/{client_id}', [App\Http\Controllers\ClientsController::class, 'delete'])->name('clients.delete');
         Route::group(['prefix'=>'customers_debt'],function (){
             Route::get('index/{client_id}', [App\Http\Controllers\CustomerDebtController::class, 'index'])->name('customers_debt.index');
             Route::get('add/{client_id}', [App\Http\Controllers\CustomerDebtController::class, 'add'])->name('customers_debt.add');
@@ -160,6 +161,7 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('details/{client_id}', [App\Http\Controllers\ReadingUsersController::class, 'details'])->name('reading_users.details');
         Route::post('create_reading_user', [App\Http\Controllers\ReadingUsersController::class, 'create_reading_user'])->name('reading_users.create_reading_user');
         Route::post('search_from_bca', [App\Http\Controllers\ReadingUsersController::class, 'search_from_bca'])->name('reading_users.search_from_bca');
+        Route::get('delete/{id}', [App\Http\Controllers\ReadingUsersController::class, 'delete'])->name('reading_users.delete');
     });
     
     Route::group(['prefix'=>'diseases'],function (){

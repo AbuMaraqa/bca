@@ -50,6 +50,9 @@
                             class="btn btn-warning btn-sm btn-tooltip"><span class="fa fa-address-card"></span></a> --}}
                         <button onclick="open_freezing_modal({{ $key->id }})" class="btn btn-primary btn-sm"><i
                                 class="fas fa-snowflake"></i></button>
+                        <a onclick="return confirm('هل تريد حذف العميل؟');"
+                            href="{{ route('clients.delete', ['client_id' => $key->id]) }}"
+                            class="btn btn-sm btn-danger"><span class="fa fa-trash"></span></a>
                     </td>
                 </tr>
             @endforeach

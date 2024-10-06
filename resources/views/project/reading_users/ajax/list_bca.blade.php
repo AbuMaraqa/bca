@@ -6,6 +6,7 @@
             <th>الدهون</th>
             {{-- <th>البروتين</th> --}}
             <th>العضلات</th>
+            <th></th>
             {{-- <th>الاملاح</th> --}}
         </tr>
     </thead>
@@ -18,6 +19,10 @@
                 {{-- <td>{{ $key->liquids }}</td> --}}
                 <td>{{ $key->muscles }}</td>
                 {{-- <td>{{ $key->salts }}</td> --}}
+                <td>
+                    <a href="{{ route('reading_users.delete', ['id' => $key->id]) }}" class="btn btn-sm btn-danger"><span
+                            class="fa fa-trash"></a>
+                </td>
             </tr>
         @endforeach
     </tbody>

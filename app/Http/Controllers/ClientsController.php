@@ -33,7 +33,9 @@ class ClientsController extends Controller
         $data->notes = $request->notes;
         $data->medicines = $request->medicines;
         $data->sensitive = $request->sensitive;
-        $data->diseases = json_encode($request->diseases);
+        if($request->filled('diseases')){
+            $data->diseases = json_encode($request->diseases);
+        }
         if ($data->save()) {
             return redirect()->route('clients.index')->with(['success'=>'تم اضافة العميل بنجاح']);
         }
@@ -63,7 +65,9 @@ class ClientsController extends Controller
         $data->notes = $request->notes;
         $data->medicines = $request->medicines;
         $data->sensitive = $request->sensitive;
-        $data->diseases = json_encode($request->diseases);
+        if($request->filled('diseases')){
+            $data->diseases = json_encode($request->diseases);
+        }
         if ($data->save()) {
             return redirect()->route('clients.index')->with(['success'=>'تم تعديل العميل بنجاح']);
         }
@@ -137,6 +141,13 @@ class ClientsController extends Controller
 
         } else {
             return redirect()->route('clients.index')->with(['fail' => 'لقد انتهى اشتراك هذا المستخدم']);
+        }
+    }
+
+    public function delete($clinet_id){
+        $data = ClientsModel::where('id',$clinet_id)->first();
+        if ($data->delete()){
+            return redirect()->route('clients.index')->with(['success'=>'تم حذف العميل بنجاح']);
         }
     }
 }
