@@ -81,7 +81,7 @@ class ClientsController extends Controller
         if ($request->filled('phone')){
             $data->where('phone','like','%'.$request->phone.'%');
         }
-        $data = $data->paginate(10);
+        $data = $data->get();
         foreach ($data as $key){
             $key->debt = CustomerDebtModel::where('client_id',$key->id)->sum('value');
         }
