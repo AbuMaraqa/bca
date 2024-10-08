@@ -79,12 +79,14 @@ Route::group(['middleware' => 'auth'], function () {
         Route::post('create', [App\Http\Controllers\RoomsControllers::class, 'create'])->name('rooms.create');
         Route::get('edit/{id}', [App\Http\Controllers\RoomsControllers::class, 'edit'])->name('rooms.edit');
         Route::post('update', [App\Http\Controllers\RoomsControllers::class, 'update'])->name('rooms.update');
+        Route::get('delete/{id}', [App\Http\Controllers\RoomsControllers::class, 'delete'])->name('rooms.delete');
     });
     Route::group(['prefix'=>'reception'],function (){
         Route::get('index', [App\Http\Controllers\ReceptionController::class, 'index'])->name('reception.index');
         Route::get('room/{id}', [App\Http\Controllers\ReceptionController::class, 'room'])->name('reception.room');
         Route::get('add_appointment/{room_id}', [App\Http\Controllers\ReceptionController::class, 'add_appointment'])->name('reception.add_appointment');
         Route::post('create_appointment', [App\Http\Controllers\ReceptionController::class, 'create_appointment'])->name('supplements.create_appointment');
+        Route::post('update_status', [App\Http\Controllers\ReceptionController::class, 'update_status'])->name('supplements.update_status');
     });
     Route::group(['prefix'=>'supplements'],function (){
         Route::get('index', [App\Http\Controllers\SupplementsController::class, 'index'])->name('supplements.index');
@@ -92,6 +94,7 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('add', [App\Http\Controllers\SupplementsController::class, 'add'])->name('supplements.add');
         Route::get('edit/{id}', [App\Http\Controllers\SupplementsController::class, 'edit'])->name('supplements.edit');
         Route::post('update', [App\Http\Controllers\SupplementsController::class, 'update'])->name('supplements.update');
+        Route::post('supplement_table_ajax', [App\Http\Controllers\SupplementsController::class, 'supplement_table_ajax'])->name('supplements.supplement_table_ajax');
     });
     Route::group(['prefix'=>'program'],function (){
         Route::group(['prefix'=>'program_category'],function (){

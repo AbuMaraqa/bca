@@ -27,7 +27,8 @@
                             <div class="form-group">
                                 <div class="input-group input-group-outline my-3">
                                     <label class="form-label">اسم التصنيف</label>
-                                    <input id="name" onkeyup="list_program_category()" type="text" class="form-control">
+                                    <input id="name" onkeyup="list_program_category()" type="text"
+                                        class="form-control">
                                 </div>
                             </div>
                         </div>
@@ -50,12 +51,13 @@
 @endsection
 @section('script')
     <script>
-        $(document).ready(function () {
+        $(document).ready(function() {
             list_program_category();
-            $('#name').keyup(function(){
+            $('#name').keyup(function() {
                 list_program_category();
             });
         });
+
         function list_program_category() {
             $.ajaxSetup({
                 headers: {
@@ -67,16 +69,15 @@
                 type: 'POST',
                 dataType: "json",
                 data: {
-                    name : $('#name').val(),
+                    name: $('#name').val(),
                     // phone : $('#phone').val(),
                 },
                 success: function(data) {
-                    if (data.success === true){
+                    if (data.success === true) {
                         $('#list_program_category').html(data.view);
                     }
                 }
             });
         }
-
     </script>
 @endsection

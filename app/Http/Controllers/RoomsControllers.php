@@ -44,4 +44,11 @@ class RoomsControllers extends Controller
             return redirect()->route('rooms.index')->with(['success'=>'تم تعديل البيانات بنجاح']);
         }
     }
+
+    public function delete($id){
+        $data = RoomsModel::where('id',$id)->first();
+        if($data->delete()){
+            return redirect()->route('rooms.index')->with(['success'=>'تم حذف الغرفة بنجاح']);
+        }
+    }
 }

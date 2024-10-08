@@ -4,7 +4,6 @@
 @endsection
 @section('style')
     <link rel="canonical" href="https://www.creative-tim.com/learning-lab/bootstrap/choices/material-dashboard" />
-
 @endsection
 @section('content')
     <div class="row mb-3">
@@ -17,23 +16,25 @@
         <form action="{{ route('supplements.create_appointment') }}" method="post" class="col-md-8">
             @csrf
             <input type="hidden" value="{{ $room_id }}" name="room_id">
-                <div class="card">
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="form-group">
-                                    <select class="form-control" name="customer_id" id="choices-button" placeholder="Departure">
-                                        @foreach($clients as $key)
+            <div class="card">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                {{-- <select class="form-control" name="customer_id" id="choices-button" placeholder="Departure">
+                                        @foreach ($clients as $key)
                                             <option value="{{ $key->id }}">{{ $key->name }}</option>
                                         @endforeach
-                                    </select>
-                                </div>
+                                    </select> --}}
+                                <input type="text" class="form-control" placeholder="يرجى كتابة اسم العميل الكامل"
+                                    name="customer_name">
                             </div>
                         </div>
-                        <button class="btn btn-primary">اضافة</button>
-
                     </div>
+                    <button class="btn btn-primary mt-3">اضافة</button>
+
                 </div>
+            </div>
         </form>
         <div class="col-md-4 text-center">
             <span style="font-size: 100px" class="fa fa-users"></span>

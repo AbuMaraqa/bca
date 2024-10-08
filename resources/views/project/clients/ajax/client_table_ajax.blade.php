@@ -6,6 +6,7 @@
             <th>رقم الهاتف</th>
             <th>المدينة</th>
             <th>حالة المستخدم</th>
+            <th>تاريخ انتهاء الاشتراك</th>
             <th>الديون</th>
             <th>العمليات</th>
         </tr>
@@ -28,6 +29,9 @@
                         @elseif ($key->user_status == 'old')
                             <span class="badge bg-gradient-success">مشترك</span>
                         @endif
+                    </td>
+                    <td>
+                        {{ $key->end_subscription }}
                     </td>
                     <td>
                         @if ($key->debt < 0)

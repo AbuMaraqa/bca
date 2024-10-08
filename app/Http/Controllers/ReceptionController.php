@@ -32,12 +32,29 @@ class ReceptionController extends Controller
 
     public function create_appointment(Request $request)
     {
+        $clients = new ClientsModel();
+        $clients->name = $request->customer_name;
+        $clients->user_status = 'new';
+        $clients->save();
+        
         $data = new AppointmentsModel();
-        $data->customer_id = $request->customer_id;
+        $data->customer_id = $clients->id;
         $data->room_id = $request->room_id;
         $data->appointment_date = Carbon::now();
+        $data->status = 'waiting';
         if ($data->save()){
-            return redirect()->route('reception.index')->with('تم انشاء الموعد بنجاح');
+            return redirect()->route('reception.room',['id'=>$request->room_id])->with('تم انشاء الموعد بنجاح');
+        }
+    }
+
+    public function update_status(Request $request){
+        $data = AppointmentsModel::where('id',$request->id)->first();
+        $data->status = $request->status;
+        if ($data->save()){
+            return response()->json([
+                'success' => true,
+                'message' => 'تم تعديل حالة الموعد'
+            ]);
         }
     }
 }

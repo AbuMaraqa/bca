@@ -87,6 +87,7 @@ class SubscriptionsClientController extends Controller
             $visit->customer_id = $request->client_id;
             $visit->room_id = $request->room_id;
             $visit->appointment_date = $startDate->copy()->addDays($i * 7);
+            $visit->status = 'not_attend';
             $visit->save();
         }
 

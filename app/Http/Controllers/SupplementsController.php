@@ -9,8 +9,7 @@ class SupplementsController extends Controller
 {
     public function index()
     {
-        $data = SupplementsModel::get();
-        return view('project.supplements.index',['data'=>$data]);
+        return view('project.supplements.index');
     }
 
     public function create(Request $request)
@@ -54,5 +53,13 @@ class SupplementsController extends Controller
         if ($data->save()){
             return redirect()->route('supplements.index')->with(['success'=>'تم تعديل المكمل الغذائي بنجاح']);
         }
+    }
+
+    public function supplement_table_ajax(Request $request){
+        $data = SupplementsModel::where('product','like','%'.$request->name.'%')->get();
+        return response()->json([
+            'success' => true,
+            'view' => view('project.supplements.ajax.supplement_table',['data'=>$data])->render()
+        ]);
     }
 }

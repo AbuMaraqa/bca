@@ -25,28 +25,31 @@
                     <div class="table-responsive">
                         <table class="table table-sm">
                             <thead>
-                            <tr>
-                                <th>اسم الغرفة</th>
-                                <th>اسم المختص</th>
-                                <th>العمليات</th>
-                            </tr>
+                                <tr>
+                                    <th>اسم الغرفة</th>
+                                    <th>اسم المختص</th>
+                                    <th>العمليات</th>
+                                </tr>
                             </thead>
                             <tbody>
-                            @if($data->isEmpty())
-                                <tr>
-                                    <td colspan="3" class="text-center">لا توجد بيانات</td>
-                                </tr>
-                            @else
-                                @foreach($data as $key)
+                                @if ($data->isEmpty())
                                     <tr>
-                                        <td>{{ $key->name }}</td>
-                                        <td>{{ $key->user->name }}</td>
-                                        <td>
-                                            <a href="{{ route('rooms.edit',['id'=>$key->id]) }}" class="btn btn-success btn-sm"><span class="fa fa-edit"></span></a>
-                                        </td>
+                                        <td colspan="3" class="text-center">لا توجد بيانات</td>
                                     </tr>
-                                @endforeach
-                            @endif
+                                @else
+                                    @foreach ($data as $key)
+                                        <tr>
+                                            <td>{{ $key->name }}</td>
+                                            <td>{{ $key->user->name }}</td>
+                                            <td>
+                                                <a href="{{ route('rooms.edit', ['id' => $key->id]) }}"
+                                                    class="btn btn-success btn-sm"><span class="fa fa-edit"></span></a>
+                                                <a href="{{ route('rooms.delete', ['id' => $key->id]) }}"
+                                                    class="btn btn-danger btn-sm"><span class="fa fa-trash"></span></a>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                @endif
                             </tbody>
                         </table>
                     </div>
