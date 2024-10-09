@@ -21,6 +21,7 @@ class ReceptionController extends Controller
     {
         $today = Carbon::today()->toDateString();
         $data = AppointmentsModel::where('room_id',$id)->whereDate('appointment_date',$today)->with('client')->get();
+        return $data;
         return view('project.reception.room',['id'=>$id,'data'=>$data]);
     }
 

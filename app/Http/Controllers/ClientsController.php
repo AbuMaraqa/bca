@@ -43,7 +43,7 @@ class ClientsController extends Controller
 
     public function details($client_id){
         $cleint = ClientsModel::where('id',$client_id)->first();
-        $cleint->debt = CustomerDebtModel::where('client_id',$client_id)->sum('value');
+        $cleint->debt = CustomerDebtModel::where('client_id',$client_id)->sum('value') ?? '';
         return view('project.clients.details',['client'=>$cleint]);
     }
 
