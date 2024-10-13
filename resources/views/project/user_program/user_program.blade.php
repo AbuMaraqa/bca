@@ -8,7 +8,8 @@
         <div class="col-md-12">
             <div class="card">
                 <div class="card-body">
-                    <a href="{{ route('program.user_program.add') }}" class="btn btn-primary">اضافة برنامج</a>
+                    <a href="{{ route('program.user_program.add', ['client_id' => $client->id]) }}"
+                        class="btn btn-primary">اضافة برنامج</a>
                 </div>
             </div>
         </div>

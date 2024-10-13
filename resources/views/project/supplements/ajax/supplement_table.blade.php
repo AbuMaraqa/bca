@@ -1,4 +1,4 @@
-<table style="font-size: 10px" class="table table-sm table-hover cell-breakWord">
+<table style="font-size: 15px" class="table text-center table-sm table-hover cell-breakWord">
     <thead>
         <tr>
             <th>اسم الصنف</th>

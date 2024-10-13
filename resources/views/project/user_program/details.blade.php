@@ -25,6 +25,8 @@
                         <div class="col-md-12">
                             <button class="btn btn-primary" data-bs-toggle="modal"
                                 data-bs-target="#add_program_meal_modal">اضافة نوع وجبة</button>
+                            <a href="{{ route('program.user_program.print_pdf', ['program_id' => $user_program->id]) }}"
+                                class="btn btn-warning"><i class="fas fa-print"></i></a>
                         </div>
                     </div>
                     <div class="row">

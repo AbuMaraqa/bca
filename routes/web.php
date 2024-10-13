@@ -143,7 +143,7 @@ Route::group(['middleware' => 'auth'], function () {
         Route::group(['prefix'=>'user_program'],function (){
             Route::get('index', [App\Http\Controllers\UserProgramController::class, 'index'])->name('program.user_program.index');
             Route::post('users_program', [App\Http\Controllers\UserProgramController::class, 'users_program'])->name('program.user_program.users_program');
-            Route::get('add', [App\Http\Controllers\UserProgramController::class, 'add'])->name('program.user_program.add');
+            Route::get('add/{client_id}', [App\Http\Controllers\UserProgramController::class, 'add'])->name('program.user_program.add');
             Route::post('program_meal_list', [App\Http\Controllers\UserProgramController::class, 'program_meal_list'])->name('program.user_program.program_meal_list');
             Route::post('meal_type_list', [App\Http\Controllers\UserProgramController::class, 'meal_type_list'])->name('program.user_program.meal_type_list');
             Route::post('add_meal_type_for_program', [App\Http\Controllers\UserProgramController::class, 'add_meal_type_for_program'])->name('program.user_program.add_meal_type_for_program');

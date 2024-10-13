@@ -15,11 +15,12 @@
                         <div class="col-md-6">
                             <div class="input-group input-group-static mb-4">
                                 <label for="exampleFormControlSelect1" class="ms-0">اسم العميل</label>
-                                <select required class="form-control select2" id="user_id">
+                                <input type="text" class="form-control" readonly value="{{ $client->name }}">
+                                {{-- <select required class="form-control select2" id="user_id">
                                     @foreach ($clients as $key)
                                         <option value="{{ $key->id }}">{{ $key->name }}</option>
                                     @endforeach
-                                </select>
+                                </select> --}}
                             </div>
                         </div>
                         <div class="col-md-6">
@@ -82,7 +83,7 @@
                     // name : $('#name').val(),
                     // phone : $('#phone').val(),
                     program_id: $(this).val(),
-                    user_id: $('#user_id').val(),
+                    user_id: {{ $client->id }},
                 },
                 success: function(data) {
                     if (data.success === true) {

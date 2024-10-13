@@ -17,6 +17,7 @@ use App\Models\UsersProgramModel;
 use Barryvdh\Debugbar\Facades\Debugbar;
 use Barryvdh\Debugbar\Twig\Extension\Debug;
 use Carbon\Carbon;
+use GuzzleHttp\Client;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use PDF;
@@ -36,10 +37,11 @@ class UserProgramController extends Controller
         ]);
     }
 
-    public function add(){
-        $clients = ClientsModel::get();
+    public function add($client_id){
+        // $clients = ClientsModel::get();
+        $client = ClientsModel::where('id',$client_id)->first();
         $programs = ProgramModel::get();
-        return view('project.user_program.add',['clients'=>$clients , 'programs'=>$programs]);
+        return view('project.user_program.add',['client'=>$client , 'programs'=>$programs]);
     }
 
     public function program_meal_list(Request $request){

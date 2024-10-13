@@ -23,7 +23,7 @@ class ReceptionController extends Controller
         $data = AppointmentsModel::where('room_id',$id)->whereDate('appointment_date',$today)->with('client')->get();
         return view('project.reception.room',['id'=>$id,'data'=>$data]);
     }
-
+    
     public function add_appointment($room_id)
     {
         $clients = ClientsModel::get();
