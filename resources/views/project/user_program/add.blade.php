@@ -163,7 +163,7 @@
                     program_id: $('#program_id').val(),
                     supplement_id: supplement_id,
                     program_meal_id: $('#program_meal_id').val(),
-                    user_id: $('#user_id').val(),
+                    user_id: {{ $client->id }},
                 },
                 success: function(data) {
                     if (data.success === true) {
