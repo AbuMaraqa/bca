@@ -385,7 +385,7 @@ class UserProgramController extends Controller
 
     public function user_program_list($client_id){
         $client = ClientsModel::where('id',$client_id)->first();
-        $data = UsersProgramModel::with('client')->where('client_id',$client_id)->orderBy('id','desc')->get();
+        $data = UsersProgramModel::with('client')->where('client_id',$client_id)->where('status','complete')->orderBy('id','desc')->get();
         return view('project.user_program.user_program',['data'=>$data , 'client'=>$client]); 
     }
 }

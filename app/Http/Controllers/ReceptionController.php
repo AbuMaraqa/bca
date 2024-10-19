@@ -56,14 +56,7 @@ class ReceptionController extends Controller
         }
     }
 
-/*************  ✨ Codeium Command ⭐  *************/
-    /**
-     * Update the status of a appointment
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-/******  f92f04a6-4f17-4763-ba3f-81403d24795f  *******/
+
     public function update_status(Request $request){
         $data = AppointmentsModel::where('id',$request->id)->first();
         $data->status = $request->status;

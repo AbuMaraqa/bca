@@ -1,5 +1,5 @@
 <div class="container">
-    <table class="table table-sm table-bordered table-hover">
+    <table style="font-size: 13px" class="table table-sm table-bordered table-hover">
         <thead>
             <tr>
                 <th>اسم الصنف</th>
@@ -19,7 +19,15 @@
             @endif
             @foreach ($data as $key)
                 <tr ondblclick="add_supplement_for_meal_type({{ $key->id }})">
-                    <td class="long-text">{{ $key->product }}</td>
+                    <td class="long-text">
+                        <div>
+                            <span>{{ $key->product }}</span>
+                            <div id="spinner_{{ $key->id }}" style="display: none"
+                                class="spinner-border spinner-border-sm float-start" role="status">
+                                <span class="sr-only">Loading...</span>
+                            </div>
+                        </div>
+                    </td>
                     <td>{{ $key->calories }}</td>
                     <td>{{ $key->carbohydrates }}</td>
                     <td>{{ $key->fats }}</td>

@@ -5,7 +5,7 @@
 @section('content')
     <input type="hidden" id="program_meal_id">
     <input type="hidden" name="program_id" id="program_id">
-
+    @include('project.clients.menu')
     <div class="row">
         <div class="col-md-12">
             <div class="card">
@@ -186,6 +186,7 @@
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 }
             });
+            $('#spinner_' + supplement_id).css('display', 'inline-block');
             $.ajax({
                 url: "{{ route('program.user_program.add_supplement_for_meal_type') }}",
                 type: 'POST',
@@ -200,26 +201,28 @@
                     if (data.success === true) {
                         $('#supplement_for_meal_type_row_' + data.program_meal.id).append(
                             `<tr id=meal_program_meal_supplement_row_${data.data.id}>
-            <td class="font-weight-bold text-dark long-text" style="padding: 10px; border: 1px solid black; text-align: right; color: black;">
-                <input type="number" value="1" onchange="update_data_ajax('qty', ${data.data.id} , this.value)" class="form-control text-center">
-            </td>
-            <td class="font-weight-bold text-dark long-text" style="padding: 10px; border: 1px solid black; text-align: right; color: black;">
-                ${data.supplement.product}
-            </td>
-            <td style="padding: 10px; border: 1px solid black; text-align: right;">
-                <textarea class="form-control form-control-sm" style="width: 100%; box-sizing: border-box;" name="" id="" cols="30" rows="1">${!data.data.notes ? '' : data.data.notes}</textarea>
-            </td>
-            <td class="text-center" style="padding: 10px; border: 1px solid black; text-align: right;">
-                <span style="cursor: pointer" class="badge badge-danger" onclick="delete_supplement_from_meal_type(${data.data.id})">X</span>
-            </td>
-        </tr>
-        `
+                    <td class="font-weight-bold text-dark long-text" style="padding: 10px; border: 1px solid black; text-align: right; color: black;">
+                        <input type="number" value="1" onchange="update_data_ajax('qty', ${data.data.id} , this.value)" class="form-control text-center">
+                    </td>
+                    <td class="font-weight-bold text-dark long-text" style="padding: 10px; border: 1px solid black; text-align: right; color: black;">
+                        ${data.supplement.product}
+                    </td>
+                    <td style="padding: 10px; border: 1px solid black; text-align: right;">
+                        <textarea class="form-control form-control-sm" style="width: 100%; box-sizing: border-box;" name="" id="" cols="30" rows="1">${!data.data.notes ? '' : data.data.notes}</textarea>
+                    </td>
+                    <td class="text-center" style="padding: 10px; border: 1px solid black; text-align: right;">
+                        <span style="cursor: pointer" class="badge badge-danger" onclick="delete_supplement_from_meal_type(${data.data.id})">X</span>
+                    </td>
+                        </tr>
+                        `
                         );
                         $('#calories_' + data.program_meal.day).html(data.calories)
                         $('#carbohydrates_' + data.program_meal.day).html(data.carbohydrates)
                         $('#fats_' + data.program_meal.day).html(data.fats)
                         $('#protein_' + data.program_meal.day).html(data.protein)
                         $('#fibers_' + data.program_meal.day).html(data.fibers)
+
+                        $('#spinner_' + supplement_id).css('display', 'none');
                     }
                 }
             });
