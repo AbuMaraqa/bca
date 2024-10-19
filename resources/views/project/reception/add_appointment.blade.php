@@ -21,13 +21,20 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="form-group">
-                                {{-- <select class="form-control" name="customer_id" id="choices-button" placeholder="Departure">
-                                        @foreach ($clients as $key)
-                                            <option value="{{ $key->id }}">{{ $key->name }}</option>
-                                        @endforeach
-                                    </select> --}}
-                                <input type="text" class="form-control" placeholder="يرجى كتابة اسم العميل الكامل"
-                                    name="customer_name">
+                                <select class="form-control" name="customer_id" id="choices-button" placeholder="Departure">
+                                    @foreach ($clients as $key)
+                                        <option value="{{ $key->id }}">{{ $key->name }}</option>
+                                    @endforeach
+                                </select>
+                                {{-- <input type="text" class="form-control" placeholder="يرجى كتابة اسم العميل الكامل"
+                                    name="customer_name"> --}}
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="">موعد الزيارة</label>
+                                <input type='datetime-local' name="appointment_date" value="{{ date('Y-m-d\TH:i') }}"
+                                    class="form-control" placeholder="موعد الزيارة">
                             </div>
                         </div>
                     </div>
