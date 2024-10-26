@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\ClientsModel;
 use App\Models\InstructionsModel;
 use App\Models\MealTypeModel;
+use App\Models\ProgramCategoryModel;
 use App\Models\ProgramMealModel;
 use App\Models\ProgramMealSupplementModel;
 use App\Models\ProgramModel;
@@ -41,7 +42,9 @@ class UserProgramController extends Controller
         // $clients = ClientsModel::get();
         $client = ClientsModel::where('id',$client_id)->first();
         $programs = ProgramModel::get();
-        return view('project.user_program.add',['client'=>$client , 'programs'=>$programs]);
+        $instructions = InstructionsModel::get();
+        $program_category = ProgramCategoryModel::get();
+        return view('project.user_program.add',['client'=>$client , 'programs'=>$programs , 'instructions'=>$instructions , 'program_category'=>$program_category]);
     }
 
     public function program_meal_list(Request $request){
@@ -387,5 +390,91 @@ class UserProgramController extends Controller
         $client = ClientsModel::where('id',$client_id)->first();
         $data = UsersProgramModel::with('client')->where('client_id',$client_id)->where('status','complete')->orderBy('id','desc')->get();
         return view('project.user_program.user_program',['data'=>$data , 'client'=>$client]); 
+    }
+
+    public function add_new_program_with_name(Request $request)
+    {
+        // $program = ProgramModel::where('id', $request->program_id)->first();
+        $program = new ProgramModel();
+        $program->program_name = $request->program_name;
+        $program->program_category_id = $request->program_category_id;
+        $program->Instructions = $request->Instructions;
+        $program->save();
+    
+        // Check if the user has an incomplete program and delete it if necessary
+        $check_user_program = UsersProgramModel::where('client_id', $request->user_id)->where('status', 'incomplete')->first();
+        
+        if (!empty($check_user_program)) {
+            $delete_user_program = UsersProgramModel::where('client_id', $request->user_id)->where('status', 'incomplete')->first();
+            
+            // Delete supplements first
+            $delete_user_program_meal_supplement = UserProgramMealSupplementModel::where('program_id', $delete_user_program->id)->get();
+            foreach ($delete_user_program_meal_supplement as $record) {
+                $record->delete();
+            }
+    
+            // Then delete meals
+            $delete_user_program_meal = UserProgramMealModel::where('program_id', $delete_user_program->id)->get();
+            foreach ($delete_user_program_meal as $key) {
+                $key->delete();
+            }
+    
+            // Finally, delete the user program
+            $delete_user_program->delete();
+        }
+    
+        // Add new user program
+        $user_program = new UsersProgramModel();
+        $user_program->client_id = $request->user_id;
+        $user_program->program_name = ProgramModel::where('id',$program->id)->first()->program_name;
+        $user_program->program_category = $program->program_category_id;
+        $user_program->Instructions = InstructionsModel::where('id',$program->Instructions)->first()->instructions_note ?? '';
+        $user_program->status = 'incomplete';
+        $user_program->save();
+    
+        // Get meals for the program and save each meal
+        $program_meal = ProgramMealModel::where('program_id', $request->program_id)->get();
+        $user_program_meal_ids = []; // To map the program meal IDs
+    
+        foreach ($program_meal as $key) {
+            $user_program_meal = new UserProgramMealModel();
+            $user_program_meal->day = $key->day;
+            $user_program_meal->program_id = $user_program->id;
+            $user_program_meal->meal_type_id = $key->meal_type_id;
+            $user_program_meal->user_id = $request->user_id;
+            $user_program_meal->save();
+    
+            // Store the generated ID of each meal
+            $user_program_meal_ids[$key->id] = $user_program_meal->id;
+        }
+
+        $program_meal = ProgramMealModel::where('program_id', $request->program_id)->get();
+
+        // Get meal supplements and associate them with meals
+        $program_meal_supplement = ProgramMealSupplementModel::where('program_id', $request->program_id)->get();
+        foreach ($program_meal_supplement as $key) {
+            $user_program_meal_supplement = new UserProgramMealSupplementModel();
+            $user_program_meal_supplement->user_id = $request->user_id;
+        
+            // Check if the program_meal_id exists in the array
+            if (isset($user_program_meal_ids[$key->program_meal_id])) {
+                $user_program_meal_supplement->program_meal_id = $user_program_meal_ids[$key->program_meal_id];
+            } else {
+                // Log or handle the missing key scenario
+                continue; // Skip this supplement if the program_meal_id doesn't exist
+            }
+        
+            $user_program_meal_supplement->program_id = $program->id;
+            $user_program_meal_supplement->supplement_id = $key->supplement_id;
+            $user_program_meal_supplement->notes = $key->notes;
+            $user_program_meal_supplement->qty = $key->qty ?? 1;
+            $user_program_meal_supplement->save();
+        }
+    
+        // Return the data
+        $data = UserProgramMealModel::with('meal_type', 'program_meal_supplement', 'program_meal_supplement.supplement')
+            ->where('program_id', $user_program->id)->get()->groupBy('day');
+    
+        return redirect()->route('program.user_program.details', ['program_id' => $user_program->id])->with('تم اضافة البرنامج للعميل بنجاح');
     }
 }

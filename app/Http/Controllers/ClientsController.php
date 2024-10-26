@@ -75,6 +75,7 @@ class ClientsController extends Controller
 
     public function list_clients_ajax(Request $request){
         $data = ClientsModel::query();
+        $data->orderBy('id','desc');
         if ($request->filled('name')){
             $data->where('name','like','%'.$request->name.'%');
         }

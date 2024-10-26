@@ -210,7 +210,7 @@
     </htmlpagefooter>
     <div class="container">
         <div style="width: 100%;text-align: center">
-            <img style="" src="{{ asset('img/logo-fidaa.png') }}" alt="">
+            <img style="width: 400px;height: 400px" src="{{ asset('img/logo-fidaa.png') }}" alt="">
         </div>
         <div style="margin-bottom: 50px">
             <h2 style="text-align: center">معاً ... لصحة أفضل</h2>
@@ -403,7 +403,9 @@
                     </table>
                 </div> --}}
             </div>
-            <pagebreak />
+            @if (!$loop->last)
+                <pagebreak />
+            @endif
         @endforeach
     </div>
 </body>

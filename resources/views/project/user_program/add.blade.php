@@ -38,20 +38,24 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-md-12" id="list_programs">
-
-                        </div>
-                    </div>
-                    <div class="row">
-                        <form action="{{ route('program.user_program.submit_program') }}" method="post">
+                        <form id="button_submit_program" style="display: none"
+                            action="{{ route('program.user_program.submit_program') }}" method="post">
                             @csrf
                             <input type="hidden" id="program_meal_id">
                             <input type="hidden" name="program_id" id="program_id">
-
                             <div class="col-md-12">
                                 <button type="submit" class="btn btn-success">اضافة البرنامج</button>
                             </div>
+                            <div class="col-md-12">
+                                <button type="button" onclick="open_add_program_name_modal()" class="btn btn-success">اضافة
+                                    نموذج برنامج</button>
+                            </div>
                         </form>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12" id="list_programs">
+
+                        </div>
                     </div>
                 </div>
             </div>
@@ -59,6 +63,7 @@
     </div>
     @include('project.user_program.modals.add_program_meal_modal')
     @include('project.user_program.modals.add_supplement_for_meal_type')
+    @include('project.user_program.modals.add_program_name')
 @endsection
 
 @section('script')
@@ -67,6 +72,7 @@
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
     <script>
         $('#select_program_id').on('change', function() {
+            var program_id = $(this).val();
             $.ajaxSetup({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -88,7 +94,9 @@
                 },
                 success: function(data) {
                     if (data.success === true) {
-                        $('#program_id').val(data.program.id)
+                        $('#button_submit_program').show();
+                        $('#program_id').val(data.program.id);
+                        $('#program_id_modal').val(program_id);
                         $('#list_programs').html(data.view);
                     }
                 }
@@ -269,5 +277,9 @@
                 allowClear: true
             });
         });
+
+        function open_add_program_name_modal() {
+            $('#add_program_name_modal').modal('show');
+        }
     </script>
 @endsection

@@ -16,7 +16,19 @@
         <form action="{{ route('supplements.create_appointment') }}" method="post" class="col-md-8">
             @csrf
             <input type="hidden" value="{{ $room_id }}" name="room_id">
-            <div class="card">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <p class="alert alert-warning">
+                                اذا كان العميل غير مسجل في النظام يجب تسجيله قبل حجز الموعد
+                            </p>
+                            <a href="{{ route('clients.add') }}" class="btn btn-primary">تسجيل عميل جديد</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card mt-3">
                 <div class="card-body">
                     <div class="row">
                         <div class="col-md-12">

@@ -22,6 +22,7 @@ class ReceptionController extends Controller
     {
         $today = Carbon::today()->toDateString();
         $data = AppointmentsModel::where('room_id',$id)->whereDate('appointment_date',$today)->with('client')->get();
+        // $data = ClientsModel::where('id',$id)->with('client')->get();
         return view('project.reception.room',['id'=>$id,'data'=>$data]);
     }
     
@@ -39,21 +40,25 @@ class ReceptionController extends Controller
         // $clients->save();
 
         $client = ClientsModel::find($request->customer_id);
-        $data = AppointmentsModel::where('customer_id', $client->id)
-        ->where('status', '!=', 'done')
-        ->first();
-        if ($data) {
-            $data->customer_id = $client->id;
+        // $data = AppointmentsModel::where('customer_id', $client->id)
+        // ->where('status', '!=', 'done')
+        // ->first();
+
+        $data = new AppointmentsModel();
+        $data->customer_id = $client->id;
             $data->room_id = $request->room_id;
             $data->appointment_date = $request->appointment_date;
             $data->status = 'not_attend';
+        if ($data->save()) {
+            
             if ($data->save()){
                 return redirect()->route('reception.room',['id'=>$request->room_id])->with('تم انشاء الموعد بنجاح');
             }
-            } else {
-            // إذا لم تكن هناك نتيجة، قم بعرض رسالة أو تصرف مختلف
-            return redirect()->route('reception.room',['id'=>$request->room_id])->with(['fail' => 'لا يتوفر اشتراك للعميل']);
-        }
+            } 
+        //     else {
+        //     // إذا لم تكن هناك نتيجة، قم بعرض رسالة أو تصرف مختلف
+        //     return redirect()->route('reception.room',['id'=>$request->room_id])->with(['fail' => 'لا يتوفر اشتراك للعميل']);
+        // }
     }
 
 
