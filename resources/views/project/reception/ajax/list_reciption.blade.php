@@ -12,7 +12,7 @@
         @foreach ($data as $key)
             <tr>
                 <td>{{ $key->client->name ?? '' }}</td>
-                <td>{{ $key->room->name }}</td>
+                <td>{{ $key->room->name ?? '' }}</td>
                 <td>{{ $key->appointment_date }}</td>
                 <td>
                     <select class="form-control text-center"
