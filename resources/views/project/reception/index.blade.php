@@ -78,13 +78,13 @@
                         </div>
                         <div class="col">
                             <div class="input-group input-group-static my-3">
-                                <input type="datetime-local" value="{{ date('Y-m-d\TH:i') }}"
+                                <input type="datetime-local" value="{{ date('Y-m-d') . 'T00:00' }}"
                                     onchange="list_reception_ajax()" id="from_date_time" class="form-control">
                             </div>
                         </div>
                         <div class="col">
                             <div class="input-group input-group-static my-3">
-                                <input type="datetime-local" value="{{ date('Y-m-d\TH:i') }}"
+                                <input type="datetime-local" value="{{ date('Y-m-d') . 'T23:59' }}"
                                     onchange="list_reception_ajax()" id="to_date_time" class="form-control">
                             </div>
                         </div>
