@@ -15,4 +15,8 @@ class AppointmentsModel extends Model
     {
         return $this->belongsTo(ClientsModel::class, 'customer_id' , 'id');
     }
+
+    public function room(){
+        return $this->belongsTo(RoomsModel::class, 'room_id' , 'id');
+    }
 }

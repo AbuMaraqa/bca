@@ -14,11 +14,20 @@
                 </div>
                 <div class="modal-body">
                     <div class="row">
-                        <div class="form-group">
+                        {{-- <div class="input-group input-group-sm input-group-outline my-3">
+                            <label class="form-label">اسم البرنامج</label>
+                            <input type="text" class="form-control form-control-sm">
+                        </div> --}}
+                        <div class="input-group input-group-outline my-3">
+                            <label class="form-label">اسم البرنامج</label>
+                            <input type="text" class="form-control" name="program_name" id="program_name">
+                        </div>
+
+                        {{-- <div class="form-group">
                             <label for="exampleFormControlInput1">اسم البرنامج</label>
                             <input type="text" name="program_name" placeholder="ادخل اسم البرنامج"
                                 class="form-control" id="program_name">
-                        </div>
+                        </div> --}}
                     </div>
                     <div class="row">
                         <div class="form-group">

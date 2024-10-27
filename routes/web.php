@@ -87,6 +87,9 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('add_appointment/{room_id}', [App\Http\Controllers\ReceptionController::class, 'add_appointment'])->name('reception.add_appointment');
         Route::post('create_appointment', [App\Http\Controllers\ReceptionController::class, 'create_appointment'])->name('supplements.create_appointment');
         Route::post('update_status', [App\Http\Controllers\ReceptionController::class, 'update_status'])->name('supplements.update_status');
+        Route::get('delete/{id}', [App\Http\Controllers\ReceptionController::class, 'delete'])->name('reception.delete');
+        Route::get('delete/{id}', [App\Http\Controllers\ReceptionController::class, 'delete'])->name('reception.delete');
+        Route::post('list_reception_ajax', [App\Http\Controllers\ReceptionController::class, 'list_reception_ajax'])->name('reception.list_reception_ajax');
     });
     Route::group(['prefix'=>'supplements'],function (){
         Route::get('index', [App\Http\Controllers\SupplementsController::class, 'index'])->name('supplements.index');

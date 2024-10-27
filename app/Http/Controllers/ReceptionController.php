@@ -72,4 +72,37 @@ class ReceptionController extends Controller
             ]);
         }
     }
+
+    public function delete($id){
+        $data = AppointmentsModel::where('id',$id)->first();
+        if($data->delete()){
+            return redirect()->back()->with(['success'=>'تم حذف الموعد بنجاح']);
+        }
+    }
+
+    public function list_reception_ajax(Request $request){
+        $data = AppointmentsModel::query();
+        $data->with('client');
+        if($request->filled('search_client')){
+            $data->whereIn('customer_id',function($query) use ($request){
+                $query->select('id')->from('clients')->where('name','like','%'.$request->search_client.'%');
+            }); 
+        }
+        if($request->filled('search_room')){
+            $data->where('room_id',$request->search_room);
+        }
+        if($request->filled('search_status')){
+            $data->where('status',$request->search_status);
+        }
+        if ($request->filled('from_date_time') && $request->filled('to_date_time')) {
+            $fromDateTime = \Carbon\Carbon::parse($request->from_date_time);  // تحويل إلى كائن DateTime
+            $toDateTime = \Carbon\Carbon::parse($request->to_date_time);
+            $data->whereBetween('appointment_date', [$fromDateTime, $toDateTime]);
+        }   
+        $data = $data->get();
+        return response()->json([
+            'success' => true,
+            'view' => view('project.reception.ajax.list_reciption',['data'=>$data])->render()
+        ]);
+    }
 }

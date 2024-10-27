@@ -67,7 +67,8 @@
                                                             <a href="{{ route('clients.details', ['client_id' => $key->customer_id]) }}"
                                                                 class="btn btn-success btn-sm"><span
                                                                     class="fa fa-search"></span></a>
-                                                            <a href="" class="btn btn-danger btn-sm"><span
+                                                            <a href="{{ route('reception.delete', ['id' => $key->id]) }}"
+                                                                class="btn btn-danger btn-sm"><span
                                                                     class="fa fa-trash"></span></a>
                                                         </td>
                                                     </tr>

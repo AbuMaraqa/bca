@@ -72,6 +72,7 @@
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
     <script>
         $('#select_program_id').on('change', function() {
+            alert($(this).val());
             var program_id = $(this).val();
             $.ajaxSetup({
                 headers: {
@@ -132,7 +133,6 @@
             $('#add_supplement_for_meal_type').modal('show');
             $('#program_meal_id').val(data.id)
         }
-
         $('#product_name').keyup(function() {
             $.ajaxSetup({
                 headers: {
@@ -164,6 +164,8 @@
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 }
             });
+            $('#spinner_' + supplement_id).css('display', 'inline-block');
+
             $.ajax({
                 url: "{{ route('program.user_program.add_supplement_for_meal_type') }}",
                 type: 'POST',
@@ -199,6 +201,9 @@
                         $('#protein_' + data.program_meal.day).html(data.protein)
                         $('#fibers_' + data.program_meal.day).html(data.fibers)
                     }
+
+                    $('#spinner_' + supplement_id).css('display', 'none');
+
                 }
             });
         }

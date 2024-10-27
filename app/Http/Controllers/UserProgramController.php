@@ -46,7 +46,6 @@ class UserProgramController extends Controller
         $program_category = ProgramCategoryModel::get();
         return view('project.user_program.add',['client'=>$client , 'programs'=>$programs , 'instructions'=>$instructions , 'program_category'=>$program_category]);
     }
-
     public function program_meal_list(Request $request){
         $data = UserProgramMealModel::with('meal_type','program_meal_supplement','program_meal_supplement.supplement')->where('program_id',$request->program_id)->get()->groupBy('day');
         return response()->json([
@@ -429,13 +428,13 @@ class UserProgramController extends Controller
         $user_program->program_name = ProgramModel::where('id',$program->id)->first()->program_name;
         $user_program->program_category = $program->program_category_id;
         $user_program->Instructions = InstructionsModel::where('id',$program->Instructions)->first()->instructions_note ?? '';
-        $user_program->status = 'incomplete';
+        $user_program->status = 'complete';
         $user_program->save();
     
         // Get meals for the program and save each meal
         $program_meal = ProgramMealModel::where('program_id', $request->program_id)->get();
         $user_program_meal_ids = []; // To map the program meal IDs
-    
+        $new_user_program_meal_ids = [];
         foreach ($program_meal as $key) {
             $user_program_meal = new UserProgramMealModel();
             $user_program_meal->day = $key->day;
@@ -446,6 +445,18 @@ class UserProgramController extends Controller
     
             // Store the generated ID of each meal
             $user_program_meal_ids[$key->id] = $user_program_meal->id;
+        }
+
+        foreach ($program_meal as $key) {
+            $new_program_meal = new ProgramMealModel();
+            $new_program_meal->day = $key->day;
+            $new_program_meal->program_id = $program->id;
+            $new_program_meal->meal_type_id = $key->meal_type_id;
+            // $new_program_meal->user_id = $request->user_id;
+            $new_program_meal->save();
+    
+            // Store the generated ID of each meal
+            $new_user_program_meal_ids[$key->id] = $new_program_meal->id;
         }
 
         $program_meal = ProgramMealModel::where('program_id', $request->program_id)->get();
@@ -469,6 +480,25 @@ class UserProgramController extends Controller
             $user_program_meal_supplement->notes = $key->notes;
             $user_program_meal_supplement->qty = $key->qty ?? 1;
             $user_program_meal_supplement->save();
+        }
+
+        foreach ($program_meal_supplement as $key) {
+            $new_program_meal_supplement = new ProgramMealSupplementModel();
+            // $new_program_meal_supplement->user_id = $request->user_id;
+        
+            // Check if the program_meal_id exists in the array
+            if (isset($new_user_program_meal_ids[$key->program_meal_id])) {
+                $new_program_meal_supplement->program_meal_id = $new_user_program_meal_ids[$key->program_meal_id];
+            } else {
+                // Log or handle the missing key scenario
+                continue; // Skip this supplement if the program_meal_id doesn't exist
+            }
+        
+            $new_program_meal_supplement->program_id = $program->id;
+            $new_program_meal_supplement->supplement_id = $key->supplement_id;
+            $new_program_meal_supplement->notes = $key->notes;
+            $new_program_meal_supplement->qty = $key->qty ?? 1;
+            $new_program_meal_supplement->save();
         }
     
         // Return the data

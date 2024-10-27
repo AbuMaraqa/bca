@@ -69,7 +69,7 @@ class ClientsController extends Controller
             $data->diseases = json_encode($request->diseases);
         }
         if ($data->save()) {
-            return redirect()->route('clients.index')->with(['success'=>'تم تعديل العميل بنجاح']);
+            return redirect()->route('clients.details',['client_id'=>$request->user_id])->with(['success'=>'تم تعديل العميل بنجاح']);
         }
     }
 

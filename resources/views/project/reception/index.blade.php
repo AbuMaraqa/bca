@@ -9,27 +9,104 @@
             @include('alert_message.fail')
         </div>
     </div>
-    <div class="row">
+    <div class="row mb-3">
         <div class="col-md-12">
             <div class="card">
                 <div class="card-body">
                     <div class="row">
                         @foreach ($rooms as $key)
-                            <div class="col-md-4">
+                            <a href="{{ route('reception.room', ['id' => $key->id]) }}">
+                                <div class="col-lg-3 col-md-6">
+                                    <div class="card bg-gradient-primary">
+                                        <div class="card-header bg-transparent mx-4 p-3 text-center">
+                                            <div>
+                                                <span class="text-white">{{ $key->name }}</span>
+                                                <span class="fa fa-bed text-white"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+
+                            {{-- <div class="col-md-4">
                                 <div class="row">
                                     <div class="col-md-12">
                                         <a href="{{ route('reception.room', ['id' => $key->id]) }}"
                                             class="btn btn-primary btn-sm">{{ $key->name }}</a>
                                     </div>
                                 </div>
-                            </div>
+                            </div> --}}
                         @endforeach
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <div class="row mt-3">
+    <div class="row mb-3">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col">
+                            <div class="input-group input-group-outline my-3">
+                                <label class="form-label">بحث عن اسم العميل</label>
+                                <input type="text" id="search_client" class="form-control">
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="form-group">
+                                <select onchange="list_reception_ajax()" class="select-control my-3" name="search_status"
+                                    id="search_status" placeholder="اختيار حالة">
+                                    <option value="" selected="">جميع الحالات</option>
+                                    <option value="waiting">قيد الانتظار</option>
+                                    <option value="under_examination">تحت الفحص</option>
+                                    <option value="done">جاهز</option>
+                                    <option value="not_attend">لم يحضر</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="form-group">
+                                <select onchange="list_reception_ajax()" class="select-control my-3" name="search_room"
+                                    id="search_status" placeholder="اختيار غرفة">
+                                    <option value="" selected="">جميع الغرف</option>
+                                    @foreach ($rooms as $key)
+                                        <option value="{{ $key->id }}">{{ $key->name }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="input-group input-group-static my-3">
+                                <input type="datetime-local" onchange="list_reception_ajax()" id="from_date_time"
+                                    class="form-control">
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="input-group input-group-static my-3">
+                                <input type="datetime-local" onchange="list_reception_ajax()" id="to_date_time"
+                                    class="form-control">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row mb-3">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-12 table-responsive" id="list_receptions">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {{-- <div class="row mt-3">
         <div class="col-md-12">
             <div class="card card-calendar">
                 <div class="card-body p-3">
@@ -37,10 +114,69 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> --}}
 @endsection
 @section('script')
     <script src="{{ asset('assets/js/plugins/fullcalendar.min.js') }}"></script>
+    <script>
+        $(document).ready(function() {
+            list_reception_ajax();
+
+            $('#search_client').on('keyup', function() {
+                list_reception_ajax();
+            });
+        })
+
+        function list_reception_ajax() {
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+            $.ajax({
+                url: "{{ route('reception.list_reception_ajax') }}",
+                type: 'POST',
+                dataType: "json",
+                data: {
+                    // program_id: program_id,
+                    // user_id: $('#user_id').val()
+                    search_client: $('#search_client').val(),
+                    search_status: $('#search_status').val(),
+                    search_room: $('#search_room').val(),
+                    from_date_time: $('#from_date_time').val(),
+                    to_date_time: $('#to_date_time').val(),
+                },
+                success: function(data) {
+                    if (data.success === true) {
+                        $('#list_receptions').html(data.view);
+                    }
+                }
+            });
+        }
+
+        function update_status(id, status) {
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+            $.ajax({
+                url: "{{ route('supplements.update_status') }}",
+                type: 'POST',
+                dataType: "json",
+                data: {
+                    id: id,
+                    status: status,
+                    // phone : $('#phone').val(),
+                },
+                success: function(data) {
+                    if (data.success == true) {
+                        window.location.reload();
+                    }
+                }
+            });
+        }
+    </script>
     <script>
         var calendar = new FullCalendar.Calendar(document.getElementById("calendar"), {
             initialView: "dayGridMonth",
