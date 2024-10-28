@@ -72,7 +72,6 @@
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
     <script>
         $('#select_program_id').on('change', function() {
-            alert($(this).val());
             var program_id = $(this).val();
             $.ajaxSetup({
                 headers: {
