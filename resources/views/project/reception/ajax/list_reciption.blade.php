@@ -41,6 +41,8 @@
                         </select>
                     </td>
                     <td>
+                        <a href="{{ route('clients.details', ['client_id' => $key->customer_id]) }}"
+                            class="btn btn-success btn-sm"><span class="fa fa-search"></span></a>
                         <a href="{{ route('reception.delete', ['id' => $key->id]) }}"
                             class="btn btn-sm btn-danger"><span class="fa fa-trash"></a>
                     </td>
