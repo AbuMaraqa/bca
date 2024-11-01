@@ -51,203 +51,226 @@
                     <span class="nav-link-text me-1">الرئيسية</span>
                 </a>
             </li>
-            <li class="nav-item">
-                <a data-bs-toggle="collapse" href="#dashboardsExamples" class="nav-link text-white "
-                    aria-controls="dashboardsExamples" role="button" aria-expanded="false">
-                    <i class="material-icons-round opacity-10"></i>
-                    <span class="nav-link-text me-1">المستخدمين</span>
-                </a>
-                <div class="collapse " id="dashboardsExamples">
-                    <ul class="nav  pe-0 ">
-                        <li class="nav-item ">
-                            <a class="nav-link text-white " href="{{ route('users.index') }}">
-                                <span class="sidenav-mini-icon"> </span>
-                                <span class="sidenav-normal  me-3  ps-1"> قائمة المستخدمين </span>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-            </li>
-            <li class="nav-item">
-                <a data-bs-toggle="collapse" href="#category" class="nav-link text-white " aria-controls="category"
-                    role="button" aria-expanded="false">
-                    <i class="material-icons-round opacity-10"></i>
-                    <span class="nav-link-text me-1">التصنيفات</span>
-                </a>
-                <div class="collapse " id="category">
-                    <ul class="nav  pe-0 ">
-                        <li class="nav-item ">
-                            <a class="nav-link text-white " href="{{ route('category.index') }}">
-                                <span class="sidenav-mini-icon"> </span>
-                                <span class="sidenav-normal  me-3  ps-1"> قائمة التصنيفات </span>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-            </li>
-            <li class="nav-item">
-                <a data-bs-toggle="collapse" href="#products" class="nav-link text-white " aria-controls="category"
-                    role="button" aria-expanded="false">
-                    <i class="material-icons-round opacity-10"></i>
-                    <span class="nav-link-text me-1">المنتجات</span>
-                </a>
-                <div class="collapse " id="products">
-                    <ul class="nav  pe-0 ">
-                        <li class="nav-item ">
-                            <a class="nav-link text-white " href="{{ route('product.index') }}">
-                                <span class="sidenav-mini-icon"> </span>
-                                <span class="sidenav-normal  me-3  ps-1"> قائمة المنتجات </span>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-            </li>
-            <li class="nav-item">
-                <a data-bs-toggle="collapse" href="#diseases" class="nav-link text-white " aria-controls="category"
-                    role="button" aria-expanded="false">
-                    <i class="material-icons-round opacity-10"></i>
-                    <span class="nav-link-text me-1">الامراض</span>
-                </a>
-                <div class="collapse " id="diseases">
-                    <ul class="nav  pe-0 ">
-                        <li class="nav-item ">
-                            <a class="nav-link text-white " href="{{ route('diseases.index') }}">
-                                <span class="sidenav-mini-icon"> </span>
-                                <span class="sidenav-normal  me-3  ps-1"> قائمة الامراض </span>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-            </li>
-            <li class="nav-item">
-                <a data-bs-toggle="collapse" href="#supplements" class="nav-link text-white "
-                    aria-controls="category" role="button" aria-expanded="false">
-                    <i class="material-icons-round opacity-10"></i>
-                    <span class="nav-link-text me-1">الاصناف</span>
-                </a>
-                <div class="collapse " id="supplements">
-                    <ul class="nav  pe-0 ">
-                        <li class="nav-item ">
-                            <a class="nav-link text-white " href="{{ route('supplements.index') }}">
-                                <span class="sidenav-mini-icon"> </span>
-                                <span class="sidenav-normal  me-3  ps-1"> قائمة الاصناف </span>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-            </li>
-            <li class="nav-item">
-                <a data-bs-toggle="collapse" href="#subscriptions" class="nav-link text-white "
-                    aria-controls="subscriptions" role="button" aria-expanded="false">
-                    <i class="material-icons-round opacity-10"></i>
-                    <span class="nav-link-text me-1">الاشتراكات</span>
-                </a>
-                <div class="collapse " id="subscriptions">
-                    <ul class="nav  pe-0 ">
-                        <li class="nav-item ">
-                            <a class="nav-link text-white " href="{{ route('subscriptions.index') }}">
-                                <span class="sidenav-mini-icon"> </span>
-                                <span class="sidenav-normal  me-3  ps-1"> قائمة الاشتراكات </span>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-            </li>
-            <li class="nav-item">
-                <a data-bs-toggle="collapse" href="#dashboardsExamples" class="nav-link text-white "
-                    aria-controls="dashboardsExamples" role="button" aria-expanded="false">
-                    <i class="material-icons-round opacity-10"></i>
-                    <span class="nav-link-text me-1">البرامج</span>
-                </a>
-                <div class="collapse " id="dashboardsExamples">
-                    <ul class="nav  pe-0 ">
-                        <li class="nav-item ">
-                            <a class="nav-link text-white " href="{{ route('program.program_category.index') }}">
-                                <span class="sidenav-mini-icon"> </span>
-                                <span class="sidenav-normal  me-3  ps-1"> تصنيف البرنامج </span>
-                            </a>
-                        </li>
-                        <li class="nav-item ">
-                            <a class="nav-link text-white " href="{{ route('program.meal_type.index') }}">
-                                <span class="sidenav-mini-icon"> </span>
-                                <span class="sidenav-normal  me-3  ps-1"> انواع الوجبات </span>
-                            </a>
-                        </li>
-                        <li class="nav-item ">
-                            <a class="nav-link text-white " href="{{ route('program.instructions.index') }}">
-                                <span class="sidenav-mini-icon"> </span>
-                                <span class="sidenav-normal  me-3  ps-1"> التعليمات </span>
-                            </a>
-                        </li>
-                        <li class="nav-item ">
-                            <a class="nav-link text-white " href="{{ route('program.program.index') }}">
-                                <span class="sidenav-mini-icon"> </span>
-                                <span class="sidenav-normal  me-3  ps-1"> البرنامج </span>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-            </li>
-            <li class="nav-item">
-                <a data-bs-toggle="collapse" href="#client" class="nav-link text-white "
-                    aria-controls="dashboardsExamples" role="button" aria-expanded="false">
-                    <i class="material-icons-round opacity-10"></i>
-                    <span class="nav-link-text me-1">العملاء</span>
-                </a>
-                <div class="collapse " id="client">
-                    <ul class="nav  pe-0 ">
-                        <li class="nav-item ">
-                            <a class="nav-link text-white " href="{{ route('clients.index') }}">
-                                <span class="sidenav-mini-icon"> </span>
-                                <span class="sidenav-normal  me-3  ps-1"> قائمة العملاء </span>
-                            </a>
-                        </li>
-                        <li class="nav-item ">
-                            <a class="nav-link text-white " href="{{ route('clients.add') }}">
-                                <span class="sidenav-mini-icon"> </span>
-                                <span class="sidenav-normal  me-3  ps-1"> اضافة عميل </span>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-            </li>
-            <li class="nav-item">
-                <a data-bs-toggle="collapse" href="#rooms" class="nav-link text-white "
-                    aria-controls="dashboardsExamples" role="button" aria-expanded="false">
-                    <i class="material-icons-round opacity-10"></i>
-                    <span class="nav-link-text me-1">الغرف</span>
-                </a>
-                <div class="collapse " id="rooms">
-                    <ul class="nav  pe-0 ">
-                        <li class="nav-item ">
-                            <a class="nav-link text-white " href="{{ route('rooms.index') }}">
-                                <span class="sidenav-mini-icon"> </span>
-                                <span class="sidenav-normal  me-3  ps-1"> قائمة الغرف </span>
-                            </a>
-                        </li>
-                        <li class="nav-item ">
-                            <a class="nav-link text-white " href="{{ route('rooms.add') }}">
-                                <span class="sidenav-mini-icon"> </span>
-                                <span class="sidenav-normal  me-3  ps-1"> اضافة غرفة </span>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-            </li>
-            <li class="nav-item">
-                <a href="{{ route('reading_users.index') }}" class="nav-link text-white "
-                    aria-controls="dashboardsExamples" role="button" aria-expanded="false">
-                    <i class="fa fa-menu"></i>
-                    <span class="nav-link-text me-1">قراءات العملاء</span>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a href="{{ route('reception.index') }}" class="nav-link text-white "
-                    aria-controls="dashboardsExamples" role="button" aria-expanded="false">
-                    <i class="fa fa-menu"></i>
-                    <span class="nav-link-text me-1">شاشة الاستقبال</span>
-                </a>
-            </li>
+            @if (auth()->user()->user_role == 'admin')
+                <li class="nav-item">
+                    <a data-bs-toggle="collapse" href="#dashboardsExamples" class="nav-link text-white "
+                        aria-controls="dashboardsExamples" role="button" aria-expanded="false">
+                        <i class="material-icons-round opacity-10"></i>
+                        <span class="nav-link-text me-1">المستخدمين</span>
+                    </a>
+                    <div class="collapse " id="dashboardsExamples">
+                        <ul class="nav  pe-0 ">
+                            <li class="nav-item ">
+                                <a class="nav-link text-white " href="{{ route('users.index') }}">
+                                    <span class="sidenav-mini-icon"> </span>
+                                    <span class="sidenav-normal  me-3  ps-1"> قائمة المستخدمين </span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+            @endif
+            @if (auth()->user()->user_role == 'admin')
+                <li class="nav-item">
+                    <a data-bs-toggle="collapse" href="#category" class="nav-link text-white " aria-controls="category"
+                        role="button" aria-expanded="false">
+                        <i class="material-icons-round opacity-10"></i>
+                        <span class="nav-link-text me-1">التصنيفات</span>
+                    </a>
+                    <div class="collapse " id="category">
+                        <ul class="nav  pe-0 ">
+                            <li class="nav-item ">
+                                <a class="nav-link text-white " href="{{ route('category.index') }}">
+                                    <span class="sidenav-mini-icon"> </span>
+                                    <span class="sidenav-normal  me-3  ps-1"> قائمة التصنيفات </span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+            @endif
+            @if (auth()->user()->user_role == 'admin')
+                <li class="nav-item">
+                    <a data-bs-toggle="collapse" href="#products" class="nav-link text-white " aria-controls="category"
+                        role="button" aria-expanded="false">
+                        <i class="material-icons-round opacity-10"></i>
+                        <span class="nav-link-text me-1">المنتجات</span>
+                    </a>
+                    <div class="collapse " id="products">
+                        <ul class="nav  pe-0 ">
+                            <li class="nav-item ">
+                                <a class="nav-link text-white " href="{{ route('product.index') }}">
+                                    <span class="sidenav-mini-icon"> </span>
+                                    <span class="sidenav-normal  me-3  ps-1"> قائمة المنتجات </span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+            @endif
+            @if (auth()->user()->user_role == 'admin')
+                <li class="nav-item">
+                    <a data-bs-toggle="collapse" href="#diseases" class="nav-link text-white " aria-controls="category"
+                        role="button" aria-expanded="false">
+                        <i class="material-icons-round opacity-10"></i>
+                        <span class="nav-link-text me-1">الامراض</span>
+                    </a>
+                    <div class="collapse " id="diseases">
+                        <ul class="nav  pe-0 ">
+                            <li class="nav-item ">
+                                <a class="nav-link text-white " href="{{ route('diseases.index') }}">
+                                    <span class="sidenav-mini-icon"> </span>
+                                    <span class="sidenav-normal  me-3  ps-1"> قائمة الامراض </span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+            @endif
+            @if (auth()->user()->user_role == 'admin')
+                <li class="nav-item">
+                    <a data-bs-toggle="collapse" href="#supplements" class="nav-link text-white "
+                        aria-controls="category" role="button" aria-expanded="false">
+                        <i class="material-icons-round opacity-10"></i>
+                        <span class="nav-link-text me-1">الاصناف</span>
+                    </a>
+                    <div class="collapse " id="supplements">
+                        <ul class="nav  pe-0 ">
+                            <li class="nav-item ">
+                                <a class="nav-link text-white " href="{{ route('supplements.index') }}">
+                                    <span class="sidenav-mini-icon"> </span>
+                                    <span class="sidenav-normal  me-3  ps-1"> قائمة الاصناف </span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+            @endif
+            @if (auth()->user()->user_role == 'admin')
+                <li class="nav-item">
+                    <a data-bs-toggle="collapse" href="#subscriptions" class="nav-link text-white "
+                        aria-controls="subscriptions" role="button" aria-expanded="false">
+                        <i class="material-icons-round opacity-10"></i>
+                        <span class="nav-link-text me-1">الاشتراكات</span>
+                    </a>
+                    <div class="collapse " id="subscriptions">
+                        <ul class="nav  pe-0 ">
+                            <li class="nav-item ">
+                                <a class="nav-link text-white " href="{{ route('subscriptions.index') }}">
+                                    <span class="sidenav-mini-icon"> </span>
+                                    <span class="sidenav-normal  me-3  ps-1"> قائمة الاشتراكات </span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+            @endif
+            @if (auth()->user()->user_role == 'admin')
+                <li class="nav-item">
+                    <a data-bs-toggle="collapse" href="#dashboardsExamples" class="nav-link text-white "
+                        aria-controls="dashboardsExamples" role="button" aria-expanded="false">
+                        <i class="material-icons-round opacity-10"></i>
+                        <span class="nav-link-text me-1">البرامج</span>
+                    </a>
+                    <div class="collapse " id="dashboardsExamples">
+                        <ul class="nav  pe-0 ">
+                            <li class="nav-item ">
+                                <a class="nav-link text-white " href="{{ route('program.program_category.index') }}">
+                                    <span class="sidenav-mini-icon"> </span>
+                                    <span class="sidenav-normal  me-3  ps-1"> تصنيف البرنامج </span>
+                                </a>
+                            </li>
+                            <li class="nav-item ">
+                                <a class="nav-link text-white " href="{{ route('program.meal_type.index') }}">
+                                    <span class="sidenav-mini-icon"> </span>
+                                    <span class="sidenav-normal  me-3  ps-1"> انواع الوجبات </span>
+                                </a>
+                            </li>
+                            <li class="nav-item ">
+                                <a class="nav-link text-white " href="{{ route('program.instructions.index') }}">
+                                    <span class="sidenav-mini-icon"> </span>
+                                    <span class="sidenav-normal  me-3  ps-1"> التعليمات </span>
+                                </a>
+                            </li>
+                            <li class="nav-item ">
+                                <a class="nav-link text-white " href="{{ route('program.program.index') }}">
+                                    <span class="sidenav-mini-icon"> </span>
+                                    <span class="sidenav-normal  me-3  ps-1"> البرنامج </span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+            @endif
+            @if (auth()->user()->user_role == 'admin')
+                <li class="nav-item">
+                    <a data-bs-toggle="collapse" href="#client" class="nav-link text-white "
+                        aria-controls="dashboardsExamples" role="button" aria-expanded="false">
+                        <i class="material-icons-round opacity-10"></i>
+                        <span class="nav-link-text me-1">العملاء</span>
+                    </a>
+                    <div class="collapse " id="client">
+                        <ul class="nav  pe-0 ">
+                            <li class="nav-item ">
+                                <a class="nav-link text-white " href="{{ route('clients.index') }}">
+                                    <span class="sidenav-mini-icon"> </span>
+                                    <span class="sidenav-normal  me-3  ps-1"> قائمة العملاء </span>
+                                </a>
+                            </li>
+                            <li class="nav-item ">
+                                <a class="nav-link text-white " href="{{ route('clients.add') }}">
+                                    <span class="sidenav-mini-icon"> </span>
+                                    <span class="sidenav-normal  me-3  ps-1"> اضافة عميل </span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+            @endif
+            @if (auth()->user()->user_role == 'admin')
+                <li class="nav-item">
+                    <a data-bs-toggle="collapse" href="#rooms" class="nav-link text-white "
+                        aria-controls="dashboardsExamples" role="button" aria-expanded="false">
+                        <i class="material-icons-round opacity-10"></i>
+                        <span class="nav-link-text me-1">الغرف</span>
+                    </a>
+                    <div class="collapse " id="rooms">
+                        <ul class="nav  pe-0 ">
+                            <li class="nav-item ">
+                                <a class="nav-link text-white " href="{{ route('rooms.index') }}">
+                                    <span class="sidenav-mini-icon"> </span>
+                                    <span class="sidenav-normal  me-3  ps-1"> قائمة الغرف </span>
+                                </a>
+                            </li>
+                            <li class="nav-item ">
+                                <a class="nav-link text-white " href="{{ route('rooms.add') }}">
+                                    <span class="sidenav-mini-icon"> </span>
+                                    <span class="sidenav-normal  me-3  ps-1"> اضافة غرفة </span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+            @endif
+            @if (auth()->user()->user_role == 'admin')
+                <li class="nav-item">
+                    <a href="{{ route('reading_users.index') }}" class="nav-link text-white "
+                        aria-controls="dashboardsExamples" role="button" aria-expanded="false">
+                        <i class="fa fa-menu"></i>
+                        <span class="nav-link-text me-1">قراءات العملاء</span>
+                    </a>
+                </li>
+            @endif
+            @if (auth()->user()->user_role == 'admin' || auth()->user()->user_role == 'reception')
+                <li class="nav-item">
+                    <a href="{{ route('reception.index') }}" class="nav-link text-white "
+                        aria-controls="dashboardsExamples" role="button" aria-expanded="false">
+                        <i class="fa fa-menu"></i>
+                        <span class="nav-link-text me-1">شاشة الاستقبال</span>
+                    </a>
+                </li>
+            @endif
+
             {{-- <li class="nav-item">
                 <a href="{{ route('program.user_program.index') }}" class="nav-link text-white "
                     aria-controls="dashboardsExamples" role="button" aria-expanded="false">
