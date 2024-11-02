@@ -255,47 +255,49 @@
             <tbody>
                 <tr>
                     <td>الوزن</td>
-                    <td>{{ $currentVisit->weight ?? 'N/A' }}</td>
-                    <td>{{ $previousVisit->weight ?? 'N/A' }}</td>
-                    <td>{{ $firstVisit->weight ?? 'N/A' }}</td>
-                    <td>{{ $currentVisit && $previousVisit ? $currentVisit->weight - $previousVisit->weight : 'N/A' }}
+                    <td>{{ $currentVisit->weight ? number_format($currentVisit->weight, 2) : 'N/A' }}</td>
+                    <td>{{ $previousVisit->weight ? number_format($previousVisit->weight, 2) : 'N/A' }}</td>
+                    <td>{{ $firstVisit->weight ? number_format($firstVisit->weight, 2) : 'N/A' }}</td>
+                    <td>{{ $currentVisit && $previousVisit ? number_format($currentVisit->weight - $previousVisit->weight, 2) : 'N/A' }}
                     </td>
-                    <td>{{ $currentVisit && $firstVisit ? $currentVisit->weight - $firstVisit->weight : 'N/A' }}</td>
+                    <td>{{ $currentVisit && $firstVisit ? number_format($currentVisit->weight - $firstVisit->weight, 2) : 'N/A' }}
+                    </td>
                 </tr>
                 <tr>
                     <td>الدهون</td>
-                    <td>{{ $currentVisit->fats ?? 'N/A' }}</td>
-                    <td>{{ $previousVisit->fats ?? 'N/A' }}</td>
-                    <td>{{ $firstVisit->fats ?? 'N/A' }}</td>
-                    <td>{{ $currentVisit && $previousVisit ? $currentVisit->fats - $previousVisit->fats : 'N/A' }}</td>
-                    <td>{{ $currentVisit && $firstVisit ? $currentVisit->fats - $firstVisit->fats : 'N/A' }}</td>
+                    <td>{{ $currentVisit->fats ? number_format($currentVisit->fats, 2) : 'N/A' }}</td>
+                    <td>{{ $previousVisit->fats ? number_format($previousVisit->fats, 2) : 'N/A' }}</td>
+                    <td>{{ $firstVisit->fats ? number_format($firstVisit->fats, 2) : 'N/A' }}</td>
+                    <td>{{ $currentVisit && $previousVisit ? number_format($currentVisit->fats - $previousVisit->fats, 2) : 'N/A' }}
+                    </td>
+                    <td>{{ $currentVisit && $firstVisit ? number_format($currentVisit->fats - $firstVisit->fats, 2) : 'N/A' }}
+                    </td>
                 </tr>
                 {{-- <tr>
                     <td>السوائل</td>
-                    <td>{{ $currentVisit->liquids ?? 'N/A' }}</td>
-                    <td>{{ $previousVisit->liquids ?? 'N/A' }}</td>
-                    <td>{{ $firstVisit->liquids ?? 'N/A' }}</td>
-                    <td>{{ $currentVisit && $previousVisit ? $currentVisit->liquids - $previousVisit->liquids : 'N/A' }}
-                    </td>
-                    <td>{{ $currentVisit && $firstVisit ? $currentVisit->liquids - $firstVisit->liquids : 'N/A' }}</td>
+                    <td>{{ $currentVisit->liquids ? number_format($currentVisit->liquids, 2) : 'N/A' }}</td>
+                    <td>{{ $previousVisit->liquids ? number_format($previousVisit->liquids, 2) : 'N/A' }}</td>
+                    <td>{{ $firstVisit->liquids ? number_format($firstVisit->liquids, 2) : 'N/A' }}</td>
+                    <td>{{ $currentVisit && $previousVisit ? number_format($currentVisit->liquids - $previousVisit->liquids, 2) : 'N/A' }}</td>
+                    <td>{{ $currentVisit && $firstVisit ? number_format($currentVisit->liquids - $firstVisit->liquids, 2) : 'N/A' }}</td>
                 </tr> --}}
                 <tr>
                     <td>العضلات</td>
-                    <td>{{ $currentVisit->muscles ?? 'N/A' }}</td>
-                    <td>{{ $previousVisit->muscles ?? 'N/A' }}</td>
-                    <td>{{ $firstVisit->muscles ?? 'N/A' }}</td>
-                    <td>{{ $currentVisit && $previousVisit ? $currentVisit->muscles - $previousVisit->muscles : 'N/A' }}
+                    <td>{{ $currentVisit->muscles ? number_format($currentVisit->muscles, 2) : 'N/A' }}</td>
+                    <td>{{ $previousVisit->muscles ? number_format($previousVisit->muscles, 2) : 'N/A' }}</td>
+                    <td>{{ $firstVisit->muscles ? number_format($firstVisit->muscles, 2) : 'N/A' }}</td>
+                    <td>{{ $currentVisit && $previousVisit ? number_format($currentVisit->muscles - $previousVisit->muscles, 2) : 'N/A' }}
                     </td>
-                    <td>{{ $currentVisit && $firstVisit ? $currentVisit->muscles - $firstVisit->muscles : 'N/A' }}</td>
+                    <td>{{ $currentVisit && $firstVisit ? number_format($currentVisit->muscles - $firstVisit->muscles, 2) : 'N/A' }}
+                    </td>
                 </tr>
                 {{-- <tr>
                     <td>الأملاح</td>
-                    <td>{{ $currentVisit->salts ?? 'N/A' }}</td>
-                    <td>{{ $previousVisit->salts ?? 'N/A' }}</td>
-                    <td>{{ $firstVisit->salts ?? 'N/A' }}</td>
-                    <td>{{ $currentVisit && $previousVisit ? $currentVisit->salts - $previousVisit->salts : 'N/A' }}
-                    </td>
-                    <td>{{ $currentVisit && $firstVisit ? $currentVisit->salts - $firstVisit->salts : 'N/A' }}</td>
+                    <td>{{ $currentVisit->salts ? number_format($currentVisit->salts, 2) : 'N/A' }}</td>
+                    <td>{{ $previousVisit->salts ? number_format($previousVisit->salts, 2) : 'N/A' }}</td>
+                    <td>{{ $firstVisit->salts ? number_format($firstVisit->salts, 2) : 'N/A' }}</td>
+                    <td>{{ $currentVisit && $previousVisit ? number_format($currentVisit->salts - $previousVisit->salts, 2) : 'N/A' }}</td>
+                    <td>{{ $currentVisit && $firstVisit ? number_format($currentVisit->salts - $firstVisit->salts, 2) : 'N/A' }}</td>
                 </tr> --}}
             </tbody>
         </table>

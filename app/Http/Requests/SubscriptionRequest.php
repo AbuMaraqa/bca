@@ -24,8 +24,8 @@ class SubscriptionRequest extends FormRequest
         if ($this->method() === 'POST') {
             return [
                 'name' => 'required|string',
-                'duration' => 'required|integer|between:1,1000000',
-                'price' => 'required|numeric|between:1,1000000',
+                'duration' => 'required|integer|between:0,1000000',
+                'price' => 'required|numeric|between:0,1000000',
             ];
         }
         else if ($this->method() === 'PUT'){
