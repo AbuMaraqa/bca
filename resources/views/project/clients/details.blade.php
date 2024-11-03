@@ -59,7 +59,7 @@
                                 <tbody>
                                     @if ($readings->isEmpty())
                                         <tr>
-                                            <td colspan="5">لا يوجد بيانات</td>
+                                            <td colspan="4">لا يوجد بيانات</td>
                                         </tr>
                                     @else
                                         @foreach ($readings as $key)
@@ -70,10 +70,6 @@
                                                 {{-- <td>{{ $key->liquids }}</td> --}}
                                                 <td>{{ $key->muscles }}</td>
                                                 {{-- <td>{{ $key->salts }}</td> --}}
-                                                <td>
-                                                    <a href="{{ route('reading_users.delete', ['id' => $key->id]) }}"
-                                                        class="btn btn-sm btn-danger"><span class="fa fa-trash"></a>
-                                                </td>
                                             </tr>
                                         @endforeach
                                     @endif
