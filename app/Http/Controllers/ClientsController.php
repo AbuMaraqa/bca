@@ -6,6 +6,9 @@ use App\Models\ClientModel;
 use App\Models\ClientsModel;
 use App\Models\CustomerDebtModel;
 use App\Models\DiseasesModel;
+use App\Models\ReadingUsersModel;
+use App\Models\UserProgramMealModel;
+use App\Models\UsersProgramModel;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
@@ -44,7 +47,15 @@ class ClientsController extends Controller
     public function details($client_id){
         $cleint = ClientsModel::where('id',$client_id)->first();
         $cleint->debt = CustomerDebtModel::where('client_id',$client_id)->sum('value') ?? '';
-        return view('project.clients.details',['client'=>$cleint]);
+        $readings = ReadingUsersModel::where('user_id', $client_id)
+        ->orderBy('created_at', 'asc')
+        ->get();
+        $firstVisit = $readings->first();
+        $previousVisit = $readings->slice(-2, 1)->first();
+        $currentVisit = $readings->last(); // الزيارة الحالية
+
+        $programs = UsersProgramModel::where('client_id',$client_id)->limit(8)->get();
+        return view('project.clients.details',['client'=>$cleint , 'readings'=>$readings , 'firstVisit'=>$firstVisit , 'previousVisit'=>$previousVisit , 'currentVisit'=>$currentVisit , 'programs'=>$programs]);
     }
 
     public function edit($id)

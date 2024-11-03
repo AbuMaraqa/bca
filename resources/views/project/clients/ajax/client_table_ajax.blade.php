@@ -19,7 +19,7 @@
         @else
             @foreach ($data as $key)
                 <tr>
-                    <td>{{ $key->name }}</td>
+                    <td><a href="{{ route('clients.details', ['client_id' => $key->id]) }}">{{ $key->name }}</a></td>
                     <td>{{ $key->dob }}</td>
                     <td>{{ $key->phone }}</td>
                     <td>{{ $key->city }}</td>
@@ -63,5 +63,4 @@
         @endif
     </tbody>
 </table>
-
 {{-- {{ $data->links() }} --}}

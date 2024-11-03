@@ -17,7 +17,6 @@
                         @foreach ($rooms as $key)
                             <div class="col-lg-3 col-md-6">
                                 <a href="{{ route('reception.room', ['id' => $key->id]) }}">
-
                                     <div class="card bg-gradient-primary">
                                         <div class="card-header bg-transparent mx-4 p-3 text-center">
                                             <div>
