@@ -64,7 +64,7 @@
                                     @else
                                         @foreach ($readings as $key)
                                             <tr>
-                                                <td>{{ $key->insert_at }}</td>
+                                                <td>{{ \Carbon\Carbon::parse($key->insert_at)->toDateString() }}</td>
                                                 <td>{{ $key->weight }}</td>
                                                 <td>{{ $key->fats }}</td>
                                                 {{-- <td>{{ $key->liquids }}</td> --}}
