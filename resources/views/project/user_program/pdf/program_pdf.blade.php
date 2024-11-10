@@ -265,7 +265,8 @@
                 </tr>
                 <tr>
                     <td>الدهون</td>
-                    <td>{{ $currentVisit->fats ? number_format($currentVisit->fats, 2) : 'N/A' }}</td>
+                    <td>{{ $currentVisit && $currentVisit->weight ? number_format($currentVisit->weight, 2) : 'N/A' }}
+                    </td>
                     <td>{{ $previousVisit->fats ? number_format($previousVisit->fats, 2) : 'N/A' }}</td>
                     <td>{{ $firstVisit->fats ? number_format($firstVisit->fats, 2) : 'N/A' }}</td>
                     <td>{{ $currentVisit && $previousVisit ? number_format($currentVisit->fats - $previousVisit->fats, 2) : 'N/A' }}

@@ -27,7 +27,14 @@
                         @if ($key->user_status == 'new')
                             <span class="badge bg-gradient-danger">غير مشترك</span>
                         @elseif ($key->user_status == 'old')
-                            <span class="badge bg-gradient-success">مشترك</span>
+                            @if (
+                                !is_null($key->start_freezing_date) &&
+                                    !is_null($key->end_freezing_date) &&
+                                    \Carbon\Carbon::now()->between($key->start_freezing_date, $key->end_freezing_date))
+                                <span class="badge bg-gradient-warning">مشترك ومجمد</span>
+                            @else
+                                <span class="badge bg-gradient-success">مشترك</span>
+                            @endif
                         @endif
                     </td>
                     <td>
