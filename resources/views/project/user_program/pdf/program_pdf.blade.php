@@ -255,7 +255,8 @@
             <tbody>
                 <tr>
                     <td>الوزن</td>
-                    <td>{{ $currentVisit->weight ? number_format($currentVisit->weight, 2) : 'N/A' }}</td>
+                    <td>{{ $currentVisit && $currentVisit->weight ? number_format($currentVisit->weight, 2) : 'N/A' }}
+                    </td>
                     <td>{{ $previousVisit->weight ? number_format($previousVisit->weight, 2) : 'N/A' }}</td>
                     <td>{{ $firstVisit->weight ? number_format($firstVisit->weight, 2) : 'N/A' }}</td>
                     <td>{{ $currentVisit && $previousVisit ? number_format($currentVisit->weight - $previousVisit->weight, 2) : 'N/A' }}
@@ -265,8 +266,7 @@
                 </tr>
                 <tr>
                     <td>الدهون</td>
-                    <td>{{ $currentVisit && $currentVisit->weight ? number_format($currentVisit->weight, 2) : 'N/A' }}
-                    </td>
+                    <td>{{ $currentVisit->fats ? number_format($currentVisit->fats, 2) : 'N/A' }}</td>
                     <td>{{ $previousVisit->fats ? number_format($previousVisit->fats, 2) : 'N/A' }}</td>
                     <td>{{ $firstVisit->fats ? number_format($firstVisit->fats, 2) : 'N/A' }}</td>
                     <td>{{ $currentVisit && $previousVisit ? number_format($currentVisit->fats - $previousVisit->fats, 2) : 'N/A' }}
