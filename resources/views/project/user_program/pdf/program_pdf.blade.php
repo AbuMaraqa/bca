@@ -277,9 +277,9 @@
                     </td>
                 </tr>
                 {{-- السوائل --}}
-                <tr>
+                {{-- <tr>
                     <td>السوائل</td>
-                    <td>{{ $currentVisit }}
+                    <td>{{ $currentVisit && $currentVisit->liquids ? number_format($currentVisit->liquids, 2) : 'N/A' }}
                     </td>
                     <td>{{ $previousVisit && $previousVisit->liquids ? number_format($previousVisit->liquids, 2) : 'N/A' }}
                     </td>
@@ -288,7 +288,7 @@
                     </td>
                     <td>{{ $currentVisit && $firstVisit ? number_format($currentVisit->liquids - $firstVisit->liquids, 2) : 'N/A' }}
                     </td>
-                </tr>
+                </tr> --}}
                 <tr>
                     <td>العضلات</td>
                     <td>{{ $currentVisit && $currentVisit->muscles ? number_format($currentVisit->muscles, 2) : 'N/A' }}
