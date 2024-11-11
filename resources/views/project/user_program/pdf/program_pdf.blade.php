@@ -279,7 +279,7 @@
                 {{-- السوائل --}}
                 <tr>
                     <td>السوائل</td>
-                    <td>{{ $currentVisit && $currentVisit->liquids ? number_format($currentVisit->liquids, 2) : 'N/A' }}
+                    <td>{{ $currentVisit }}
                     </td>
                     <td>{{ $previousVisit && $previousVisit->liquids ? number_format($previousVisit->liquids, 2) : 'N/A' }}
                     </td>
