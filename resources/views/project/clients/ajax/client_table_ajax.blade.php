@@ -25,17 +25,25 @@
                     <td>{{ $key->city }}</td>
                     <td>
                         @if ($key->user_status == 'new')
-                            <span class="badge bg-gradient-danger">غير مشترك</span>
-                        @elseif ($key->user_status == 'old')
-                            @if (
-                                !is_null($key->start_freezing_date) &&
-                                    !is_null($key->end_freezing_date) &&
-                                    \Carbon\Carbon::now()->between($key->start_freezing_date, $key->end_freezing_date))
-                                <span class="badge bg-gradient-warning">مجمد</span>
-                            @else
-                                <span class="badge bg-gradient-success">مشترك</span>
-                            @endif
-                        @endif
+    <span class="badge bg-gradient-danger">غير مشترك</span>
+@elseif ($key->user_status == 'old')
+    @if (
+        !is_null($key->start_freezing_date) &&
+        !is_null($key->end_freezing_date) &&
+        \Carbon\Carbon::now()->between($key->start_freezing_date, $key->end_freezing_date)
+    )
+    <form action="{{ route('clients.freezing_subscription.cancel_freezing_subscription')}}" method="post">
+        @csrf
+        <input type="text" name="client_id" value="{{ $key->id }}" hidden>
+        <button type="submit" onclick="return confirm('هل تريد الغاء تجميد الاشتراك')" class="badge bg-gradient-warning">مجمد</button>
+    </form>
+    @elseif (!is_null($key->end_subscription) && \Carbon\Carbon::now()->lessThanOrEqualTo($key->end_subscription))
+        <span class="badge bg-gradient-success">مشترك</span>
+    @else
+        <span class="badge bg-gradient-danger">غير مشترك</span>
+    @endif
+@endif
+
                     </td>
                     <td>
                         {{ $key->end_subscription }}

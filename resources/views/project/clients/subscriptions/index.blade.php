@@ -61,8 +61,8 @@
                                                 <td>{{ $key->insert_at }}</td>
                                                 <td>{{ $key->duration }}</td>
                                                 <td>
-                                                    <a href="{{ route('clients.subscriptions.delete', ['id' => $key->id]) }}"
-                                                        class="btn btn-sm btn-danger"><span class="fa fa-trash"></a>
+                                                    <button onclick="open_delete_modal({{ $key }})"
+                                                        class="btn btn-sm btn-danger"><span class="fa fa-trash"></button>
                                                 </td>
                                             </tr>
                                         @endforeach
@@ -75,4 +75,15 @@
             </div>
         </div>
     </div>
+    @include('project.clients.subscriptions.modals.delete_subscription_modal')
+@endsection
+@section('script')
+    <script>
+        function open_delete_modal(data) {
+            $('#subscription_price').html(data.price);
+            $('#client_id').val(data.client_id);
+            $('#subscription_id').val(data.id);
+            $('#delete_subscription_modal').modal('show');
+        }
+    </script>
 @endsection

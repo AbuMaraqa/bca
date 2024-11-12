@@ -10,4 +10,14 @@ class CustomerDebtModel extends Model
     use HasFactory;
 
     protected $table = 'customer_debts';
+
+    protected $fillable = [
+        'client_id',
+'value',
+'type',
+'insert_at',
+'discount',
+'total_amount',
+'notes'
+    ];
 }

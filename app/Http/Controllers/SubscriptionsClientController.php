@@ -121,7 +121,7 @@ class SubscriptionsClientController extends Controller
     // إعادة التوجيه مع رسالة نجاح
     return redirect()->route('clients.subscriptions.index', ['client_id' => $request->client_id])
                      ->with(['success' => 'تم إضافة الاشتراك بنجاح']);
-}   
+}
     // public function create(Request $request)
     // {
     //     $client = ClientsModel::where('id', $request->client_id)->first();
@@ -187,10 +187,57 @@ class SubscriptionsClientController extends Controller
     //     }
     // }
 
-    public function delete(Request $request){
-        $data = SubscriptionClientModel::where('id',$request->id)->first();
-        if ($data->delete()){
-            return redirect()->route('clients.subscriptions.index',['client_id'=>$data->client_id])->with(['success'=>'تم حذف الاشتراك بنجاح']);
+    public function delete(Request $request) {
+        // البحث عن العميل بناءً على `client_id` من الطلب
+        $client = ClientsModel::find($request->client_id);
+
+        // التحقق مما إذا كان العميل موجودًا ولديه اشتراك صالح
+        if (!$client || $client->end_subscription == null || $client->end_subscription < Carbon::now()) {
+            return redirect()->route('clients.subscriptions.index', ['client_id' => $request->client_id])->with(['fail' => 'لا يتوفر اشتراك ساري للعميل']);
         }
+
+        // جلب الاشتراك بناءً على `subscription_id` من الطلب
+        $data = SubscriptionClientModel::find($request->subscription_id);
+        if (!$data) {
+            return redirect()->route('clients.subscriptions.index', ['client_id' => $request->client_id])->with(['fail' => 'الاشتراك المطلوب غير موجود.']);
+        }
+
+        // حذف الاشتراك وتحديث تاريخ انتهاء الاشتراك للعميل
+        if ($data->delete()) {
+            $client->end_subscription = Carbon::parse($client->end_subscription)->subDays($data->duration);
+            $client->save();
+
+            // حساب الدين المتبقي بعد حذف الاشتراك
+            $remainingDebt = $request->price_discount; // قد يمثل قيمة الاشتراك المتبقي عليه
+
+            // إضافة سجل إلى جدول customer_debts لبيان أن العميل عليه مبلغ بعد حذف الاشتراك
+            CustomerDebtModel::create([
+                'client_id' => $client->id,
+                'value' => abs($remainingDebt), // استخدام القيمة المطلقة
+                'type' => 'debtor', // نوع "عليه" بعد حذف الاشتراك
+                'insert_at' => Carbon::now(),
+                'discount' => 0, // يمكنك تخصيص قيمة الخصم هنا إذا كان هناك خصم
+                'total_amount' => abs($remainingDebt), // المبلغ الإجمالي
+                'notes' => 'مبلغ على العميل بعد حذف الاشتراك',
+            ]);
+
+            // افتراضًا أن العميل دفع مبلغ معين عند حذف الاشتراك، سنضيف سجل "له" يوضح أنه تم دفع المبلغ
+            $paidAmount = $request->price_discount; // قم بتحديد مبلغ الدفع المناسب هنا
+
+            CustomerDebtModel::create([
+                'client_id' => $client->id,
+                'value' => abs($paidAmount), // استخدام القيمة المطلقة
+                'type' => 'creditor', // نوع "له" بعد الدفع
+                'insert_at' => Carbon::now(),
+                'discount' => 0, // قيمة الخصم إذا كانت موجودة
+                'total_amount' => abs($paidAmount), // القيمة الإجمالية المدفوعة
+                'notes' => 'تم دفع المبلغ بعد حذف الاشتراك',
+            ]);
+
+            return redirect()->route('clients.subscriptions.index', ['client_id' => $data->client_id])->with(['success' => 'تم حذف الاشتراك بنجاح وإضافة سجلات الدين/الدفع']);
+        }
+
+        return redirect()->route('clients.subscriptions.index', ['client_id' => $request->client_id])->with(['fail' => 'حدث خطأ أثناء حذف الاشتراك.']);
     }
+
 }

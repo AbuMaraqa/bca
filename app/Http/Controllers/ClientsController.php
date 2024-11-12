@@ -111,11 +111,11 @@ class ClientsController extends Controller
     public function add_freezing_subscription(Request $request)
     {
         $client = ClientsModel::where('id', $request->client_id)->first();
-    
+
         if (!$client) {
             return response()->json(['message' => 'Client not found'], 404);
         }
-    
+
         if (
             !is_null($client->start_freezing_date) &&
             !is_null($client->end_freezing_date) &&
@@ -123,35 +123,35 @@ class ClientsController extends Controller
         ) {
             return redirect()->route('clients.index')->with(['fail' => 'العميل لديه بالفعل اشتراك مجمد حاليًا']);
         }
-    
+
         $endSubscription = Carbon::parse($client->end_subscription);
         $today = Carbon::today();
-    
+
         // التحقق من أن الاشتراك لا يزال ساريًا
         if ($endSubscription->isPast()) {
             return redirect()->route('clients.index')->with(['fail' => 'لقد انتهى اشتراك هذا المستخدم']);
         }
-    
+
         $remainingDays = $today->diffInDays($endSubscription);
-    
+
         $startFreezingDate = Carbon::parse($request->start_freezing_date);
         $endFreezingDate = Carbon::parse($request->end_freezing_date);
-    
+
         if (!$startFreezingDate->isToday() && !$startFreezingDate->isFuture()) {
             return redirect()->route('clients.index')->with(['fail' => 'تاريخ بدء التجميد يجب أن يكون اليوم أو في المستقبل']);
         }
-    
+
         if (!$endFreezingDate->greaterThan($startFreezingDate)) {
             return redirect()->route('clients.index')->with(['fail' => 'تاريخ انتهاء التجميد يجب أن يكون بعد تاريخ بدء التجميد']);
         }
-    
+
         // تحديث تواريخ التجميد
         $client->start_freezing_date = $startFreezingDate;
         $client->end_freezing_date = $endFreezingDate;
-    
+
         // تحديث نهاية الاشتراك بمدة الأيام المتبقية بعد نهاية التجميد
         $client->end_subscription = $endFreezingDate->copy()->addDays($remainingDays);
-    
+
         if ($client->save()) {
             return redirect()->route('clients.index')->with([
                 'success' => "تم تجميد الاشتراك بنجاح. تاريخ نهاية الاشتراك الجديد: {$client->end_subscription->format('Y-m-d')}"
@@ -160,6 +160,44 @@ class ClientsController extends Controller
             return redirect()->route('clients.index')->with(['fail' => 'حدث خطأ أثناء تحديث بيانات التجميد']);
         }
     }
+
+    public function cancel_freezing_subscription(Request $request)
+{
+    $client = ClientsModel::where('id', $request->client_id)->first();
+
+    if (!$client) {
+        return response()->json(['message' => 'Client not found'], 404);
+    }
+
+    // التحقق من أن الاشتراك مجمد حاليًا
+    if (
+        is_null($client->start_freezing_date) ||
+        is_null($client->end_freezing_date) ||
+        !Carbon::now()->between($client->start_freezing_date, $client->end_freezing_date)
+    ) {
+        return redirect()->route('clients.index')->with(['fail' => 'العميل ليس لديه اشتراك مجمد حاليًا']);
+    }
+
+    // حساب المدة المتبقية التي تم إضافتها إلى نهاية الاشتراك بسبب التجميد
+    $remainingDaysDuringFreeze = Carbon::now()->diffInDays($client->end_freezing_date, false);
+
+    // إلغاء تواريخ التجميد
+    $client->start_freezing_date = null;
+    $client->end_freezing_date = null;
+
+    // تحويل `end_subscription` إلى كائن `Carbon` ثم تحديث نهاية الاشتراك بإزالة الأيام التي تم تمديدها أثناء التجميد
+    $client->end_subscription = Carbon::parse($client->end_subscription)->subDays($remainingDaysDuringFreeze);
+
+    if ($client->save()) {
+        return redirect()->route('clients.index')->with([
+            'success' => "تم إلغاء تجميد الاشتراك بنجاح. تاريخ نهاية الاشتراك الجديد: {$client->end_subscription->format('Y-m-d')}"
+        ]);
+    } else {
+        return redirect()->route('clients.index')->with(['fail' => 'حدث خطأ أثناء إلغاء تجميد الاشتراك']);
+    }
+}
+
+
     public function delete($clinet_id){
         $data = ClientsModel::where('id',$clinet_id)->first();
         if ($data->delete()){

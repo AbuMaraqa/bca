@@ -51,6 +51,7 @@ Route::group(['middleware' => 'auth'], function () {
         });
         Route::group(['prefix'=>'freezing_subscription'],function (){
             Route::post('add_freezing_subscription', [App\Http\Controllers\ClientsController::class, 'add_freezing_subscription'])->name('clients.freezing_subscription.add_freezing_subscription');
+            Route::post('cancel_freezing_subscription', [App\Http\Controllers\ClientsController::class, 'cancel_freezing_subscription'])->name('clients.freezing_subscription.cancel_freezing_subscription');
         });
     });
     Route::group(['prefix'=>'category'],function (){
@@ -116,7 +117,7 @@ Route::group(['middleware' => 'auth'], function () {
             Route::get('add', [App\Http\Controllers\MealTypeController::class, 'add'])->name('program.meal_type.add');
             Route::get('edit/{id}', [App\Http\Controllers\MealTypeController::class, 'edit'])->name('program.meal_type.edit');
             Route::post('update', [App\Http\Controllers\MealTypeController::class, 'update'])->name('program.meal_type.update');
-        }); 
+        });
         Route::group(['prefix'=>'instructions'],function (){
             Route::get('index', [App\Http\Controllers\InstructionsController::class, 'index'])->name('program.instructions.index');
             Route::post('list_instructions', [App\Http\Controllers\InstructionsController::class, 'list_instructions'])->name('program.instructions.list_instructions');
@@ -161,7 +162,7 @@ Route::group(['middleware' => 'auth'], function () {
             Route::get('details/{program_id}', [App\Http\Controllers\UserProgramController::class, 'details'])->name('program.user_program.details');
             Route::get('user_program_list/{client_id}', [App\Http\Controllers\UserProgramController::class, 'user_program_list'])->name('program.user_program.user_program_list');
             Route::post('add_new_program_with_name', [App\Http\Controllers\UserProgramController::class, 'add_new_program_with_name'])->name('program.user_program.add_new_program_with_name');
-        }); 
+        });
     });
     Route::group(['prefix'=>'reading_users'],function (){
         Route::get('index', [App\Http\Controllers\ReadingUsersController::class, 'index'])->name('reading_users.index');
@@ -171,7 +172,7 @@ Route::group(['middleware' => 'auth'], function () {
         Route::post('search_from_bca', [App\Http\Controllers\ReadingUsersController::class, 'search_from_bca'])->name('reading_users.search_from_bca');
         Route::get('delete/{id}', [App\Http\Controllers\ReadingUsersController::class, 'delete'])->name('reading_users.delete');
     });
-    
+
     Route::group(['prefix'=>'diseases'],function (){
         Route::get('index', [App\Http\Controllers\DiseasesController::class, 'index'])->name('diseases.index');
         Route::get('add', [App\Http\Controllers\DiseasesController::class, 'add'])->name('diseases.add');

@@ -1,3 +1,9 @@
+<div class="row">
+    <div class="col-md-12">
+        @include('alert_message.success')
+        @include('alert_message.fail')
+    </div>
+</div>
 <div class="row mb-2">
     <div class="col-md-12">
         <div class="card">
