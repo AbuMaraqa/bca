@@ -45,6 +45,7 @@
                                         <th>السعر</th>
                                         <th>تاريخ الاشتراك</th>
                                         <th>مدة الاشتراك</th>
+                                        <th></th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -59,6 +60,10 @@
                                                 <td>{{ $key->price }}</td>
                                                 <td>{{ $key->insert_at }}</td>
                                                 <td>{{ $key->duration }}</td>
+                                                <td>
+                                                    <a href="{{ route('clients.subscriptions.delete', ['id' => $key->id]) }}"
+                                                        class="btn btn-sm btn-danger"><span class="fa fa-trash"></a>
+                                                </td>
                                             </tr>
                                         @endforeach
                                     @endif

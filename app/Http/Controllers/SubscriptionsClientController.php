@@ -186,4 +186,11 @@ class SubscriptionsClientController extends Controller
     //         return redirect()->route('clients.subscriptions.index', ['client_id' => $request->client_id])->with(['success' => 'تم اضافة الاشتراك بنجاح']);
     //     }
     // }
+
+    public function delete(Request $request){
+        $data = SubscriptionClientModel::where('id',$request->id)->first();
+        if ($data->delete()){
+            return redirect()->route('clients.subscriptions.index',['client_id'=>$data->client_id])->with(['success'=>'تم حذف الاشتراك بنجاح']);
+        }
+    }
 }

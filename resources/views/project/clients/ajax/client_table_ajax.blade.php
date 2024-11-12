@@ -31,7 +31,7 @@
                                 !is_null($key->start_freezing_date) &&
                                     !is_null($key->end_freezing_date) &&
                                     \Carbon\Carbon::now()->between($key->start_freezing_date, $key->end_freezing_date))
-                                <span class="badge bg-gradient-warning">مشترك ومجمد</span>
+                                <span class="badge bg-gradient-warning">مجمد</span>
                             @else
                                 <span class="badge bg-gradient-success">مشترك</span>
                             @endif

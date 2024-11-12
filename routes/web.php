@@ -47,6 +47,7 @@ Route::group(['middleware' => 'auth'], function () {
             Route::get('index/{client_id}', [App\Http\Controllers\SubscriptionsClientController::class, 'index'])->name('clients.subscriptions.index');
             Route::get('add/{client_id}', [App\Http\Controllers\SubscriptionsClientController::class, 'add'])->name('clients.subscriptions.add');
             Route::post('create', [App\Http\Controllers\SubscriptionsClientController::class, 'create'])->name('clients.subscriptions.create');
+            Route::post('delete', [App\Http\Controllers\SubscriptionsClientController::class, 'delete'])->name('clients.subscriptions.delete');
         });
         Route::group(['prefix'=>'freezing_subscription'],function (){
             Route::post('add_freezing_subscription', [App\Http\Controllers\ClientsController::class, 'add_freezing_subscription'])->name('clients.freezing_subscription.add_freezing_subscription');
