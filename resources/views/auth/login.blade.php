@@ -21,6 +21,17 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
     <!-- CSS Files -->
     <link id="pagestyle" href="{{ asset('assets/css/material-dashboard.css?v=3.0.6') }}" rel="stylesheet" />
+
+    <style>
+        @font-face {
+            font-family: Tajawal;
+            src: url("{{ asset('fonts/Tajawal/Tajawal-Regular.ttf') }}");
+        }
+
+        * {
+            font-family: Tajawal, sans-serif !important;
+        }
+    </style>
     <!-- Nepcha Analytics (nepcha.com) -->
     <!-- Nepcha is a easy-to-use web analytics. No cookies and fully compliant with GDPR, CCPA and PECR. -->
     <script defer data-site="YOUR_DOMAIN_HERE" src="https://api.nepcha.com/js/nepcha-analytics.js"></script>
