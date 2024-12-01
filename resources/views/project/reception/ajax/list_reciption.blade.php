@@ -1,4 +1,4 @@
-<table class="table table-sm table-bordered text-center table-hover table-striped">
+<table class="table table-bordered text-center table-hover table-striped">
     <thead>
         <tr>
             <th>اسم الزبون</th>
