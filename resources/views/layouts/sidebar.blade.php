@@ -1,14 +1,14 @@
 <aside
     class="sidenav navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-end me-3 rotate-caret  bg-gradient-dark"
     id="sidenav-main">
-    <div class="sidenav-header">
+    <div class="sidenav-header text-center">
         <i class="fas fa-times p-3 cursor-pointer text-white opacity-5 position-absolute start-0 top-0 d-none d-xl-none"
             aria-hidden="true" id="iconSidenav"></i>
-        <a class="navbar-brand m-0"
+        <a class="m-0 text-center w-100"
             href=" https://demos.creative-tim.com/material-dashboard-pro/pages/dashboards/analytics.html "
             target="_blank">
-            <img src="{{ asset('assets/img/logo-ct.png') }}" class="navbar-brand-img h-100" alt="main_logo">
-            <span class="me-1 font-weight-bold text-white">مشروع فحص الجسم</span>
+            <img style="" src="{{ asset('img/feda-white.png') }}" class=" h-100" alt="main_logo">
+            {{-- <span class="me-1 font-weight-bold text-white">Super Health</span> --}}
         </a>
     </div>
     <hr class="horizontal light mt-0 mb-2">
@@ -17,7 +17,9 @@
             <li class="nav-item mb-2 mt-0">
                 <a href="#ProfileNav" class="nav-link text-white" aria-controls="ProfileNav" role="button"
                     aria-expanded="false">
-                    <img src="{{ asset('assets/img/team-3.jpg') }}" class="avatar">
+                    <img src="{{ asset('img/logo-fidaa.png') }}" class="avatar">
+                    &nbsp;
+                    &nbsp;
                     <span class="nav-link-text ms-2 ps-1">فداء</span>
                 </a>
                 {{--                <div class="collapse" id="ProfileNav" style=""> --}}
@@ -51,6 +53,15 @@
                     <span class="nav-link-text me-1">الرئيسية</span>
                 </a>
             </li>
+            @if (auth()->user()->user_role == 'admin' || auth()->user()->user_role == 'reception')
+                <li class="nav-item">
+                    <a href="{{ route('reception.index') }}" class="nav-link text-white "
+                        aria-controls="dashboardsExamples" role="button" aria-expanded="false">
+                        <i class="fa fa-menu"></i>
+                        <span class="nav-link-text me-1">شاشة الاستقبال</span>
+                    </a>
+                </li>
+            @endif
             @if (auth()->user()->user_role == 'admin')
                 <li class="nav-item">
                     <a data-bs-toggle="collapse" href="#dashboardsExamples" class="nav-link text-white "
@@ -261,16 +272,6 @@
                     </a>
                 </li>
             @endif
-            @if (auth()->user()->user_role == 'admin' || auth()->user()->user_role == 'reception')
-                <li class="nav-item">
-                    <a href="{{ route('reception.index') }}" class="nav-link text-white "
-                        aria-controls="dashboardsExamples" role="button" aria-expanded="false">
-                        <i class="fa fa-menu"></i>
-                        <span class="nav-link-text me-1">شاشة الاستقبال</span>
-                    </a>
-                </li>
-            @endif
-
             {{-- <li class="nav-item">
                 <a href="{{ route('program.user_program.index') }}" class="nav-link text-white "
                     aria-controls="dashboardsExamples" role="button" aria-expanded="false">
