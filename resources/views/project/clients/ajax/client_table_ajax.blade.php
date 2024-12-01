@@ -54,7 +54,7 @@
                         @if ($key->debt < 0)
                             <span class="badge bg-gradient-warning w-50">{{ $key->debt }}</span>
                         @else
-                            <span class="badge bg-gradient-success w-50">{{ $key->debt }}</span>
+                            <span class="badge bg-gradient-danger w-50">{{ $key->debt }}</span>
                         @endif
 
                     </td>
