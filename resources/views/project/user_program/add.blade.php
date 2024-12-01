@@ -37,18 +37,16 @@
                             </div>
                         </div>
                     </div>
-                    <div class="row">
-                        <form id="button_submit_program" style="display: none"
-                            action="{{ route('program.user_program.submit_program') }}" method="post">
+                    <div class="row card w-75 mb-0 mt-0" style="position: fixed; bottom: 0;z-index: 9999;  box-shadow: 0px 0px 50px 4px rgba(0, 0, 0, 0.1);">
+                        <form id="button_submit_program" class="card-body mb-0 mt-0" style="display: none;height: 70px;"
+                              action="{{ route('program.user_program.submit_program') }}" method="post">
                             @csrf
                             <input type="hidden" id="program_meal_id">
                             <input type="hidden" name="program_id" id="program_id">
-                            <div class="col-md-12">
-                                <button type="submit" class="btn btn-success">اضافة البرنامج</button>
-                            </div>
-                            <div class="col-md-12">
-                                <button type="button" onclick="open_add_program_name_modal()" class="btn btn-success">اضافة
-                                    نموذج برنامج</button>
+
+                            <div class="col-md-12 mb-3 text-center" style="">
+                                <button type="submit" class="btn btn-success" style="">اضافة البرنامج</button>
+                                <button type="button" onclick="open_add_program_name_modal()" class="btn btn-success" style="">اضافة نموذج برنامج</button>
                             </div>
                         </form>
                     </div>
