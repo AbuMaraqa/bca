@@ -1,4 +1,4 @@
-<table class="table table-sm table-bordered text-center">
+<table class="table table-sm table-bordered text-center table-hover table-striped">
     <thead>
         <tr>
             <th>اسم الزبون</th>
@@ -16,10 +16,10 @@
         @else
             @foreach ($data as $key)
                 <tr>
-                    <td>{{ $key->client->name ?? '' }}</td>
-                    <td>{{ $key->room->name ?? '' }}</td>
-                    <td>{{ $key->appointment_date }}</td>
-                    <td>
+                    <td class="justify-content-center align-content-center">{{ $key->client->name ?? '' }}</td>
+                    <td class="justify-content-center align-content-center">{{ $key->room->name ?? '' }}</td>
+                    <td class="justify-content-center align-content-center">{{ $key->appointment_date }}</td>
+                    <td class="justify-content-center align-content-center">
                         <select class="form-control text-center btn-xs"
                             @if ($key->status == 'not_attend') style="background-color: #d9534f;color:white"
                                                             @elseif ($key->status == 'waiting') style="background-color: #f0ad4e;color:black"
@@ -40,11 +40,11 @@
                                 لم يحضر</option>
                         </select>
                     </td>
-                    <td>
+                    <td class="justify-content-center align-content-center">
                         <a href="{{ route('clients.details', ['client_id' => $key->customer_id]) }}"
-                            class="btn btn-success btn-xs"><span class="fa fa-search"></span></a>
+                            class="btn btn-success mb-0 btn-xs"><span class="fa fa-search"></span></a>
                         <a href="{{ route('reception.delete', ['id' => $key->id]) }}"
-                            class="btn btn-xs btn-danger"><span class="fa fa-trash"></a>
+                            class="btn btn-xs mb-0 btn-danger"><span class="fa fa-trash"></a>
                     </td>
                 </tr>
             @endforeach
