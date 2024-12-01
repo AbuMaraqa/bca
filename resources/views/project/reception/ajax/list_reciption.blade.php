@@ -20,7 +20,7 @@
                     <td>{{ $key->room->name ?? '' }}</td>
                     <td>{{ $key->appointment_date }}</td>
                     <td>
-                        <select class="form-control text-center"
+                        <select class="form-control text-center btn-xs"
                             @if ($key->status == 'not_attend') style="background-color: #d9534f;color:white"
                                                             @elseif ($key->status == 'waiting') style="background-color: #f0ad4e;color:black"
                                                             @elseif ($key->status == 'under_examination') style="background-color: #5bc0de;color:white"
@@ -42,9 +42,9 @@
                     </td>
                     <td>
                         <a href="{{ route('clients.details', ['client_id' => $key->customer_id]) }}"
-                            class="btn btn-success btn-sm"><span class="fa fa-search"></span></a>
+                            class="btn btn-success btn-xs"><span class="fa fa-search"></span></a>
                         <a href="{{ route('reception.delete', ['id' => $key->id]) }}"
-                            class="btn btn-sm btn-danger"><span class="fa fa-trash"></a>
+                            class="btn btn-xs btn-danger"><span class="fa fa-trash"></a>
                     </td>
                 </tr>
             @endforeach

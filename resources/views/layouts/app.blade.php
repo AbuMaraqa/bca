@@ -98,6 +98,13 @@
             outline: 0;
             box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
         }
+
+        .btn-xs {
+            padding: 4px 8px;
+            font-size: 12px;
+            line-height: 1.5;
+            border-radius: 3px;
+        }
     </style>
     @yield('style')
 </head>
