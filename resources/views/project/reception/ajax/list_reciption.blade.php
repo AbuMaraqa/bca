@@ -3,6 +3,7 @@
         <tr>
             <th>اسم الزبون</th>
             <th>الغرفة</th>
+            <th>التاريخ</th>
             <th>الموعد</th>
             <th>الحالة</th>
             <th style="width: 10%">العمليات</th>
@@ -18,7 +19,8 @@
                 <tr>
                     <td class="justify-content-center align-content-center">{{ $key->client->name ?? '' }}</td>
                     <td class="justify-content-center align-content-center">{{ $key->room->name ?? '' }}</td>
-                    <td class="justify-content-center align-content-center">{{ $key->appointment_date }}</td>
+                    <td class="justify-content-center align-content-center">{{ \Carbon\Carbon::parse($key->date)->format('Y-m-d') }}</td>
+                    <td class="justify-content-center align-content-center">{{ \Carbon\Carbon::parse($key->time)->format('g:i A') }}</td>
                     <td class="justify-content-center align-content-center">
                         <select class="form-control text-center btn-xs"
                             @if ($key->status == 'not_attend') style="background-color: #d9534f;color:white"
