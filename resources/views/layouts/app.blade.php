@@ -29,7 +29,7 @@
     <style>
         @font-face {
             font-family: Tajawal;
-            src: url("{{ asset('fonts/Tajawal/Tajawal-Regular.ttf') }}");
+            src: url("{{ asset('fonts/Tajawal/Tajawal-Medium.ttf') }}");
         }
 
         * {
