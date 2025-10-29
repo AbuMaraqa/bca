@@ -37,16 +37,18 @@
                             </div>
                         </div>
                     </div>
-                    <div class="row card w-75 mb-0 mt-0" style="position: fixed; bottom: 0;z-index: 9999;  box-shadow: 0px 0px 50px 4px rgba(0, 0, 0, 0.1);">
+                    <div class="row card w-75 mb-0 mt-0"
+                        style="position: fixed; bottom: 0;z-index: 9999;  box-shadow: 0px 0px 50px 4px rgba(0, 0, 0, 0.1);">
                         <form id="button_submit_program" class="card-body mb-0 mt-0" style="display: none;height: 70px;"
-                              action="{{ route('program.user_program.submit_program') }}" method="post">
+                            action="{{ route('program.user_program.submit_program') }}" method="post">
                             @csrf
                             <input type="hidden" id="program_meal_id">
                             <input type="hidden" name="program_id" id="program_id">
 
                             <div class="col-md-12 mb-3 text-center" style="">
                                 <button type="submit" class="btn btn-success" style="">اضافة البرنامج</button>
-                                <button type="button" onclick="open_add_program_name_modal()" class="btn btn-success" style="">اضافة نموذج برنامج</button>
+                                <button type="button" onclick="open_add_program_name_modal()" class="btn btn-success"
+                                    style="">اضافة نموذج برنامج</button>
                             </div>
                         </form>
                     </div>
@@ -130,6 +132,7 @@
             $('#add_supplement_for_meal_type').modal('show');
             $('#program_meal_id').val(data.id)
         }
+
         $('#product_name').keyup(function() {
             $.ajaxSetup({
                 headers: {
@@ -155,12 +158,25 @@
             });
         })
 
+        let supplements = []; // مصفوفة لحفظ المكملات
+
         function add_supplement_for_meal_type(supplement_id) {
             $.ajaxSetup({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 }
             });
+
+            supplements.push({
+                supplement_id: supplement_id,
+                program_meal_id: $('#program_meal_id').val(),
+                user_id: {{ $client->id }},
+            });
+
+
+            $('#supplements_input').val(JSON.stringify(supplements));
+
+
             $('#spinner_' + supplement_id).css('display', 'inline-block');
 
             $.ajax({
@@ -172,25 +188,27 @@
                     supplement_id: supplement_id,
                     program_meal_id: $('#program_meal_id').val(),
                     user_id: {{ $client->id }},
+                    supplements: supplements // إرسال المصفوفة
                 },
+
                 success: function(data) {
                     if (data.success === true) {
                         $('#supplement_for_meal_type_row_' + data.program_meal.id).append(
                             `<tr id=meal_program_meal_supplement_row_${data.data.id}>
-            <td class="font-weight-bold text-dark long-text" style="padding: 10px; border: 1px solid black; text-align: right; color: black;">
-                <input type="number" value="1" onchange="update_data_ajax('qty', ${data.data.id} , this.value)" class="form-control text-center">
-            </td>
-            <td class="font-weight-bold text-dark long-text" style="padding: 10px; border: 1px solid black; text-align: right; color: black;">
-                ${data.supplement.product}
-            </td>
-            <td style="padding: 10px; border: 1px solid black; text-align: right;">
-                <textarea class="form-control form-control-sm" style="width: 100%; box-sizing: border-box;" name="" id="" cols="30" rows="1">${!data.data.notes ? '' : data.data.notes}</textarea>
-            </td>
-            <td class="text-center" style="padding: 10px; border: 1px solid black; text-align: right;">
-                <span style="cursor: pointer" class="badge badge-danger" onclick="delete_supplement_from_meal_type(${data.data.id})">X</span>
-            </td>
-        </tr>
-        `
+                            <td class="font-weight-bold text-dark long-text" style="padding: 10px; border: 1px solid black; text-align: right; color: black;">
+                                <input type="number" value="1" onchange="update_data_ajax('qty', ${data.data.id} , this.value)" class="form-control text-center">
+                            </td>
+                            <td class="font-weight-bold text-dark long-text" style="padding: 10px; border: 1px solid black; text-align: right; color: black;">
+                                ${data.supplement.product}
+                            </td>
+                            <td style="padding: 10px; border: 1px solid black; text-align: right;">
+                                <textarea class="form-control form-control-sm" style="width: 100%; box-sizing: border-box;" name="" id="" cols="30" rows="1">${!data.data.notes ? '' : data.data.notes}</textarea>
+                            </td>
+                            <td class="text-center" style="padding: 10px; border: 1px solid black; text-align: right;">
+                                <span style="cursor: pointer" class="badge badge-danger" onclick="delete_supplement_from_meal_type(${data.data.id})">X</span>
+                            </td>
+                        </tr>
+                        `
                         );
                         $('#calories_' + data.program_meal.day).html(data.calories)
                         $('#carbohydrates_' + data.program_meal.day).html(data.carbohydrates)

@@ -6,6 +6,7 @@
                 @csrf
                 <input type="hidden" name="user_id" value="{{ $client->id }}">
                 <input type="hidden" name="program_id" id="program_id_modal">
+                <input type="hidden" name="supplements" id="supplements_input">
                 <div class="modal-header">
                     <h5 class="modal-title font-weight-normal" id="exampleModalLabel">اضافة نموذج لبرنامج</h5>
                     <button type="button" class="btn-close text-dark" data-bs-dismiss="modal" aria-label="Close">

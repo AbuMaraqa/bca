@@ -290,7 +290,7 @@
                     </td>
                 </tr> --}}
                 <tr>
-                    <td>العضلات</td>
+                    <td>البروتين</td>
                     <td>{{ $currentVisit && $currentVisit->muscles ? number_format($currentVisit->muscles, 2) : 'N/A' }}
                     </td>
                     <td>{{ $previousVisit && $previousVisit->muscles ? number_format($previousVisit->muscles, 2) : 'N/A' }}
