@@ -156,6 +156,10 @@
         }
 
         $('#product_name').keyup(function() {
+            search_supplement(1);
+        });
+
+        function search_supplement(page) {
             $.ajaxSetup({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -163,11 +167,11 @@
             });
 
             $.ajax({
-                url: "{{ route('program.user_program.program_meal_suplement') }}", // Add page parameter
+                url: "{{ route('program.user_program.program_meal_suplement') }}?page=" + page, // Add page parameter
                 type: 'POST',
                 dataType: "json",
                 data: {
-                    product_name: $(this).val(),
+                    product_name: $('#product_name').val(),
                 },
                 success: function(response) {
                     if (response.success === true) {
@@ -178,9 +182,28 @@
                     console.error('An error occurred:', error);
                 }
             });
-        })
+        }
 
-        function add_supplement_for_meal_type(supplement_id) {
+        $(document).on('click', '#list_suplement_for_meal_type .pagination a', function(event) {
+            event.preventDefault();
+            var page = $(this).attr('href').split('page=')[1];
+            search_supplement(page);
+        });
+
+        let isAddingSupplement = false;
+
+        function handle_add_supplement(supplement_id, rowElement) {
+            if (isAddingSupplement) return;
+            isAddingSupplement = true;
+            
+            // Disable row immediately to give feedback
+            $(rowElement).css('opacity', '0.5');
+            $(rowElement).css('pointer-events', 'none');
+
+            add_supplement_for_meal_type(supplement_id, rowElement);
+        }
+
+        function add_supplement_for_meal_type(supplement_id, rowElement) {
             $.ajaxSetup({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -222,8 +245,16 @@
                         $('#protein_' + data.program_meal.day).html(data.protein)
                         $('#fibers_' + data.program_meal.day).html(data.fibers)
 
-                        $('#spinner_' + supplement_id).css('display', 'none');
+                        
                     }
+                    $('#spinner_' + supplement_id).css('display', 'none');
+                    isAddingSupplement = false;
+                },
+                error: function() {
+                    isAddingSupplement = false;
+                    $('#spinner_' + supplement_id).css('display', 'none');
+                    $(rowElement).css('opacity', '1');
+                    $(rowElement).css('pointer-events', 'auto');
                 }
             });
         }

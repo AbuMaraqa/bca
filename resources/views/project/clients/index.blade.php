@@ -35,7 +35,7 @@
                             <div class="form-group">
                                 <div class="input-group input-group-outline my-3">
                                     <label class="form-label">رقم هاتف العميل</label>
-                                    <input name="phone" onkeydown="list_users()" id="phone" type="text"
+                                    <input name="phone" id="phone" type="text"
                                         class="form-control">
                                 </div>
                             </div>
@@ -76,16 +76,23 @@
 @endsection
 @section('script')
     <script>
-        $(document).ready(function() {
-            $('#name').on('keyup', function() {
-                list_users();
-            });
+        var searchRequest = null;
+        var debounceTimer = null;
 
-            $('#phone').on('keydown', function() {
-                list_users();
+        $(document).ready(function() {
+            $('#name, #phone').on('keyup', function() {
+                handleSearch();
             });
+            
             list_users();
         });
+
+        function handleSearch() {
+            clearTimeout(debounceTimer);
+            debounceTimer = setTimeout(function() {
+                list_users();
+            }, 500);
+        }
 
         var page = 1;
         $(document).on('click', '.pagination a', function(e) {
@@ -95,12 +102,16 @@
         });
 
         function list_users(page) {
+            if (searchRequest) {
+                searchRequest.abort();
+            }
+
             $.ajaxSetup({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 }
             });
-            $.ajax({
+            searchRequest = $.ajax({
                 url: "{{ route('clients.list_clients_ajax') }}",
                 type: 'POST',
                 dataType: "json",

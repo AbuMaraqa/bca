@@ -18,7 +18,7 @@
                 </tr>
             @endif
             @foreach ($data as $key)
-                <tr ondblclick="add_supplement_for_meal_type({{ $key->id }})">
+                <tr ondblclick="handle_add_supplement({{ $key->id }}, this)" style="cursor: pointer;">
                     <td class="long-text">
                         <div>
                             <span>{{ $key->product }}</span>
@@ -41,4 +41,5 @@
             @endforeach
         </tbody>
     </table>
+    {{ $data->links() }}
 </div>
