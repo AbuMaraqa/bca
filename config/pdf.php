@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'mode'                     => '',
+    'mode'                     => 'true',
     'format'                   => 'A4',
     'default_font_size'        => '12',
     'default_font'             => 'tajawal',
@@ -30,13 +30,12 @@ return [
         'tajawal' => [ // must be lowercase and snake_case
             'R'  => 'Tajawal-Regular.ttf',
             'B'  => 'Tajawal-Bold.ttf',     // Bold
-            'I'  => 'Tajawal-Italic.ttf',
             'useOTL' => 0xFF,    // ضروري جداً للغة العربية لترابط الحروف
             'useKashida' => 75, // Italic (if available)
        // regular font
         ]
         ],
-    'auto_language_detection'  => true,
+    'auto_language_detection'  => false,
     'temp_dir'                 => storage_path('app'),
     'pdfa'                     => false,
     'pdfaauto'                 => false,

@@ -69,7 +69,7 @@
             padding: 6px;
             /* تقليص حشوة خلايا الجدول */
             text-align: center;
-            font-size: 12px;/
+            font-size: 12px;
             /* Slight color change for better readability */
         }
 
