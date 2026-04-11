@@ -9,7 +9,7 @@
     <title>برنامج التغذية</title>
     <style>
         body {
-            font-family: 'tajawal', sans-serif;
+            font-family: 'tajawal';
             font-weight: normal;
             /* You can change to 'bold' if needed */
             direction: rtl;
@@ -24,7 +24,7 @@
         h1,
         h2,
         h3 {
-            font-family: 'tajawal', sans-serif;
+            font-family: 'tajawal';
             font-weight: bold;
         }
 
