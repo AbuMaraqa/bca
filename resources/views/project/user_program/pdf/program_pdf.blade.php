@@ -245,10 +245,10 @@
         </table>
         <pagebreak />
 
-        <div style="width:100%; margin-bottom: 20px;">
-            <h4 style="text-align: center; border-bottom: 2px solid #2a9d8f; display: inline-block; padding-bottom: 5px;">التعليمات العامة</h4>
+        <div style="width:100%; margin-top: 15px; margin-bottom: 15px;">
+            <h4 style="text-align: center; border-bottom: 2px solid #2a9d8f; display: inline-block; padding-bottom: 5px; margin: 0;">التعليمات العامة</h4>
         </div>
-        <div style="font-size: 14px; line-height: 1.8; background-color: #fefefe; padding: 15px; border-radius: 8px; border: 1px solid #eee;">
+        <div style="font-size: 12.5px; line-height: 1.5; background-color: #f8f9fa; padding: 10px 15px; border-radius: 6px; border: 1px solid #e9ecef; margin-bottom: 30px;">
             {!! $user_program->instructions ?? 'لا توجد تعليمات مسجلة.' !!}
         </div>
         <pagebreak />
