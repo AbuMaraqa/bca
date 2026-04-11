@@ -8,12 +8,14 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <title>برنامج التغذية</title>
     <style>
+        /* التنسيقات العامة */
         body {
-            font-family: 'tajawal';
+            font-family: 'tajawal', sans-serif;
             font-weight: normal;
-            /* You can change to 'bold' if needed */
             direction: rtl;
             text-align: right;
+            color: #333; /* لون رمادي داكن مريح للقراءة بدلاً من الأسود القاتم */
+            line-height: 1.6;
         }
 
         @page {
@@ -21,227 +23,189 @@
             footer: page-footer;
         }
 
-        h1,
-        h2,
-        h3 {
-            font-family: 'tajawal';
+        h1, h2, h3, h4, h5 {
+            font-family: 'tajawal', sans-serif;
             font-weight: bold;
+            color: #2c3e50; /* كحلي/رمادي أنيق للعناوين */
         }
 
         .container {
             max-width: 900px;
             margin: auto;
             background-color: #fff;
-            border-radius: 10px;
             padding: 20px;
-            overflow-x: auto;
-            /* Ensures tables are scrollable on smaller screens */
+        }
+
+        /* تنسيق بطاقة معلومات المشترك */
+        .client-info-card {
+            background-color: #f8f9fa;
+            border: 1px solid #e9ecef;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 40px;
+        }
+
+        .client-info-card table {
+            margin-bottom: 0;
+            border: none;
+        }
+
+        .client-info-card td {
+            border: none;
+            text-align: right;
+            padding: 10px;
         }
 
         h3 {
-            color: #000;
             text-align: center;
-            font-size: 24px;
+            font-size: 22px;
             margin-bottom: 20px;
+            color: #2a9d8f; /* لون أخضر صحي مميز لأسماء الأيام */
         }
 
+        /* الجداول العامة */
         table {
             width: 100%;
             border-collapse: collapse;
-            margin-bottom: 20px;
-            font-size: 12px;
+            margin-bottom: 25px;
+            font-size: 13px;
         }
 
-        table,
-        th,
-        td {
-            border: 1px solid #e0e0e0;
+        th, td {
+            border: 1px solid #e9ecef; /* حدود ناعمة جداً */
+            padding: 10px 8px;
         }
 
         th {
-            background-color: #f5f6f6;
-            color: #000;
-            padding: 12px;
-            font-size: 16px;
-        }
-
-        td {
-            padding: 6px;
-            /* تقليص حشوة خلايا الجدول */
-            text-align: center;
-            font-size: 12px;
-            /* Slight color change for better readability */
-        }
-
-        th,
-        td {
-            padding: 6px 8px;
-            /* تقليص الحشوة (padding) */
-            font-size: 12px;
-            /* تقليص حجم النص في خلايا الجدول */
-        }
-
-        td input,
-        td textarea {
-            padding: 4px;
-            /* تقليص الحشوة داخل الحقول النصية */
-            font-size: 12px;
-            /* تقليص حجم النص داخل الحقول */
-
-        }
-
-        td textarea {
-            resize: none;
-            height: 40px;
-        }
-
-        .btn {
-            display: inline-block;
-            padding: 8px 16px;
+            background-color: #f8f9fa;
+            color: #2c3e50;
             font-size: 14px;
-            margin-top: 10px;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-            /* Smooth hover transition */
+            text-align: center;
         }
 
-        .btn-success {
-            background-color: #f5f6f6;
-            color: #000;
-            border: none;
+        thead th {
+            border-bottom: 2px solid #2a9d8f; /* خط سفلي مميز لترويسة الجدول */
         }
 
-        .btn-danger {
-            background-color: #e63946;
-            color: #fff;
-            border: none;
+        td {
+            text-align: center;
         }
 
-        .btn:hover {
-            opacity: 0.9;
-            /* Slight hover effect for better feedback */
-        }
-
-        .nutritional-info th,
-        .nutritional-info td {
-            padding: 6px 8px;
-            /* تقليص الحشوة داخل خلايا معلومات التغذية */
-            font-size: 12px;
-            /* تقليص حجم النص */
-        }
-
-        .nutritional-info {
-            margin-top: 30px;
-            background-color: #f7f7f7;
-            padding: 20px;
-            border-radius: 10px;
-        }
-
-        .nutritional-info table {
-            margin: 0;
-            border: none;
-            text-align: left;
-        }
-
-        .nutritional-info th {
-            background-color: transparent;
-            color: #555;
-            padding: 8px;
-            border-bottom: 1px solid #e0e0e0;
-        }
-
-        .nutritional-info td {
-            color: #2a9d8f;
-            padding: 8px;
+        /* تنسيق نوع الوجبة (بدلاً من شكل الزر) */
+        .meal-label {
+            display: inline-block;
+            background-color: #e8f5e9; /* خلفية خضراء فاتحة */
+            color: #2e7d32; /* نص أخضر داكن */
+            padding: 6px 15px;
+            font-size: 13px;
             font-weight: bold;
-            border-bottom: 1px solid #e0e0e0;
+            border-radius: 20px; /* أطراف دائرية */
+            border: 1px solid #c8e6c9;
+            text-align: center;
+        }
+
+        /* تنسيق جدول الأصناف الداخلي */
+        .meal-supplements table {
+            margin-bottom: 0;
+            border: none;
+        }
+
+        .meal-supplements th {
+            background-color: transparent;
+            border: none;
+            border-bottom: 1px solid #dee2e6;
+            color: #6c757d;
+            font-size: 12px;
+            padding: 6px;
+            text-align: right;
+        }
+
+        .meal-supplements th:first-child { text-align: center; } /* توسيط الكمية */
+
+        .meal-supplements td {
+            border: none;
+            border-bottom: 1px dashed #e9ecef; /* خط متقطع خفيف بين الأصناف */
+            padding: 8px 6px;
+            text-align: right;
+        }
+
+        .meal-supplements td:first-child { text-align: center; font-weight: bold; } /* توسيط الكمية */
+
+        .meal-supplements tr:last-child td {
+            border-bottom: none;
         }
 
         .day-section {
-            margin-bottom: 30px;
+            margin-bottom: 40px;
         }
 
-        /* Add some responsiveness */
-        @media (max-width: 600px) {
-
-            th,
-            td {
-                font-size: 10px;
-                /* حجم النص على الشاشات الصغيرة */
-                padding: 4px;
-                /* تقليل الحشوة على الشاشات الصغيرة */
-            }
-
-            .btn {
-                padding: 4px 6px;
-                font-size: 10px;
-                /* تصغير الأزرار على الشاشات الصغيرة */
-            }
+        /* تنسيقات الفوتر */
+        .footer-text {
+            color: #6c757d;
+            font-size: 12px;
         }
     </style>
 </head>
 
 <body>
-    <!-- optional -->
     <htmlpagefooter name="page-footer">
-        <table style="border: none">
+        <table style="border: none; width: 100%; border-top: 1px solid #e9ecef; padding-top: 10px;" class="footer-text">
             <tr style="border: none">
-                <td colspan="3">بيت لحم - مقابل مستوصف الاحسان - عمارة السنة - الطابق الأول</td>
+                <td colspan="3" style="border: none; text-align: center; padding-bottom: 10px;">بيت لحم - مقابل مستوصف الاحسان - عمارة السنة - الطابق الأول</td>
             </tr>
             <tr style="border: none">
-                <td>
-                    <div style="display: flex;align-content: center;justify-content: center">
-                        <span>سوبر هيلث - super health</span>
-                        <img style="width: 15px;height: 15px" src="{{ asset('img/icons/facebook.png') }}"
-                            alt="">
-                    </div>
+                <td style="border: none; text-align: center;">
+                    <span>سوبر هيلث - super health</span>
+                    <img style="width: 13px;height: 13px; margin-right: 5px; vertical-align: middle;" src="{{ asset('img/icons/facebook.png') }}" alt="">
                 </td>
-                <td>
+                <td style="border: none; text-align: center;">
                     <span>dietitian fida shakhtour</span>
-                    <img style="width: 15px;height: 15px" src="{{ asset('img/icons/instgram.png') }}" alt="">
+                    <img style="width: 13px;height: 13px; margin-right: 5px; vertical-align: middle;" src="{{ asset('img/icons/instgram.png') }}" alt="">
                 </td>
-                <td>
-                    <span>0594830078</span>
-                    <img style="width: 15px;height: 15px" src="{{ asset('img/icons/whatsapp.png') }}" alt="">
+                <td style="border: none; text-align: center;">
+                    <span dir="ltr">0594830078</span>
+                    <img style="width: 13px;height: 13px; margin-right: 5px; vertical-align: middle;" src="{{ asset('img/icons/whatsapp.png') }}" alt="">
                 </td>
             </tr>
         </table>
     </htmlpagefooter>
+
     <div class="container">
-        <div style="width: 100%;text-align: center">
-            <img style="width: 400px;height: 400px" src="{{ asset('img/logo-fidaa.png') }}" alt="">
+        <div style="width: 100%; text-align: center; margin-bottom: 20px;">
+            <img style="width: 250px; height: auto;" src="{{ asset('img/logo-fidaa.png') }}" alt="">
         </div>
-        <div style="margin-bottom: 50px">
-            <h2 style="text-align: center">معاً ... لصحة أفضل</h2>
+
+        <div style="margin-bottom: 30px;">
+            <h2 style="text-align: center; color: #2a9d8f;">معاً ... لصحة أفضل</h2>
         </div>
-        <div style="margin-bottom: 50px">
-            <table style="width: 100%;">
+
+        <div class="client-info-card">
+            <table>
                 <tr>
-                    <td colspan="2" style="padding:30px">
-                        <h5 style="font-size:20px">رقم المشترك : {{ $client->id }}</h5>
+                    <td colspan="2">
+                        <h5 style="font-size:18px; margin: 0;">رقم المشترك : <span style="font-weight: normal;">{{ $client->id }}</span></h5>
                     </td>
                 </tr>
                 <tr>
-                    <td style="padding:15px">
-                        <h5 style="font-size:15px">
-                            الاسم : {{ $client->name }}</h5>
+                    <td>
+                        <h5 style="font-size:15px; margin: 0;">الاسم : <span style="font-weight: normal;">{{ $client->name }}</span></h5>
                     </td>
-                    <td style="padding:15px">
-                        <h5 style="font-size:15px">رقم الهاتف : {{ $client->phone }}</h5>
+                    <td>
+                        <h5 style="font-size:15px; margin: 0;">رقم الهاتف : <span style="font-weight: normal;">{{ $client->phone }}</span></h5>
                     </td>
                 </tr>
                 <tr>
-                    <td style="padding:15px">
-                        <h5 style="font-size:15px">تاريخ الميلاد : {{ $client->dob }}</h5>
+                    <td>
+                        <h5 style="font-size:15px; margin: 0;">تاريخ الميلاد : <span style="font-weight: normal;">{{ $client->dob }}</span></h5>
                     </td>
-                    <td style="padding:15px">
-                        <h5 style="font-size:15px">المدينة : {{ $client->city }}</h5>
+                    <td>
+                        <h5 style="font-size:15px; margin: 0;">المدينة : <span style="font-weight: normal;">{{ $client->city }}</span></h5>
                     </td>
                 </tr>
             </table>
         </div>
-        <table class="table table-sm text-center table-hover">
+
+        <table>
             <thead>
                 <tr>
                     <th>الوصف</th>
@@ -254,130 +218,90 @@
             </thead>
             <tbody>
                 <tr>
-                    <td>الوزن</td>
-                    <td>{{ $currentVisit && $currentVisit->weight ? number_format($currentVisit->weight, 2) : 'N/A' }}
-                    </td>
-                    <td>{{ $previousVisit && $previousVisit->weight ? number_format($previousVisit->weight, 2) : 'N/A' }}
-                    </td>
+                    <td style="font-weight: bold; background-color: #fdfdfd;">الوزن</td>
+                    <td>{{ $currentVisit && $currentVisit->weight ? number_format($currentVisit->weight, 2) : 'N/A' }}</td>
+                    <td>{{ $previousVisit && $previousVisit->weight ? number_format($previousVisit->weight, 2) : 'N/A' }}</td>
                     <td>{{ $firstVisit && $firstVisit->weight ? number_format($firstVisit->weight, 2) : 'N/A' }}</td>
-                    <td>{{ $currentVisit && $previousVisit ? number_format($currentVisit->weight - $previousVisit->weight, 2) : 'N/A' }}
-                    </td>
-                    <td>{{ $currentVisit && $firstVisit ? number_format($currentVisit->weight - $firstVisit->weight, 2) : 'N/A' }}
-                    </td>
+                    <td dir="ltr">{{ $currentVisit && $previousVisit ? number_format($currentVisit->weight - $previousVisit->weight, 2) : 'N/A' }}</td>
+                    <td dir="ltr">{{ $currentVisit && $firstVisit ? number_format($currentVisit->weight - $firstVisit->weight, 2) : 'N/A' }}</td>
                 </tr>
                 <tr>
-                    <td>الدهون</td>
+                    <td style="font-weight: bold; background-color: #fdfdfd;">الدهون</td>
                     <td>{{ $currentVisit && $currentVisit->fats ? number_format($currentVisit->fats, 2) : 'N/A' }}</td>
-                    <td>{{ $previousVisit && $previousVisit->fats ? number_format($previousVisit->fats, 2) : 'N/A' }}
-                    </td>
+                    <td>{{ $previousVisit && $previousVisit->fats ? number_format($previousVisit->fats, 2) : 'N/A' }}</td>
                     <td>{{ $firstVisit && $firstVisit->fats ? number_format($firstVisit->fats, 2) : 'N/A' }}</td>
-                    <td>{{ $currentVisit && $previousVisit ? number_format($currentVisit->fats - $previousVisit->fats, 2) : 'N/A' }}
-                    </td>
-                    <td>{{ $currentVisit && $firstVisit ? number_format($currentVisit->fats - $firstVisit->fats, 2) : 'N/A' }}
-                    </td>
+                    <td dir="ltr">{{ $currentVisit && $previousVisit ? number_format($currentVisit->fats - $previousVisit->fats, 2) : 'N/A' }}</td>
+                    <td dir="ltr">{{ $currentVisit && $firstVisit ? number_format($currentVisit->fats - $firstVisit->fats, 2) : 'N/A' }}</td>
                 </tr>
-                {{-- السوائل --}}
-                {{-- <tr>
-                    <td>السوائل</td>
-                    <td>{{ $currentVisit && $currentVisit->liquids ? number_format($currentVisit->liquids, 2) : 'N/A' }}
-                    </td>
-                    <td>{{ $previousVisit && $previousVisit->liquids ? number_format($previousVisit->liquids, 2) : 'N/A' }}
-                    </td>
-                    <td>{{ $firstVisit && $firstVisit->liquids ? number_format($firstVisit->liquids, 2) : 'N/A' }}</td>
-                    <td>{{ $currentVisit && $previousVisit ? number_format($currentVisit->liquids - $previousVisit->liquids, 2) : 'N/A' }}
-                    </td>
-                    <td>{{ $currentVisit && $firstVisit ? number_format($currentVisit->liquids - $firstVisit->liquids, 2) : 'N/A' }}
-                    </td>
-                </tr> --}}
                 <tr>
-                    <td>البروتين</td>
-                    <td>{{ $currentVisit && $currentVisit->muscles ? number_format($currentVisit->muscles, 2) : 'N/A' }}
-                    </td>
-                    <td>{{ $previousVisit && $previousVisit->muscles ? number_format($previousVisit->muscles, 2) : 'N/A' }}
-                    </td>
+                    <td style="font-weight: bold; background-color: #fdfdfd;">البروتين</td>
+                    <td>{{ $currentVisit && $currentVisit->muscles ? number_format($currentVisit->muscles, 2) : 'N/A' }}</td>
+                    <td>{{ $previousVisit && $previousVisit->muscles ? number_format($previousVisit->muscles, 2) : 'N/A' }}</td>
                     <td>{{ $firstVisit && $firstVisit->muscles ? number_format($firstVisit->muscles, 2) : 'N/A' }}</td>
-                    <td>{{ $currentVisit && $previousVisit ? number_format($currentVisit->muscles - $previousVisit->muscles, 2) : 'N/A' }}
-                    </td>
-                    <td>{{ $currentVisit && $firstVisit ? number_format($currentVisit->muscles - $firstVisit->muscles, 2) : 'N/A' }}
-                    </td>
+                    <td dir="ltr">{{ $currentVisit && $previousVisit ? number_format($currentVisit->muscles - $previousVisit->muscles, 2) : 'N/A' }}</td>
+                    <td dir="ltr">{{ $currentVisit && $firstVisit ? number_format($currentVisit->muscles - $firstVisit->muscles, 2) : 'N/A' }}</td>
                 </tr>
-                {{-- <tr>
-                    <td>الأملاح</td>
-                    <td>{{ $currentVisit->salts ? number_format($currentVisit->salts, 2) : 'N/A' }}</td>
-                    <td>{{ $previousVisit->salts ? number_format($previousVisit->salts, 2) : 'N/A' }}</td>
-                    <td>{{ $firstVisit->salts ? number_format($firstVisit->salts, 2) : 'N/A' }}</td>
-                    <td>{{ $currentVisit && $previousVisit ? number_format($currentVisit->salts - $previousVisit->salts, 2) : 'N/A' }}</td>
-                    <td>{{ $currentVisit && $firstVisit ? number_format($currentVisit->salts - $firstVisit->salts, 2) : 'N/A' }}</td>
-                </tr> --}}
             </tbody>
         </table>
         <pagebreak />
 
-        <div style="width:100%">
-            <h4 style="text-align: center">التعليمات العامة</h4>
+        <div style="width:100%; margin-bottom: 20px;">
+            <h4 style="text-align: center; border-bottom: 2px solid #2a9d8f; display: inline-block; padding-bottom: 5px;">التعليمات العامة</h4>
         </div>
-        <div style="font-size: 13px;font-weight: 10">
-            {!! $user_program->instructions ?? '' !!}
+        <div style="font-size: 14px; line-height: 1.8; background-color: #fefefe; padding: 15px; border-radius: 8px; border: 1px solid #eee;">
+            {!! $user_program->instructions ?? 'لا توجد تعليمات مسجلة.' !!}
         </div>
         <pagebreak />
 
         @foreach ($data as $day => $meals)
             @php
-                $calories = 0;
-                $carbohydrates = 0;
-                $fats = 0;
-                $protein = 0;
-                $fibers = 0;
+                $calories = 0; $carbohydrates = 0; $fats = 0; $protein = 0; $fibers = 0;
             @endphp
             <div class="day-section">
                 <h3>اليوم {{ $day }}</h3>
                 <table>
                     <thead>
                         <tr>
-                            <th style="width: 100px">نوع الوجبة</th>
-                            <th>الأصناف</th>
+                            <th style="width: 150px;">نوع الوجبة</th>
+                            <th>الأصناف المقترحة</th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach ($meals as $meal)
                             <tr>
-                                <td>
-                                    <button class="btn btn-success"
-                                        onclick="open_add_supplement_for_meal_type_modal({{ $meal }})">
+                                <td style="vertical-align: middle;">
+                                    <span class="meal-label" onclick="open_add_supplement_for_meal_type_modal({{ $meal }})">
                                         {{ $meal->meal_type->meal_name ?? '' }}
-                                    </button>
+                                    </span>
                                 </td>
-                                <td>
+                                <td style="padding: 0;">
                                     <div class="meal-supplements">
                                         <table>
                                             <thead>
                                                 <tr>
-                                                    <th style="width: 20px">الكمية</th>
-                                                    <th style="width: 200px">الصنف</th>
-                                                    <th>ملاحظات</th>
+                                                    <th style="width: 50px; text-align: center;">الكمية</th>
+                                                    <th style="width: 250px; text-align: right;">الصنف</th>
+                                                    <th style="text-align: right;">ملاحظات</th>
                                                 </tr>
                                             </thead>
                                             <tbody id="supplement_for_meal_type_row_{{ $meal->id }}">
                                                 @if ($meal->program_meal_supplement->isEmpty())
                                                     <tr>
-                                                        <td colspan="3">لا يوجد أصناف لنوع الوجبة هذه</td>
+                                                        <td colspan="3" style="text-align: center; color: #999;">لا يوجد أصناف لنوع الوجبة هذه</td>
                                                     </tr>
                                                 @else
                                                     @foreach ($meal->program_meal_supplement as $key)
                                                         @php
                                                             $calories += $key->supplement->calories * ($key->qty ?? 1);
-                                                            $carbohydrates +=
-                                                                $key->supplement->carbohydrates * ($key->qty ?? 1);
+                                                            $carbohydrates += $key->supplement->carbohydrates * ($key->qty ?? 1);
                                                             $fats += $key->supplement->fats * ($key->qty ?? 1);
                                                             $protein += $key->supplement->protein * ($key->qty ?? 1);
                                                             $fibers += $key->supplement->fibers * ($key->qty ?? 1);
                                                         @endphp
                                                         <tr>
-                                                            <td>{{ $key->qty ?? 1 }}</td>
-                                                            <td>{{ $key->supplement->product ?? '' }}</td>
-                                                            <td>
-                                                                {{ $key->notes ?? '' }}
-                                                            </td>
+                                                            <td style="text-align: center;">{{ $key->qty ?? 1 }}</td>
+                                                            <td style="text-align: right;">{{ $key->supplement->product ?? '' }}</td>
+                                                            <td style="text-align: right; color: #555;">{{ $key->notes ?? '-' }}</td>
                                                         </tr>
                                                     @endforeach
                                                 @endif
@@ -389,31 +313,6 @@
                         @endforeach
                     </tbody>
                 </table>
-                {{-- <div class="nutritional-info">
-                    <h3>معلومات التغذية</h3>
-                    <table>
-                        <tr>
-                            <th>السعرات الحرارية</th>
-                            <td>{{ $calories }}</td>
-                        </tr>
-                        <tr>
-                            <th>الكربوهيدرات</th>
-                            <td>{{ $carbohydrates }}</td>
-                        </tr>
-                        <tr>
-                            <th>الدهون</th>
-                            <td>{{ $fats }}</td>
-                        </tr>
-                        <tr>
-                            <th>البروتين</th>
-                            <td>{{ $protein }}</td>
-                        </tr>
-                        <tr>
-                            <th>الألياف</th>
-                            <td>{{ $fibers }}</td>
-                        </tr>
-                    </table>
-                </div> --}}
             </div>
             @if (!$loop->last)
                 <pagebreak />
