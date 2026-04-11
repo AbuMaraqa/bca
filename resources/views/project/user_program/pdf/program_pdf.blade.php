@@ -94,14 +94,13 @@
         /* تنسيق نوع الوجبة (بدلاً من شكل الزر) */
         .meal-label {
             display: inline-block;
-            background-color: #e8f5e9; /* خلفية خضراء فاتحة */
-            color: #2e7d32; /* نص أخضر داكن */
-            padding: 6px 15px;
-            font-size: 13px;
+            background-color: transparent; /* إزالة الخلفية */
+            color: #2a9d8f; /* لون أخضر مميز يتماشى مع العناوين */
+            padding: 5px 0;
+            font-size: 14px;
             font-weight: bold;
-            border-radius: 20px; /* أطراف دائرية */
-            border: 1px solid #c8e6c9;
-            text-align: center;
+            border: none; /* إزالة الحدود */
+            text-align: right;
         }
 
         /* تنسيق جدول الأصناف الداخلي */
