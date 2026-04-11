@@ -28,9 +28,11 @@ return [
     'custom_font_dir'  => base_path('resources/fonts/Tajawal'),
     'custom_font_data' => [
         'tajawal' => [ // must be lowercase and snake_case
-            'R'  => 'Tajawal-Regular.ttf', 
+            'R'  => 'Tajawal-Regular.ttf',
             'B'  => 'Tajawal-Bold.ttf',     // Bold
-            'I'  => 'Tajawal-Italic.ttf',   // Italic (if available)
+            'I'  => 'Tajawal-Italic.ttf',
+            'useOTL' => 0xFF,    // ضروري جداً للغة العربية لترابط الحروف
+            'useKashida' => 75, // Italic (if available)
        // regular font
         ]
         ],
