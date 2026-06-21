@@ -1,204 +1,246 @@
 <!DOCTYPE html>
-<html lang="ar">
+<html lang="ar" dir="rtl">
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <title>برنامج التغذية</title>
     <style>
-        /* التنسيقات العامة */
-        body {
-            font-family: 'tajawal', sans-serif;
-            font-weight: normal;
-            direction: rtl;
-            text-align: right;
-            color: #333; /* لون رمادي داكن مريح للقراءة بدلاً من الأسود القاتم */
-            line-height: 1.6;
-        }
-
         @page {
-            header: page-header;
             footer: page-footer;
         }
 
-        h1, h2, h3, h4, h5 {
+        body {
             font-family: 'tajawal', sans-serif;
-            font-weight: bold;
-            color: #2c3e50; /* كحلي/رمادي أنيق للعناوين */
+            direction: rtl;
+            text-align: right;
+            color: #3f4a56;
+            font-size: 12px;
+            line-height: 1.45;
         }
 
         .container {
-            max-width: 900px;
-            margin: auto;
-            background-color: #fff;
-            padding: 20px;
+            width: 100%;
         }
 
-        /* تنسيق بطاقة معلومات المشترك */
-        .client-info-card {
-            background-color: #f8f9fa;
-            border: 1px solid #e9ecef;
-            border-radius: 8px;
-            padding: 15px;
-            margin-bottom: 40px;
+        .logo {
+            width: 230px;
+            height: auto;
         }
 
-        .client-info-card table {
-            margin-bottom: 0;
-            border: none;
+        h2,
+        h3,
+        h4,
+        h5 {
+            margin: 0;
+            color: #2c3e50;
+            font-weight: bold;
         }
 
-        .client-info-card td {
-            border: none;
-            text-align: right;
-            padding: 10px;
-        }
-
-        h3 {
+        .center {
             text-align: center;
-            font-size: 22px;
-            margin-bottom: 20px;
-            color: #2a9d8f; /* لون أخضر صحي مميز لأسماء الأيام */
         }
 
-        /* الجداول العامة */
+        .brand-title {
+            margin: 18px 0 26px;
+            color: #229d91;
+            font-size: 22px;
+        }
+
+        .client-card {
+            margin-bottom: 28px;
+            padding: 12px 14px;
+            border: 1px solid #e6eaee;
+            background-color: #fafbfc;
+        }
+
         table {
             width: 100%;
             border-collapse: collapse;
-            margin-bottom: 25px;
-            font-size: 13px;
         }
 
-        th, td {
-            border: 1px solid #e9ecef; /* حدود ناعمة جداً */
-            padding: 10px 8px;
+        th,
+        td {
+            border: 1px solid #e7ebef;
+            padding: 8px 7px;
+            vertical-align: middle;
         }
 
         th {
-            background-color: #f8f9fa;
-            color: #2c3e50;
-            font-size: 14px;
-            text-align: center;
-        }
-
-        thead th {
-            border-bottom: 2px solid #2a9d8f; /* خط سفلي مميز لترويسة الجدول */
-        }
-
-        td {
-            text-align: center;
-        }
-
-        /* تنسيق نوع الوجبة (بدلاً من شكل الزر) */
-        .meal-label {
-            display: inline-block;
-            background-color: transparent; /* إزالة الخلفية */
-            color: #2a9d8f; /* لون أخضر مميز يتماشى مع العناوين */
-            padding: 5px 0;
-            font-size: 14px;
+            background-color: #f7f9fa;
+            color: #2f3e4d;
             font-weight: bold;
-            border: none; /* إزالة الحدود */
-            text-align: right;
         }
 
-        /* تنسيق جدول الأصناف الداخلي */
-        .meal-supplements table {
-            margin-bottom: 0;
-            border: none;
+        .client-card table,
+        .client-card td {
+            border: 0;
         }
 
-        .meal-supplements th {
-            background-color: transparent;
-            border: none;
-            border-bottom: 1px solid #dee2e6;
-            color: #6c757d;
-            font-size: 12px;
-            padding: 6px;
-            text-align: right;
-        }
-
-        .meal-supplements th:first-child { text-align: center; } /* توسيط الكمية */
-
-        .meal-supplements td {
-            border: none;
-            border-bottom: 1px dashed #e9ecef; /* خط متقطع خفيف بين الأصناف */
+        .client-card td {
             padding: 8px 6px;
+        }
+
+        .reading-label {
+            background-color: #fdfdfd;
+            font-weight: bold;
+        }
+
+        .section-title {
+            margin: 6px 0 14px;
+            text-align: center;
+            color: #2f3e4d;
+            font-size: 17px;
+        }
+
+        .section-title span {
+            display: inline-block;
+            padding-bottom: 5px;
+            border-bottom: 2px solid #229d91;
+        }
+
+        .instructions-box {
+            padding: 12px 14px;
+            border: 1px solid #e7ebef;
+            background-color: #fafbfc;
+            line-height: 1.65;
+            font-size: 12.5px;
+        }
+
+        .day-title {
+            margin-bottom: 14px;
+            text-align: center;
+            color: #229d91;
+            font-size: 20px;
+        }
+
+        .program-table {
+            margin-bottom: 18px;
+            page-break-inside: auto;
+        }
+
+        .program-table th,
+        .program-table td {
+            border-color: #e5e9ed;
+        }
+
+        .meal-type-cell {
+            width: 135px;
+            color: #229d91;
+            background-color: #fff;
+            font-size: 13px;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        .meal-header th {
+            border-bottom: 2px solid #229d91;
+            background-color: #f9fafb;
+            color: #2f3e4d;
+            font-size: 12.5px;
+        }
+
+        .qty-cell {
+            width: 52px;
+            text-align: center;
+        }
+
+        .product-cell {
+            width: 245px;
             text-align: right;
         }
 
-        .meal-supplements td:first-child { text-align: center; font-weight: bold; } /* توسيط الكمية */
-
-        .meal-supplements tr:last-child td {
-            border-bottom: none;
+        .notes-cell {
+            text-align: right;
+            color: #59636e;
         }
 
-        .day-section {
-            margin-bottom: 40px;
+        .empty-cell {
+            text-align: center;
+            color: #8b96a1;
         }
 
-        /* تنسيقات الفوتر */
-        .footer-text {
-            color: #6c757d;
-            font-size: 12px;
+        .footer-table {
+            width: 100%;
+            border-collapse: collapse;
+            border-top: 1px solid #edf0f2;
+            color: #8a949e;
+            font-size: 10.5px;
+        }
+
+        .footer-table td {
+            border: 0;
+            padding: 6px 4px;
+            text-align: center;
+        }
+
+        .footer-icon {
+            width: 12px;
+            height: 12px;
+            margin-right: 4px;
+            vertical-align: middle;
         }
     </style>
 </head>
 
 <body>
+    @php
+        $logoPath = str_replace('\\', '/', public_path('img/logo-fidaa.png'));
+        $facebookIconPath = str_replace('\\', '/', public_path('img/icons/facebook.png'));
+        $instagramIconPath = str_replace('\\', '/', public_path('img/icons/instgram.png'));
+        $whatsappIconPath = str_replace('\\', '/', public_path('img/icons/whatsapp.png'));
+        $instructions = $user_program->instructions ?? ($user_program->Instructions ?? null);
+    @endphp
+
     <htmlpagefooter name="page-footer">
-        <table style="border: none; width: 100%; border-top: 1px solid #e9ecef; padding-top: 10px;" class="footer-text">
-            <tr style="border: none">
-                <td colspan="3" style="border: none; text-align: center; padding-bottom: 10px;">بيت لحم - مقابل مستوصف الاحسان - عمارة السنة - الطابق الأول</td>
+        <table class="footer-table">
+            <tr>
+                <td colspan="3">بيت لحم - مقابل مستوصف الاحسان - عمارة السنة - الطابق الأول</td>
             </tr>
-            <tr style="border: none">
-                <td style="border: none; text-align: center;">
+            <tr>
+                <td>
                     <span>سوبر هيلث - super health</span>
-                    <img style="width: 13px;height: 13px; margin-right: 5px; vertical-align: middle;" src="{{ asset('img/icons/facebook.png') }}" alt="">
+                    <img class="footer-icon" src="{{ $facebookIconPath }}" alt="">
                 </td>
-                <td style="border: none; text-align: center;">
+                <td>
                     <span>dietitian fida shakhtour</span>
-                    <img style="width: 13px;height: 13px; margin-right: 5px; vertical-align: middle;" src="{{ asset('img/icons/instgram.png') }}" alt="">
+                    <img class="footer-icon" src="{{ $instagramIconPath }}" alt="">
                 </td>
-                <td style="border: none; text-align: center;">
+                <td>
                     <span dir="ltr">0594830078</span>
-                    <img style="width: 13px;height: 13px; margin-right: 5px; vertical-align: middle;" src="{{ asset('img/icons/whatsapp.png') }}" alt="">
+                    <img class="footer-icon" src="{{ $whatsappIconPath }}" alt="">
                 </td>
             </tr>
         </table>
     </htmlpagefooter>
 
     <div class="container">
-        <div style="width: 100%; text-align: center; margin-bottom: 20px;">
-            <img style="width: 250px; height: auto;" src="{{ asset('img/logo-fidaa.png') }}" alt="">
+        <div class="center">
+            <img class="logo" src="{{ $logoPath }}" alt="">
         </div>
 
-        <div style="margin-bottom: 30px;">
-            <h2 style="text-align: center; color: #2a9d8f;">معاً ... لصحة أفضل</h2>
-        </div>
+        <h2 class="center brand-title">معاً ... لصحة أفضل</h2>
 
-        <div class="client-info-card">
+        <div class="client-card">
             <table>
                 <tr>
                     <td colspan="2">
-                        <h5 style="font-size:18px; margin: 0;">رقم المشترك : <span style="font-weight: normal;">{{ $client->id }}</span></h5>
+                        <h5>رقم المشترك : <span style="font-weight: normal;">{{ $client->id }}</span></h5>
                     </td>
                 </tr>
                 <tr>
                     <td>
-                        <h5 style="font-size:15px; margin: 0;">الاسم : <span style="font-weight: normal;">{{ $client->name }}</span></h5>
+                        <h5>الاسم : <span style="font-weight: normal;">{{ $client->name }}</span></h5>
                     </td>
                     <td>
-                        <h5 style="font-size:15px; margin: 0;">رقم الهاتف : <span style="font-weight: normal;">{{ $client->phone }}</span></h5>
+                        <h5>رقم الهاتف : <span style="font-weight: normal;">{{ $client->phone }}</span></h5>
                     </td>
                 </tr>
                 <tr>
                     <td>
-                        <h5 style="font-size:15px; margin: 0;">تاريخ الميلاد : <span style="font-weight: normal;">{{ $client->dob }}</span></h5>
+                        <h5>تاريخ الميلاد : <span style="font-weight: normal;">{{ $client->dob }}</span></h5>
                     </td>
                     <td>
-                        <h5 style="font-size:15px; margin: 0;">المدينة : <span style="font-weight: normal;">{{ $client->city }}</span></h5>
+                        <h5>المدينة : <span style="font-weight: normal;">{{ $client->city }}</span></h5>
                     </td>
                 </tr>
             </table>
@@ -211,13 +253,13 @@
                     <th>الزيارة الحالية</th>
                     <th>الزيارة السابقة</th>
                     <th>الزيارة الأولى</th>
-                    <th>الفرق عن اخر زيارة</th>
+                    <th>الفرق عن آخر زيارة</th>
                     <th>الفرق الكلي</th>
                 </tr>
             </thead>
             <tbody>
                 <tr>
-                    <td style="font-weight: bold; background-color: #fdfdfd;">الوزن</td>
+                    <td class="reading-label">الوزن</td>
                     <td>{{ $currentVisit && $currentVisit->weight ? number_format($currentVisit->weight, 2) : 'N/A' }}</td>
                     <td>{{ $previousVisit && $previousVisit->weight ? number_format($previousVisit->weight, 2) : 'N/A' }}</td>
                     <td>{{ $firstVisit && $firstVisit->weight ? number_format($firstVisit->weight, 2) : 'N/A' }}</td>
@@ -225,7 +267,7 @@
                     <td dir="ltr">{{ $currentVisit && $firstVisit ? number_format($currentVisit->weight - $firstVisit->weight, 2) : 'N/A' }}</td>
                 </tr>
                 <tr>
-                    <td style="font-weight: bold; background-color: #fdfdfd;">الدهون</td>
+                    <td class="reading-label">الدهون</td>
                     <td>{{ $currentVisit && $currentVisit->fats ? number_format($currentVisit->fats, 2) : 'N/A' }}</td>
                     <td>{{ $previousVisit && $previousVisit->fats ? number_format($previousVisit->fats, 2) : 'N/A' }}</td>
                     <td>{{ $firstVisit && $firstVisit->fats ? number_format($firstVisit->fats, 2) : 'N/A' }}</td>
@@ -233,7 +275,7 @@
                     <td dir="ltr">{{ $currentVisit && $firstVisit ? number_format($currentVisit->fats - $firstVisit->fats, 2) : 'N/A' }}</td>
                 </tr>
                 <tr>
-                    <td style="font-weight: bold; background-color: #fdfdfd;">البروتين</td>
+                    <td class="reading-label">البروتين</td>
                     <td>{{ $currentVisit && $currentVisit->muscles ? number_format($currentVisit->muscles, 2) : 'N/A' }}</td>
                     <td>{{ $previousVisit && $previousVisit->muscles ? number_format($previousVisit->muscles, 2) : 'N/A' }}</td>
                     <td>{{ $firstVisit && $firstVisit->muscles ? number_format($firstVisit->muscles, 2) : 'N/A' }}</td>
@@ -242,79 +284,68 @@
                 </tr>
             </tbody>
         </table>
-        <pagebreak />
 
-        <div style="width:100%; margin-top: 15px; margin-bottom: 15px;">
-            <h4 style="text-align: center; border-bottom: 2px solid #2a9d8f; display: inline-block; padding-bottom: 5px; margin: 0;">التعليمات العامة</h4>
-        </div>
-        <div style="font-size: 12.5px; line-height: 1.5; background-color: #f8f9fa; padding: 10px 15px; border-radius: 6px; border: 1px solid #e9ecef; margin-bottom: 30px;">
-            {!! $user_program->instructions ?? 'لا توجد تعليمات مسجلة.' !!}
-        </div>
         <pagebreak />
+        <html-separator/>
+
+        <h4 class="section-title"><span>التعليمات العامة</span></h4>
+        <div class="instructions-box">
+            @if (!empty($instructions))
+                {!! $instructions !!}
+            @else
+                لا توجد تعليمات مسجلة.
+            @endif
+        </div>
+
+        @if ($data->isNotEmpty())
+            <pagebreak />
+            <html-separator/>
+        @endif
 
         @foreach ($data as $day => $meals)
-            @php
-                $calories = 0; $carbohydrates = 0; $fats = 0; $protein = 0; $fibers = 0;
-            @endphp
-            <div class="day-section">
-                <h3>اليوم {{ $day }}</h3>
-                <table>
-                    <thead>
-                        <tr>
-                            <th style="width: 150px;">نوع الوجبة</th>
-                            <th>الأصناف المقترحة</th>
+            <h3 class="day-title">اليوم {{ $day }}</h3>
+
+            <table class="program-table">
+                <tbody>
+                    @foreach ($meals as $meal)
+                        @php
+                            $supplements = $meal->program_meal_supplement ?? collect();
+                            $rowspan = max($supplements->count(), 1) + 1;
+                        @endphp
+
+                        <tr class="meal-header">
+                            <td class="meal-type-cell" rowspan="{{ $rowspan }}">
+                                {{ $meal->meal_type->meal_name ?? '' }}
+                            </td>
+                            <th class="qty-cell">الكمية</th>
+                            <th class="product-cell">الصنف</th>
+                            <th class="notes-cell">ملاحظات</th>
                         </tr>
-                    </thead>
-                    <tbody>
-                        @foreach ($meals as $meal)
+
+                        @if ($supplements->isEmpty())
                             <tr>
-                                <td style="vertical-align: middle;">
-                                    <span class="meal-label" onclick="open_add_supplement_for_meal_type_modal({{ $meal }})">
-                                        {{ $meal->meal_type->meal_name ?? '' }}
-                                    </span>
-                                </td>
-                                <td style="padding: 0;">
-                                    <div class="meal-supplements">
-                                        <table>
-                                            <thead>
-                                                <tr>
-                                                    <th style="width: 50px; text-align: center;">الكمية</th>
-                                                    <th style="width: 250px; text-align: right;">الصنف</th>
-                                                    <th style="text-align: right;">ملاحظات</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody id="supplement_for_meal_type_row_{{ $meal->id }}">
-                                                @if ($meal->program_meal_supplement->isEmpty())
-                                                    <tr>
-                                                        <td colspan="3" style="text-align: center; color: #999;">لا يوجد أصناف لنوع الوجبة هذه</td>
-                                                    </tr>
-                                                @else
-                                                    @foreach ($meal->program_meal_supplement as $key)
-                                                        @php
-                                                            $calories += $key->supplement->calories * ($key->qty ?? 1);
-                                                            $carbohydrates += $key->supplement->carbohydrates * ($key->qty ?? 1);
-                                                            $fats += $key->supplement->fats * ($key->qty ?? 1);
-                                                            $protein += $key->supplement->protein * ($key->qty ?? 1);
-                                                            $fibers += $key->supplement->fibers * ($key->qty ?? 1);
-                                                        @endphp
-                                                        <tr>
-                                                            <td style="text-align: center;">{{ $key->qty ?? 1 }}</td>
-                                                            <td style="text-align: right;">{{ $key->supplement->product ?? '' }}</td>
-                                                            <td style="text-align: right; color: #555;">{{ $key->notes ?? '-' }}</td>
-                                                        </tr>
-                                                    @endforeach
-                                                @endif
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </td>
+                                <td colspan="3" class="empty-cell">لا يوجد أصناف لنوع الوجبة هذه</td>
                             </tr>
-                        @endforeach
-                    </tbody>
-                </table>
-            </div>
+                        @else
+                            @foreach ($supplements as $key)
+                                @php
+                                    $qty = $key->qty ?? 1;
+                                    $supplement = $key->supplement;
+                                @endphp
+                                <tr>
+                                    <td class="qty-cell">{{ $qty }}</td>
+                                    <td class="product-cell">{{ $supplement->product ?? '' }}</td>
+                                    <td class="notes-cell">{{ $key->notes ?? '-' }}</td>
+                                </tr>
+                            @endforeach
+                        @endif
+                    @endforeach
+                </tbody>
+            </table>
+
             @if (!$loop->last)
                 <pagebreak />
+                <html-separator/>
             @endif
         @endforeach
     </div>

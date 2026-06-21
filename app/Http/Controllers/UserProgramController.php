@@ -300,7 +300,15 @@ class UserProgramController extends Controller
         $currentVisit = $readings->last();
 
         $data = UserProgramMealModel::with('meal_type','program_meal_supplement','program_meal_supplement.supplement')->where('program_id',$program_id)->get()->groupBy('day');
-        $pdf = PDF::loadView('project.user_program.pdf.program_pdf', ['data'=>$data , 'firstVisit'=>$firstVisit , 'previousVisit'=>$previousVisit , 'currentVisit'=>$currentVisit , 'client'=>$client , 'user_program'=>$user_program]);
+        $pdfData = ['data'=>$data , 'firstVisit'=>$firstVisit , 'previousVisit'=>$previousVisit , 'currentVisit'=>$currentVisit , 'client'=>$client , 'user_program'=>$user_program];
+        $pdf = PDF::chunkLoadView('<html-separator/>', 'project.user_program.pdf.program_pdf', $pdfData, [], [
+            'margin_left' => 14,
+            'margin_right' => 14,
+            'margin_top' => 10,
+            'margin_bottom' => 22,
+            'margin_footer' => 5,
+            'shrink_tables_to_fit' => 1.2,
+        ]);
 
         return $pdf->stream('document.pdf');
     }
