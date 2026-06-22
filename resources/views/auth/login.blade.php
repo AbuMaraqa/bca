@@ -7,7 +7,7 @@
     <link rel="apple-touch-icon" sizes="76x76" href="{{ asset('assets/img/apple-icon.png') }}">
     <link rel="icon" type="image/png" href="{{ asset('assets/img/favicon.png') }}">
     <title>
-        Material Dashboard 2 PRO by Creative Tim
+        فداء | تسجيل الدخول
     </title>
     <!--     Fonts and icons     -->
     <link rel="stylesheet" type="text/css"
