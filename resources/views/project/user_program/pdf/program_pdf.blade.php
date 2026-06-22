@@ -14,7 +14,7 @@
             direction: rtl;
             text-align: right;
             color: #3f4a56;
-            font-size: 12px;
+            font-size: 13px;
             line-height: 1.45;
         }
 
@@ -85,6 +85,15 @@
             font-weight: bold;
         }
 
+        .readings-table th,
+        .readings-table td {
+            text-align: center;
+        }
+
+        .readings-table .reading-label {
+            text-align: right;
+        }
+
         .section-title {
             margin: 6px 0 14px;
             text-align: center;
@@ -103,7 +112,7 @@
             border: 1px solid #e7ebef;
             background-color: #fafbfc;
             line-height: 1.65;
-            font-size: 12.5px;
+            font-size: 13px;
         }
 
         .day-title {
@@ -116,6 +125,7 @@
         .program-table {
             margin-bottom: 18px;
             page-break-inside: auto;
+            font-size: 13px;
         }
 
         .program-table th,
@@ -246,7 +256,7 @@
             </table>
         </div>
 
-        <table>
+        <table class="readings-table">
             <thead>
                 <tr>
                     <th>الوصف</th>
