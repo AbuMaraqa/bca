@@ -64,12 +64,12 @@
             @endif
             @if (auth()->user()->user_role == 'admin')
                 <li class="nav-item">
-                    <a data-bs-toggle="collapse" href="#dashboardsExamples" class="nav-link text-white "
-                        aria-controls="dashboardsExamples" role="button" aria-expanded="false">
+                    <a data-bs-toggle="collapse" href="#usersMenu" class="nav-link text-white "
+                        aria-controls="usersMenu" role="button" aria-expanded="false">
                         <i class="material-icons-round opacity-10"></i>
                         <span class="nav-link-text me-1">المستخدمين</span>
                     </a>
-                    <div class="collapse " id="dashboardsExamples">
+                    <div class="collapse " id="usersMenu">
                         <ul class="nav  pe-0 ">
                             <li class="nav-item ">
                                 <a class="nav-link text-white " href="{{ route('users.index') }}">
@@ -102,7 +102,7 @@
             @endif
             @if (auth()->user()->user_role == 'admin')
                 <li class="nav-item">
-                    <a data-bs-toggle="collapse" href="#products" class="nav-link text-white " aria-controls="category"
+                    <a data-bs-toggle="collapse" href="#products" class="nav-link text-white " aria-controls="products"
                         role="button" aria-expanded="false">
                         <i class="material-icons-round opacity-10"></i>
                         <span class="nav-link-text me-1">المنتجات</span>
@@ -121,7 +121,7 @@
             @endif
             @if (auth()->user()->user_role == 'admin')
                 <li class="nav-item">
-                    <a data-bs-toggle="collapse" href="#diseases" class="nav-link text-white " aria-controls="category"
+                    <a data-bs-toggle="collapse" href="#diseases" class="nav-link text-white " aria-controls="diseases"
                         role="button" aria-expanded="false">
                         <i class="material-icons-round opacity-10"></i>
                         <span class="nav-link-text me-1">الامراض</span>
@@ -141,7 +141,7 @@
             @if (auth()->user()->user_role == 'admin')
                 <li class="nav-item">
                     <a data-bs-toggle="collapse" href="#supplements" class="nav-link text-white "
-                        aria-controls="category" role="button" aria-expanded="false">
+                        aria-controls="supplements" role="button" aria-expanded="false">
                         <i class="material-icons-round opacity-10"></i>
                         <span class="nav-link-text me-1">الاصناف</span>
                     </a>
@@ -178,12 +178,12 @@
             @endif
             @if (auth()->user()->user_role == 'admin')
                 <li class="nav-item">
-                    <a data-bs-toggle="collapse" href="#dashboardsExamples" class="nav-link text-white "
-                        aria-controls="dashboardsExamples" role="button" aria-expanded="false">
+                    <a data-bs-toggle="collapse" href="#programsMenu" class="nav-link text-white "
+                        aria-controls="programsMenu" role="button" aria-expanded="false">
                         <i class="material-icons-round opacity-10"></i>
                         <span class="nav-link-text me-1">البرامج</span>
                     </a>
-                    <div class="collapse " id="dashboardsExamples">
+                    <div class="collapse " id="programsMenu">
                         <ul class="nav  pe-0 ">
                             <li class="nav-item ">
                                 <a class="nav-link text-white " href="{{ route('program.program_category.index') }}">
@@ -216,7 +216,7 @@
             @if (auth()->user()->user_role == 'admin')
                 <li class="nav-item">
                     <a data-bs-toggle="collapse" href="#client" class="nav-link text-white "
-                        aria-controls="dashboardsExamples" role="button" aria-expanded="false">
+                        aria-controls="client" role="button" aria-expanded="false">
                         <i class="material-icons-round opacity-10"></i>
                         <span class="nav-link-text me-1">العملاء</span>
                     </a>
@@ -241,7 +241,7 @@
             @if (auth()->user()->user_role == 'admin')
                 <li class="nav-item">
                     <a data-bs-toggle="collapse" href="#rooms" class="nav-link text-white "
-                        aria-controls="dashboardsExamples" role="button" aria-expanded="false">
+                        aria-controls="rooms" role="button" aria-expanded="false">
                         <i class="material-icons-round opacity-10"></i>
                         <span class="nav-link-text me-1">الغرف</span>
                     </a>
